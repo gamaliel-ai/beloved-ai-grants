@@ -64,7 +64,13 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 | --- | --- |
 | Role of our app | **Control plane**, not an LLM proxy |
 | Grantee usage UI | Thin layer over Admin usage/costs (“spent vs limit”), not a full OpenAI console clone |
-| Stack | TBD at implementation; docs stay stack-agnostic for now |
+| Framework / host | **Next.js** (App Router) on **Vercel** |
+| Datastore | **Postgres** (hosted); **PGlite** for local dev |
+| Styling | **Tailwind CSS** |
+| UI components | **shadcn/ui** as a parts bin (only add what we use) — not a full design-system install |
+| Form controls | Prefer **native** `<select>` / inputs + Tailwind when enough; reach for shadcn Select only when custom option UI is needed |
+| Client JS bias | Minimize shipped JS for constrained networks; Server Components / Server Actions by default; small client islands (copy key, reveal once) |
+| Background jobs | **Vercel Cron** for usage sync |
 
 ## Still open
 
@@ -72,4 +78,3 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 2. Which **agent tools** we fund for track 1, and procurement (seats vs coupons vs reimbursement)  
 3. Whether conference redeem offers both tracks in one flow or agent-first then API later  
 4. Email verification (magic link) before mint — nice-to-have vs booth friction  
-5. Web framework / hosting choice  

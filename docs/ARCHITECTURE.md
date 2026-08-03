@@ -72,16 +72,20 @@ Configurable defaults applied on provision, e.g.:
 
 Admins override per grant.
 
-## Stack leanings (not locked)
+## Stack (locked)
 
-Prefer a boring full-stack app that deploys easily:
+Boring full-stack TypeScript; prefer server rendering and small client JS (conference / constrained networks).
 
-- **TypeScript** end-to-end
-- Web framework TBD (e.g. SvelteKit or Next.js)
-- SQLite or Postgres
-- Hosted where secrets and cron/sync are easy
+| Piece | Choice |
+| --- | --- |
+| Framework | **Next.js** (App Router) on **Vercel** |
+| DB | **Postgres** (hosted); **PGlite** for local dev |
+| Styling | **Tailwind CSS** |
+| Components | **shadcn/ui** as a parts bin — only add what we use |
+| Forms / selects | Prefer **native** `<select>` / inputs with Tailwind when styling is enough; use shadcn/Radix Select only when custom option UI is needed |
+| Jobs | **Vercel Cron** for usage sync |
 
-Decide at implementation time; docs remain stack-agnostic.
+UI bias: Server Components + Server Actions by default; client components only for clipboard, one-time key reveal, and similar. No SPA state libraries unless forced.
 
 ## Trust boundaries
 
