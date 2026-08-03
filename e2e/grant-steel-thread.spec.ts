@@ -7,9 +7,11 @@ test("imports, invites, redeems, and revokes a grant", async ({ page }) => {
   });
 
   await page.goto("/admin");
-  await expect(
-    page.getByRole("heading", { name: "Grant operations" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Admin" })).toBeVisible();
+
+  await page.getByRole("link", { name: "Program" }).click();
+  await expect(page.getByRole("heading", { name: "Program" })).toBeVisible();
 
   await page
     .getByLabel("Grantee CSV")
@@ -17,12 +19,16 @@ test("imports, invites, redeems, and revokes a grant", async ({ page }) => {
   await page.getByRole("button", { name: "Import" }).click();
   await expect(page.getByText(/(1 inserted|1 unchanged)/)).toBeVisible();
 
+  await page.getByRole("link", { name: "Grants" }).click();
+  await expect(page.getByRole("heading", { name: "Grants" })).toBeVisible();
+
   while ((await page.getByRole("button", { name: "Revoke" }).count()) > 0) {
     await page.getByRole("button", { name: "Revoke" }).first().click();
     await page.getByRole("button", { name: "Revoke grant" }).click();
     await expect(page.getByText("Grant revoked.")).toBeVisible();
   }
 
+  await page.getByRole("link", { name: "Program" }).click();
   await page.getByLabel("Program name").fill("Browser smoke");
   const tomorrow = new Date(Date.now() + 86_400_000)
     .toISOString()
@@ -46,7 +52,7 @@ test("imports, invites, redeems, and revokes a grant", async ({ page }) => {
     page.getByText(/Refreshing or closing this page permanently loses/),
   ).toBeVisible();
 
-  await page.goto("/admin");
+  await page.goto("/admin/grants");
   const grantRow = page.getByRole("row").filter({
     hasText: "lewiscirne@mac.com",
   });

@@ -8,6 +8,13 @@
       "when": 1785722273328,
       "tag": "0000_loose_dragon_lord",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1785788451819,
+      "tag": "0001_common_karnak",
+      "breakpoints": true
     }
   ]
 }

@@ -6,18 +6,18 @@
 
 #### [B-0001](backlog/B-0001-usage-ingestion.md): Ingest OpenAI usage activity
 
-**Status:** Open — establish the trustworthy project-level data source needed
-by reporting, alerts, and intervention.
+**Status:** Open — core sync + schema land with the admin console PR; cron and
+gated live verification still outstanding.
 
 #### [B-0002](backlog/B-0002-admin-usage-dashboard.md): Admin usage operations dashboard
 
-**Status:** Open — dashboard metrics and activity views inside the admin console
-([B-0007](backlog/B-0007-admin-console-rewrite.md)); depends on B-0001.
+**Status:** In progress — dashboard metrics and activity views inside the admin
+console ([B-0007](backlog/B-0007-admin-console-rewrite.md)).
 
 #### [B-0007](backlog/B-0007-admin-console-rewrite.md): Admin console rewrite (IA + layout)
 
-**Status:** Open — metrics-first `/admin` shell, sub-nav, admin-only layout;
-relocate steel-thread setup to Program; split ops pages. Design:
+**Status:** In progress — metrics-first `/admin` shell, sub-nav, admin-only
+layout; relocate steel-thread setup to Program; split ops pages. Design:
 [ADMIN-CONSOLE.md](./ADMIN-CONSOLE.md).
 
 #### [B-0003](backlog/B-0003-email-delivery-and-notifications.md): Email delivery and lifecycle notifications

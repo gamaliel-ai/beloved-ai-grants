@@ -1,7 +1,9 @@
 # B-0001 — Ingest OpenAI usage activity
 
 **Kind:** improvement  
-**Status:** open
+**Status:** in progress  
+**Note:** Schema, gateway `listProjectUsage`, and manual sync ship with the
+admin console rewrite. Remaining: Vercel Cron, gated live verification.
 
 ## Problem / goal
 

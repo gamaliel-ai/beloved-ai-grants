@@ -9,15 +9,23 @@ import { importGranteesCsv } from "@/lib/grants/import-grantees";
 import { createProgramInvite } from "@/lib/grants/invites";
 import { revokeGrant } from "@/lib/grants/revoke";
 import { getOpenAIAdminGateway } from "@/lib/openai/client";
+import { syncUsageActivity } from "@/lib/usage/sync";
+
+function safeReturnTo(value: FormDataEntryValue | null, fallback: string) {
+  if (typeof value !== "string") return fallback;
+  if (!value.startsWith("/admin")) return fallback;
+  return value;
+}
 
 export async function importGranteesAction(formData: FormData) {
   const actor = await requireAdmin();
+  const returnTo = safeReturnTo(formData.get("returnTo"), "/admin/program");
   const file = formData.get("csv");
   if (!(file instanceof File) || file.size === 0) {
-    redirect("/admin?error=Choose+a+CSV+file.");
+    redirect(`${returnTo}?error=Choose+a+CSV+file.`);
   }
   if (file.size > 1_000_000) {
-    redirect("/admin?error=CSV+must+be+smaller+than+1+MB.");
+    redirect(`${returnTo}?error=CSV+must+be+smaller+than+1+MB.`);
   }
 
   let summary: string;
@@ -31,13 +39,15 @@ export async function importGranteesAction(formData: FormData) {
       metadata: result,
     });
     revalidatePath("/admin");
+    revalidatePath("/admin/program");
+    revalidatePath("/admin/grantees");
     summary = `${result.inserted} inserted, ${result.updated} updated, ${result.unchanged} unchanged`;
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Could not import CSV.";
-    redirect(`/admin?error=${encodeURIComponent(message)}`);
+    redirect(`${returnTo}?error=${encodeURIComponent(message)}`);
   }
-  redirect(`/admin?notice=${encodeURIComponent(summary)}`);
+  redirect(`${returnTo}?notice=${encodeURIComponent(summary)}`);
 }
 
 export type InviteActionState = {
@@ -73,7 +83,7 @@ export async function createInviteAction(
       maxRedemptions,
       actor,
     });
-    revalidatePath("/admin");
+    revalidatePath("/admin/program");
     const baseUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(
       /\/$/,
       "",
@@ -91,7 +101,8 @@ export async function revokeGrantAction(formData: FormData) {
     0,
     200,
   );
-  if (!grantId) redirect("/admin?error=Grant+id+is+required.");
+  const returnTo = safeReturnTo(formData.get("returnTo"), "/admin/grants");
+  if (!grantId) redirect(`${returnTo}?error=Grant+id+is+required.`);
 
   try {
     await revokeGrant({
@@ -102,10 +113,33 @@ export async function revokeGrantAction(formData: FormData) {
       reason,
     });
     revalidatePath("/admin");
+    revalidatePath("/admin/grants");
+    revalidatePath(`/admin/grants/${grantId}`);
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Could not revoke grant.";
-    redirect(`/admin?error=${encodeURIComponent(message)}`);
+    redirect(`${returnTo}?error=${encodeURIComponent(message)}`);
   }
-  redirect("/admin?notice=Grant+revoked.");
+  redirect(`${returnTo}?notice=Grant+revoked.`);
+}
+
+export async function syncUsageAction(formData: FormData) {
+  await requireAdmin();
+  const returnTo = safeReturnTo(formData.get("returnTo"), "/admin");
+  const result = await syncUsageActivity({
+    db: getDb(),
+    gateway: getOpenAIAdminGateway(),
+  });
+  revalidatePath("/admin");
+  revalidatePath("/admin/grants");
+  if (result.status === "failed") {
+    redirect(
+      `${returnTo}?error=${encodeURIComponent(result.errorMessage ?? "Sync failed.")}`,
+    );
+  }
+  redirect(
+    `${returnTo}?notice=${encodeURIComponent(
+      `Synced ${result.bucketsUpserted} usage bucket${result.bucketsUpserted === 1 ? "" : "s"}.`,
+    )}`,
+  );
 }

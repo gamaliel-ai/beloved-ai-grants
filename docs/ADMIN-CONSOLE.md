@@ -267,22 +267,15 @@ in data and B-0006 flows without restructuring again.
 | Route map | Dashboard · Grants · Grantees · Applications · Program |
 | Default admin landing | `/admin` dashboard |
 
-## Open questions
+## Resolved decisions (v1)
 
-1. **Default metrics period:** Calendar month vs rolling 7/30 days vs
-   operator-selectable on dashboard?
-
-2. **Legacy invites:** Keep `/redeem/[token]` admin UI under Program →
-   Advanced, or hide until someone asks?
-
-3. **Org-level ceiling:** Show foundation-wide OpenAI spend on the dashboard,
-   or only aggregated grant spend we attribute?
-
-4. **Dashboard default sort for “recent activity”:** Last API usage (B-0001) vs
-   last provision/revoke event (available now)?
-
-5. **Grantee list scope:** All imported emails (recommended) vs only people with
-   at least one grant?
+1. **Default metrics period:** Current UTC calendar month.
+2. **Legacy invites:** Keep under Program → Advanced (`/redeem/[token]`).
+3. **Org-level ceiling:** Aggregated attributed grant spend only (not org-wide
+   OpenAI invoice total).
+4. **Dashboard “recent activity” sort:** Last API usage when synced; falls back
+   to grant `createdAt`.
+5. **Grantee list scope:** All imported emails (not only those with grants).
 
 ---
 
@@ -291,9 +284,9 @@ in data and B-0006 flows without restructuring again.
 - [x] Route map and top nav approved
 - [x] Public chrome: no nav, footer admin link
 - [x] Admin chrome: desktop-first top nav
-- [ ] Dashboard metric set for v1 (with and without B-0001)
-- [ ] Where steel-thread invite UI lives (Program advanced vs remove)
-- [ ] Phase A–B scope for first PR (shell + relocated pages + skeleton dashboard)
+- [x] Dashboard metric set for v1 (with and without B-0001)
+- [x] Where steel-thread invite UI lives (Program advanced)
+- [x] Phase A–B (+ usage metrics) in the admin console rewrite PR
 
 Implement via [B-0007](./backlog/B-0007-admin-console-rewrite.md) and retire the
 monolithic `src/app/admin/page.tsx` structure.

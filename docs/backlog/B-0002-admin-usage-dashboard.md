@@ -1,7 +1,7 @@
 # B-0002 — Admin usage operations dashboard
 
 **Kind:** improvement  
-**Status:** open  
+**Status:** in progress  
 **Depends on:** [B-0001](B-0001-usage-ingestion.md)
 
 ## Problem / goal

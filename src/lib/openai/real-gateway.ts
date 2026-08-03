@@ -2,6 +2,7 @@ import OpenAI from "openai";
 import type {
   CreatedServiceAccount,
   OpenAIAdminGateway,
+  ProjectUsageBucket,
 } from "./gateway";
 
 export class RealOpenAIAdminGateway implements OpenAIAdminGateway {
@@ -67,6 +68,115 @@ export class RealOpenAIAdminGateway implements OpenAIAdminGateway {
       if (!isNotFound(error)) throw error;
     }
   }
+
+  async listProjectUsage(params: {
+    startTime: Date;
+    endTime: Date;
+  }): Promise<ProjectUsageBucket[]> {
+    const byKey = new Map<string, ProjectUsageBucket>();
+
+    await this.paginateCosts(params, byKey);
+    await this.paginateCompletions(params, byKey);
+
+    return [...byKey.values()];
+  }
+
+  private async paginateCosts(
+    params: { startTime: Date; endTime: Date },
+    byKey: Map<string, ProjectUsageBucket>,
+  ) {
+    let page: string | undefined;
+    do {
+      const response = await this.client.admin.organization.usage.costs({
+        start_time: Math.floor(params.startTime.getTime() / 1000),
+        end_time: Math.floor(params.endTime.getTime() / 1000),
+        bucket_width: "1d",
+        group_by: ["project_id"],
+        limit: 31,
+        page,
+      });
+
+      for (const bucket of response.data) {
+        const bucketStart = new Date(bucket.start_time * 1000);
+        const bucketEnd = new Date(bucket.end_time * 1000);
+        for (const result of bucket.results) {
+          if (result.object !== "organization.costs.result") continue;
+          const projectId = result.project_id;
+          if (!projectId) continue;
+          const key = `${projectId}:${bucket.start_time}`;
+          const existing = byKey.get(key) ?? emptyBucket(
+            projectId,
+            bucketStart,
+            bucketEnd,
+          );
+          const usd = result.amount?.value ?? 0;
+          existing.costCents += Math.round(usd * 100);
+          byKey.set(key, existing);
+        }
+      }
+
+      page = response.next_page ?? undefined;
+    } while (page);
+  }
+
+  private async paginateCompletions(
+    params: { startTime: Date; endTime: Date },
+    byKey: Map<string, ProjectUsageBucket>,
+  ) {
+    let page: string | undefined;
+    do {
+      const response = await this.client.admin.organization.usage.completions({
+        start_time: Math.floor(params.startTime.getTime() / 1000),
+        end_time: Math.floor(params.endTime.getTime() / 1000),
+        bucket_width: "1d",
+        group_by: ["project_id"],
+        limit: 31,
+        page,
+      });
+
+      for (const bucket of response.data) {
+        const bucketStart = new Date(bucket.start_time * 1000);
+        const bucketEnd = new Date(bucket.end_time * 1000);
+        for (const result of bucket.results) {
+          if (result.object !== "organization.usage.completions.result") {
+            continue;
+          }
+          const projectId = result.project_id;
+          if (!projectId) continue;
+          const key = `${projectId}:${bucket.start_time}`;
+          const existing = byKey.get(key) ?? emptyBucket(
+            projectId,
+            bucketStart,
+            bucketEnd,
+          );
+          existing.inputTokens += result.input_tokens;
+          existing.outputTokens += result.output_tokens;
+          existing.requests += result.num_model_requests;
+          existing.lastActivityAt = bucketEnd;
+          byKey.set(key, existing);
+        }
+      }
+
+      page = response.next_page ?? undefined;
+    } while (page);
+  }
+}
+
+function emptyBucket(
+  openaiProjectId: string,
+  bucketStart: Date,
+  bucketEnd: Date,
+): ProjectUsageBucket {
+  return {
+    openaiProjectId,
+    bucketStart,
+    bucketEnd,
+    costCents: 0,
+    inputTokens: 0,
+    outputTokens: 0,
+    requests: 0,
+    lastActivityAt: null,
+  };
 }
 
 function isNotFound(error: unknown) {

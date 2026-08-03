@@ -152,6 +152,68 @@ export const redeemRateLimits = pgTable(
   ],
 );
 
+export const usageSyncStatus = pgEnum("usage_sync_status", [
+  "running",
+  "succeeded",
+  "partial",
+  "failed",
+]);
+
+export const usageSyncRuns = pgTable(
+  "usage_sync_runs",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    status: usageSyncStatus("status").default("running").notNull(),
+    windowStart: timestamp("window_start", { withTimezone: true }).notNull(),
+    windowEnd: timestamp("window_end", { withTimezone: true }).notNull(),
+    startedAt: timestamp("started_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    finishedAt: timestamp("finished_at", { withTimezone: true }),
+    bucketsUpserted: integer("buckets_upserted").default(0).notNull(),
+    unknownProjectCount: integer("unknown_project_count").default(0).notNull(),
+    errorMessage: text("error_message"),
+  },
+  (table) => [index("usage_sync_runs_started_idx").on(table.startedAt)],
+);
+
+export const usageProjectBuckets = pgTable(
+  "usage_project_buckets",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    openaiProjectId: text("openai_project_id").notNull(),
+    bucketStart: timestamp("bucket_start", { withTimezone: true }).notNull(),
+    bucketEnd: timestamp("bucket_end", { withTimezone: true }).notNull(),
+    /** USD cents, rounded from OpenAI cost amount. */
+    costCents: integer("cost_cents").default(0).notNull(),
+    inputTokens: integer("input_tokens").default(0).notNull(),
+    outputTokens: integer("output_tokens").default(0).notNull(),
+    requests: integer("requests").default(0).notNull(),
+    lastActivityAt: timestamp("last_activity_at", { withTimezone: true }),
+    ...timestamps,
+  },
+  (table) => [
+    uniqueIndex("usage_project_buckets_unique").on(
+      table.openaiProjectId,
+      table.bucketStart,
+    ),
+    index("usage_project_buckets_project_idx").on(table.openaiProjectId),
+  ],
+);
+
+export const usageUnknownProjects = pgTable("usage_unknown_projects", {
+  openaiProjectId: text("openai_project_id").primaryKey(),
+  firstSeenAt: timestamp("first_seen_at", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+  lastSeenAt: timestamp("last_seen_at", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+  totalCostCents: integer("total_cost_cents").default(0).notNull(),
+});
+
 export type Grantee = typeof grantees.$inferSelect;
 export type Grant = typeof grants.$inferSelect;
 export type ProgramInvite = typeof programInvites.$inferSelect;
+export type UsageProjectBucket = typeof usageProjectBuckets.$inferSelect;
+export type UsageSyncRun = typeof usageSyncRuns.$inferSelect;

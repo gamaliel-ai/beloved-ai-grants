@@ -1,7 +1,7 @@
 # B-0007 — Admin console rewrite (IA + layout)
 
 **Kind:** improvement  
-**Status:** open  
+**Status:** in progress  
 **Design:** [ADMIN-CONSOLE.md](../ADMIN-CONSOLE.md)
 
 ## Problem / goal

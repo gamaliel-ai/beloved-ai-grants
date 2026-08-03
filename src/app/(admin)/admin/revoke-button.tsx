@@ -16,7 +16,13 @@ import { revokeGrantAction } from "./actions";
 
 const subscribe = () => () => {};
 
-export function RevokeButton({ grantId }: { grantId: string }) {
+export function RevokeButton({
+  grantId,
+  returnTo = "/admin/grants",
+}: {
+  grantId: string;
+  returnTo?: string;
+}) {
   const hydrated = useSyncExternalStore(
     subscribe,
     () => true,
@@ -43,6 +49,7 @@ export function RevokeButton({ grantId }: { grantId: string }) {
           <form action={revokeGrantAction}>
             <input type="hidden" name="grantId" value={grantId} />
             <input type="hidden" name="reason" value="operator revoke" />
+            <input type="hidden" name="returnTo" value={returnTo} />
             <Button type="submit" variant="destructive">
               Revoke grant
             </Button>
