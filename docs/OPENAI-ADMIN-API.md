@@ -3,6 +3,10 @@
 **Verdict: yes — the Administration API can power this product.**  
 We provision keys under our organization, set spend controls, monitor usage, and revoke on demand. Grantees never need org membership.
 
+**Steel-thread status:** project/key CRUD is implemented. Project hard spend
+limits are supported by the current SDK (`projects.spendLimit`) but intentionally
+deferred from the first slice; the UI must not imply that alerts enforce a cap.
+
 Official overview: [Admin APIs](https://developers.openai.com/api/docs/guides/admin-apis) · [Administration reference](https://developers.openai.com/api/reference/administration/overview/)
 
 ## Mental model
@@ -47,7 +51,9 @@ When a hard limit is reached, API calls fail with `429` (`project_spend_limit_ex
 
 ### Revoke
 
-- Delete service account API keys and/or archive projects / remove service accounts.
+- For service-account-owned keys, delete the **service account** and archive the
+  project. The generic project API-key delete endpoint rejects keys owned by a
+  service account.
 - Immediate effect for new traffic once deletion propagates.
 
 ## Recommended grant shape
@@ -76,15 +82,16 @@ Tradeoff: many projects vs one shared project. Shared projects simplify quotas b
 
 Admin API support requires recent OpenAI SDKs (e.g. Node ≥ 6.36, Python ≥ 2.34 per OpenAI docs). Initialize with `adminAPIKey` / `admin_api_key`, not the standard project key.
 
-## Proof-of-life checklist (before building UI)
+## Proof-of-life checklist
 
 - [ ] Create Admin API key in OpenAI dashboard
 - [ ] Create a throwaway project via API
 - [ ] Create service account + capture key once
-- [ ] Set a low project spend alert / hard limit
 - [ ] Call a cheap model with the provisioned key
+- [ ] Delete the service account, archive the project, and confirm cleanup
+- [ ] Separately, before production grants: set/retrieve a low project hard
+      limit and confirm its enforcement state
 - [ ] Confirm usage appears for that project
-- [ ] Delete the key and confirm subsequent calls fail
 
 ## Codex, ChatGPT seats, and “credits”
 

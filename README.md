@@ -39,7 +39,22 @@ Grantees are **not** added to our OpenAI org. No lock-in — they can buy their 
 
 ## Repo status
 
-**Docs-first.** Vision and decisions are captured; application code comes next.
+The initial API-grant steel thread is implemented: GitHub-protected admin,
+idempotent allowlist import, program invites, one-time key provisioning, and
+revoke. See [docs/STEEL-THREAD.md](docs/STEEL-THREAD.md) for scope and setup.
+
+## Local development
+
+```sh
+bun install
+cp .env.example .env
+bun run db:migrate
+bun run dev
+```
+
+Local data uses PGlite by default. Configure GitHub OAuth and `ADMIN_EMAILS` for
+the admin console. Setting `OPENAI_ADMIN_KEY` enables live provisioning unless
+`OPENAI_MODE=fake` is set.
 
 ## Docs
 
@@ -56,6 +71,7 @@ Grantees are **not** added to our OpenAI org. No lock-in — they can buy their 
 | [docs/PRIVACY-AND-DATA.md](docs/PRIVACY-AND-DATA.md) | What we see, revoke rights, no lock-in |
 | [docs/SECURITY.md](docs/SECURITY.md) | Threat model and guardrails |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Phased build plan |
+| [docs/STEEL-THREAD.md](docs/STEEL-THREAD.md) | Implemented v1 slice, setup, and known limitations |
 
 ## Non-goals (for now)
 

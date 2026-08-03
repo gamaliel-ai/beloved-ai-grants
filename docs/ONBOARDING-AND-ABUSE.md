@@ -4,6 +4,10 @@ Recommendation for the first real rollout (conference / named cohort ~100), then
 
 **Related:** two program tracks (agents vs API keys) in [GRANT-TRACKS.md](./GRANT-TRACKS.md). This doc focuses on the **API key** redeem path. Agent stipends may use the same allowlist but different fulfillment.
 
+Implementation note: the current [steel thread](./STEEL-THREAD.md) proves the
+allowlist-to-key lifecycle but deliberately defers email verification and hard
+spend-limit configuration. The requirements below remain production gates.
+
 ## Goals
 
 - Easy for a founder to get access in minutes at an event (agent and/or API key)

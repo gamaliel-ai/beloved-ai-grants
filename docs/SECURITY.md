@@ -18,7 +18,8 @@
 
 ## Operational guardrails
 
-- Hard spend limits on every new project (never unlimited by default)
+- Production requirement: hard spend limits on every new project (deferred from
+  the steel thread; do not treat the current app as budget-safe yet)
 - Org-level ceiling as a backstop above sum of grants
 - Fast revoke in admin UI
 - Alerts to operator email before soft catastrophe

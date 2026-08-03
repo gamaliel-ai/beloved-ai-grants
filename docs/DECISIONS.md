@@ -65,16 +65,21 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 | Role of our app | **Control plane**, not an LLM proxy |
 | Grantee usage UI | Thin layer over Admin usage/costs (“spent vs limit”), not a full OpenAI console clone |
 | Framework / host | **Next.js** (App Router) on **Vercel** |
-| Datastore | **Postgres** (hosted); **PGlite** for local dev |
+| Datastore | **Neon/Postgres** (hosted); **PGlite** for local dev; **Drizzle** schema + SQL migrations |
 | Styling | **Tailwind CSS** |
 | UI components | **shadcn/ui** as a parts bin (only add what we use) — not a full design-system install |
 | Form controls | Prefer **native** `<select>` / inputs + Tailwind when enough; reach for shadcn Select only when custom option UI is needed |
 | Client JS bias | Minimize shipped JS for constrained networks; Server Components / Server Actions by default; small client islands (copy key, reveal once) |
 | Background jobs | **Vercel Cron** for usage sync |
+| Admin auth | **Auth.js + GitHub OAuth**, restricted by normalized `ADMIN_EMAILS` |
+| CSV import | All-or-nothing validation; idempotent upsert by normalized email |
+| Grantee / OpenAI project | Separate records; one active grant/project per grantee in v1 |
+| Steel-thread verification | Allowlist match only; email ownership / Resend magic link deferred |
+| Steel-thread spend controls | Per-project hard limit and org ceiling configuration deferred; do not present alerts as enforcement |
 
 ## Still open
 
 1. Exact default monthly $ cap and org ceiling for the conference  
 2. Which **agent tools** we fund for track 1, and procurement (seats vs coupons vs reimbursement)  
 3. Whether conference redeem offers both tracks in one flow or agent-first then API later  
-4. Email verification (magic link) before mint — nice-to-have vs booth friction  
+4. Exact phase and UX for adding email verification / Resend magic links

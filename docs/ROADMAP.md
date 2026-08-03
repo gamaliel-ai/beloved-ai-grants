@@ -1,21 +1,24 @@
 # Roadmap
 
-## Phase 0 — Docs & API proof (current)
+## Phase 0 — Docs & API proof
 
 - [x] Repository + product docs (tracks, onboarding, privacy, data model, decisions)
-- [ ] Manual Admin API smoke test (create project → key → limit → usage → delete)
+- [x] Gated Admin API smoke test (create project → key → model call → revoke/archive)
 - [ ] Lock default limit **numbers** and confirm per-grant project isolation
 - [ ] Decide Track A vendors + budget for first conference ([GRANT-TRACKS.md](./GRANT-TRACKS.md))
 
-## Phase 1 — API vertical slice (conference-shaped)
+## Phase 1 — API steel thread (current)
 
-- Admin auth (single-operator is fine)
-- Import allowlist (name + email)
-- Program invite + QR redeem
-- Auto-provision if email allowlisted (one active key per email)
-- OpenAI hard spend limit applied at provision
-- One-time key display; list grants + revoke
-- Persist OpenAI ids and basic status  
+- [x] GitHub admin auth with operator allowlist
+- [x] Idempotent CSV allowlist import (name + email)
+- [x] Expiring, capacity-limited program invite link
+- [x] Auto-provision if email allowlisted (one active key per email)
+- [x] One-time key display; list grants + revoke
+- [x] Persist OpenAI ids and basic status
+- [x] DB-backed redeem rate limits and transactional reservation
+- [ ] Email ownership verification (Resend magic link)
+- [ ] OpenAI project hard spend limit applied and verified at provision
+- [ ] QR image generation
   Detail: [ONBOARDING-AND-ABUSE.md](./ONBOARDING-AND-ABUSE.md)
 
 ## Phase 1b — Agent track (program ops)
@@ -40,7 +43,6 @@
 
 ## Phase 4 — Polish
 
-- QR generation for invites in admin UI
 - Limit templates & model allowlists in UI
 - Rotate key, extend grant, archive project
 - Hardening, audit log UI, backups

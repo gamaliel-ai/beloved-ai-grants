@@ -16,6 +16,7 @@ build/
 .svelte-kit/
 .next/
 .turbo/
+*.tsbuildinfo
 .DS_Store
 .idea/
 .vscode/
@@ -25,5 +26,11 @@ build/
 *.log
 .tmp/
 .cache/
+.cursor/
+artifacts/
 data/*.db
 data/*.sqlite
+data/
+.test-attempts/
+test-results/
+playwright-report/

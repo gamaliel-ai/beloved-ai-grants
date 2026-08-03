@@ -14,17 +14,34 @@ Minimum fields:
 | `created_at` / `updated_at` | |
 | Optional later | org/company name, country, notes, program tags |
 
-**Relationship to keys:** one-to-many. Most grantees have one active key; rotations and re-issues create additional rows (only one `active` at a time is a good v1 rule).
+**Relationship to grants:** one-to-many over time, with one `provisioning` or
+`active` grant at once in v1. A grant points to one OpenAI project. Keys belong
+to the grant so rotation history does not overload the person record.
 
 Optional later: a **Program** / cohort (`Nairobi Summit 2026`) that many grantees belong to, and invites that point at a program. Keep that separate from the person record.
 
 ```
-Program 1──* Grantee 1──* ApiKey
-                │
-                └──* (optional) magic-link sessions, requests, etc.
+ProgramInvite 1──* Grant *──1 Grantee
+                       │
+                       └──* ApiKey
 ```
 
 For v1 you can skip `Program` as a table and hang `program_slug` on the invite + grantee if you want less schema.
+
+## Grant
+
+`Grant` is our local sponsorship lifecycle; an OpenAI project is the external
+isolation and billing container. They are deliberately not the same entity.
+
+Minimum steel-thread fields:
+
+- `grantee_id`, `invite_id`
+- status: `provisioning | active | provision_failed | revoked`
+- nullable `openai_project_id`
+- activation/revoke timestamps and safe failure/revoke reason
+- nullable intended budget (record-only until spend controls are implemented)
+
+The database enforces one `provisioning` or `active` grant per grantee.
 
 ## Source of truth
 
@@ -141,10 +158,20 @@ grantees (
   id, name, email UNIQUE, created_at, updated_at
 )
 
+grants (
+  id,
+  grantee_id → grantees,
+  invite_id → program_invites,
+  status,
+  openai_project_id UNIQUE NULL,
+  intended_budget_cents NULL,
+  activated_at, revoked_at, revoked_reason,
+  created_at, updated_at
+)
+
 api_keys (
   id,                          -- our UUID
-  grantee_id → grantees,
-  openai_project_id NOT NULL,
+  grant_id → grants,
   openai_service_account_id NOT NULL,
   openai_api_key_id NOT NULL UNIQUE,
   name,
@@ -170,6 +197,7 @@ api_keys (
 ## Practical v1 rule
 
 - Grantee = name + email (+ timestamps).
-- One active `api_keys` row per grantee under normal operation; history retained for audit.
+- Grant = local sponsorship lifecycle linked to one external OpenAI project.
+- One active grant per grantee and one active `api_keys` row per grant under normal operation; history retained for audit.
 - Persist **OpenAI IDs + redacted value + our status/provenance**; discard plaintext.
 - Any revoke/replace/path that matters calls OpenAI, then updates the mirror.
