@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+*.pem
+
+# Build / IDE
+dist/
+build/
+.svelte-kit/
+.next/
+.turbo/
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Logs & local data
+*.log
+.tmp/
+.cache/
+data/*.db
+data/*.sqlite
