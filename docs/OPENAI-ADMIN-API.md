@@ -85,3 +85,16 @@ Admin API support requires recent OpenAI SDKs (e.g. Node ≥ 6.36, Python ≥ 2.
 - [ ] Call a cheap model with the provisioned key
 - [ ] Confirm usage appears for that project
 - [ ] Delete the key and confirm subsequent calls fail
+
+## Codex, ChatGPT seats, and “credits”
+
+**This Admin API surface is the API Platform**, not ChatGPT workspace billing.
+
+| Want | Feasible via API Admin API? |
+| --- | --- |
+| Project API keys, spend limits, usage | **Yes** — this doc |
+| Local Codex CLI/IDE via sponsored API key | **Yes, indirectly** — key works with API-key auth; billed as API usage |
+| ChatGPT/Codex **seats** and workspace **credits** | **No** — different product; ChatGPT Business/Enterprise admin, invites, credits |
+| Mint Codex access tokens for arbitrary grantees like `sk-…` | **No** — tokens are ChatGPT-user/workspace scoped; console/ops oriented |
+
+Program implication: agent stipends and true Codex seats belong in [GRANT-TRACKS.md](./GRANT-TRACKS.md) Track A (ops), not as a second resource type next to `ApiKey` with the same automation.

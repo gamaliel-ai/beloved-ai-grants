@@ -33,6 +33,8 @@ Docs-first; stack choices can change before implementation.
 
 We are a **control plane**, not a proxy. Model traffic does not flow through Beloved servers.
 
+Program context: this architecture covers the **API key track**. The **agent / tools track** (Cursor, Claude Code, ChatGPT seats, etc.) is first-class for impact but often ops-led — see [GRANT-TRACKS.md](./GRANT-TRACKS.md) and [DECISIONS.md](./DECISIONS.md).
+
 ## Suggested components
 
 | Piece | Responsibility |
@@ -44,14 +46,20 @@ We are a **control plane**, not a proxy. Model traffic does not flow through Bel
 | Datastore | Grants, invites, admin users, OpenAI external IDs, audit of our actions |
 | Auth | Admin auth required; grantee redeem may be code-only (no account) for v1 |
 
-## Data model (sketch)
+## Data model
+
+Canonical detail: [DATA-MODEL.md](./DATA-MODEL.md).
+
+Sketch:
 
 - **AdminUser** — who can operate the console
-- **Grant** — person/org, status (`pending` \| `active` \| `revoked` \| `expired`), limits, notes
-- **InviteCode** — code/token, max redemptions, expiry, linked default limit template
-- **ProvisionedCredential** — OpenAI `project_id`, `service_account_id`, `api_key_id`, redacted key, issued_at, revoked_at
-- **UsageSnapshot** — periodic spend/tokens per grant/project
-- **AppAuditEvent** — our actions (approve, provision, revoke, limit change)
+- **Grantee** — person (name, email); one-to-many keys
+- **InviteCode** — code/token, max redemptions, expiry, limit template
+- **ApiKey** — OpenAI ids + redacted mirror + our status/provenance (not the full secret)
+- **UsageSnapshot** — cached spend/tokens from OpenAI usage APIs
+- **AppAuditEvent** — our actions (approve, provision, revoke, rotate)
+
+OpenAI is source of truth for whether a key exists; our DB links people to OpenAI resource ids.
 
 ## Default limit template
 

@@ -2,71 +2,95 @@
 
 ## Problem
 
-Founders often need OpenAI API access to prototype or ship, but shared org keys, prepaid gift cards, and ad-hoc key sharing don’t scale. Operators need:
+Early entrepreneurs often need help *starting* with AI (a coding agent on a laptop) and later need help *shipping* AI in a product (API usage with a budget). Shared keys, ad-hoc gift cards, and “figure out the API yourself” don’t serve people with limited resources and infrastructure.
+
+Operators need:
 
 - Controlled onboarding (not open signup)
-- Default spend caps per grantee
-- Visibility into who is using what
-- Fast revoke when a grant ends or a key leaks
+- A low-friction path for the earliest builders
+- An operable path for sponsored API usage (caps, visibility, revoke)
+- Transparency about privacy and control without locking anyone in
 
 ## Product
 
-**Beloved AI Grants** is a small web app that sits on top of an OpenAI organization. It turns “we’ll sponsor your OpenAI usage” into an operable workflow:
+**Beloved AI Grants** sponsors AI building for qualified founders through **two tracks** ([GRANT-TRACKS.md](./GRANT-TRACKS.md)):
 
-- **Recipients** redeem access and receive an API key with limits.
-- **Administrators** approve or issue grants, monitor spend, raise/lower limits, and revoke.
+1. **Agent / tools** — Cursor, Claude Code, ChatGPT/Codex-style access so someone can start building without mastering API keys first.  
+2. **API keys** — a small web **control plane** on our OpenAI organization: redeem → provision key → default limits → monitor → revoke.
+
+The software in this repo prioritizes track 2 (automatable). Track 1 is program-critical so we don’t miss founders early in their journey.
 
 ## Personas
 
 ### Grantee (entrepreneur)
 
-- Needs a usable `sk-…` key quickly
-- Understands a monthly budget / hard stop
-- Does not need org admin access
+- Often early-stage, limited infrastructure; may be non-expert with APIs
+- Needs either a coding agent to start, or a budgeted API key to ship
+- Does not need (and should not get) our OpenAI org admin access
 - May arrive from an event, cohort, or personal intro
 
 ### Administrator (Beloved operator)
 
-- Issues invite codes / QR links or reviews email requests
-- Sets default and per-grant limits
+- Maintains allowlists / invites; may run agent stipends manually
+- Sets default and per-grant API limits
 - Watches usage and intervenes (warn, raise limit, revoke)
-- Owns billing for the OpenAI organization
+- Owns billing for sponsored API usage (and whatever agent vendors we fund)
 
 ## Core journeys
 
-### A. Invite / access code (preferred for events)
+### A. Conference / cohort (primary v1 for API track)
 
-1. Admin creates a grant or invite (one-time or limited-use code).
-2. Grantee opens the site (link or QR), enters the code (or lands via tokenized URL).
-3. App provisions an OpenAI project service account + API key with defaults.
-4. Grantee sees the key **once**, copies it, and gets usage / limit guidance.
+1. Admin imports **pre-approved** name + email list; creates one program invite; prints **one QR**.
+2. Grantee scans → enters email → must match allowlist → **auto-provision** API key with hard spend limit (or is steered to agent track if that’s the offer).
+3. Key shown once; thin usage view later in our app.
+4. OpenAI enforces spend; admin can revoke anytime.
 
-### B. Email request
+Detail: [ONBOARDING-AND-ABUSE.md](./ONBOARDING-AND-ABUSE.md).
 
-1. Grantee submits name, email, brief pitch / use case.
-2. Admin reviews in the admin UI (or email notification → approve).
-3. On approval, same provisioning path as A; delivery via secure one-time page or email link.
+### B. Agent stipend (program track)
 
-### C. Monitor & govern
+1. Foundation chooses vendor(s) and budget (seats, coupons, reimbursement).
+2. Allowlisted founders receive access instructions.
+3. Ops tracked lightly (who got what); not necessarily full Admin-API automation.
 
-1. Admin dashboard lists grants: status, spend vs limit, last used, models if available.
-2. Admin can raise limit, pause/revoke key, or archive the grant.
-3. Alerts fire near threshold (OpenAI spend alerts + optional app-level notifications).
+### C. Email request (later)
+
+1. Grantee submits name, email, use case.
+2. Admin approves → API provision and/or agent stipend.
+3. Delivery via secure link / email.
+
+### D. Monitor & govern (API track)
+
+1. Admin dashboard: grants, spend vs limit, last used.
+2. Raise limit, rotate, or revoke.
+3. Alerts near threshold.
 
 ## Success criteria
 
-- Time from valid invite to usable key: minutes, not days
-- No shared keys across grantees
-- Default limits applied on every new grant
-- Admin can answer “who spent how much this month?” without the OpenAI dashboard
-- Compromised key can be revoked from this app
+- Earliest builders have a path that isn’t “learn API keys first”
+- Allowlisted redeem → usable API key in minutes when that’s the track
+- No shared API keys across grantees; default hard limits on every key
+- Admin can answer spend questions without living in the OpenAI dashboard
+- Compromised key revocable from our app
+- Transparent privacy/revoke/no-lock-in copy at handoff
 
-## Open product questions
+## Privacy and control (decided)
 
-Document decisions as they land; do not block the first slice on all of them.
+See [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md).
 
-1. One OpenAI **project per grantee** vs shared project with per-key tracking?
-2. Auto-approve with invite codes vs always-manual approval?
-3. Key delivery: show once in UI only, or also email?
-4. What is the default monthly budget?
-5. Do we expose a grantee “my usage” page after issuance?
+- We sponsor API keys; grantees are **not** added to our OpenAI API org.
+- Policy: we do **not** routinely look at prompt/response content; we monitor usage/spend.
+- We **may revoke at any time** if misuse or other concerns become apparent.
+- **No lock-in:** own Cursor/OpenAI/etc. anytime.
+- Be transparent on the site and at key handoff.
+
+## Decided vs open
+
+Locked choices: [DECISIONS.md](./DECISIONS.md).
+
+Still open (do not block docs; decide before/during build):
+
+1. Exact default monthly $ API cap and org ceiling  
+2. Which agent tools we fund and how we procure them for the first event  
+3. Single redeem UX for both tracks vs agent-first then API later  
+4. Magic-link email verify before API mint vs booth speed  

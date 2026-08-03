@@ -29,3 +29,7 @@
 - Storing grantee conversation content
 - Acting as an LLM proxy/gateway
 - Giving grantees access to the OpenAI org dashboard
+
+## Privacy posture
+
+Ordinary operation: usage/spend only, not prompt content. Revoke anytime if needed. Full stance and site-copy checklist: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md).
