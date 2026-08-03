@@ -93,8 +93,9 @@ export default async function ProgramPage({
         </CardHeader>
         <CardContent className="space-y-6">
           <p className="text-sm text-muted-foreground">
-            Steel-thread <code>/redeem/[token]</code> path for named cohorts.
-            Prefer the single program QR once intake ships.
+            Steel-thread redeem links (<span className="font-mono text-xs">/redeem/…</span>)
+            remain the named-cohort fallback. Prefer the single program QR once
+            intake ships.
           </p>
           <div className="max-w-xl">
             <InviteForm />

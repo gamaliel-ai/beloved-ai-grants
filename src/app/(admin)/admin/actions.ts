@@ -17,15 +17,22 @@ function safeReturnTo(value: FormDataEntryValue | null, fallback: string) {
   return value;
 }
 
+function withFlash(path: string, flash: { notice?: string; error?: string }) {
+  const url = new URL(path, "http://localhost");
+  if (flash.notice) url.searchParams.set("notice", flash.notice);
+  if (flash.error) url.searchParams.set("error", flash.error);
+  return `${url.pathname}${url.search}`;
+}
+
 export async function importGranteesAction(formData: FormData) {
   const actor = await requireAdmin();
   const returnTo = safeReturnTo(formData.get("returnTo"), "/admin/program");
   const file = formData.get("csv");
   if (!(file instanceof File) || file.size === 0) {
-    redirect(`${returnTo}?error=Choose+a+CSV+file.`);
+    redirect(withFlash(returnTo, { error: "Choose a CSV file." }));
   }
   if (file.size > 1_000_000) {
-    redirect(`${returnTo}?error=CSV+must+be+smaller+than+1+MB.`);
+    redirect(withFlash(returnTo, { error: "CSV must be smaller than 1 MB." }));
   }
 
   let summary: string;
@@ -45,9 +52,9 @@ export async function importGranteesAction(formData: FormData) {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Could not import CSV.";
-    redirect(`${returnTo}?error=${encodeURIComponent(message)}`);
+    redirect(withFlash(returnTo, { error: message }));
   }
-  redirect(`${returnTo}?notice=${encodeURIComponent(summary)}`);
+  redirect(withFlash(returnTo, { notice: summary }));
 }
 
 export type InviteActionState = {
@@ -102,7 +109,9 @@ export async function revokeGrantAction(formData: FormData) {
     200,
   );
   const returnTo = safeReturnTo(formData.get("returnTo"), "/admin/grants");
-  if (!grantId) redirect(`${returnTo}?error=Grant+id+is+required.`);
+  if (!grantId) {
+    redirect(withFlash(returnTo, { error: "Grant id is required." }));
+  }
 
   try {
     await revokeGrant({
@@ -118,9 +127,9 @@ export async function revokeGrantAction(formData: FormData) {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Could not revoke grant.";
-    redirect(`${returnTo}?error=${encodeURIComponent(message)}`);
+    redirect(withFlash(returnTo, { error: message }));
   }
-  redirect(`${returnTo}?notice=Grant+revoked.`);
+  redirect(withFlash(returnTo, { notice: "Grant revoked." }));
 }
 
 export async function syncUsageAction(formData: FormData) {
@@ -134,12 +143,14 @@ export async function syncUsageAction(formData: FormData) {
   revalidatePath("/admin/grants");
   if (result.status === "failed") {
     redirect(
-      `${returnTo}?error=${encodeURIComponent(result.errorMessage ?? "Sync failed.")}`,
+      withFlash(returnTo, {
+        error: result.errorMessage ?? "Sync failed.",
+      }),
     );
   }
   redirect(
-    `${returnTo}?notice=${encodeURIComponent(
-      `Synced ${result.bucketsUpserted} usage bucket${result.bucketsUpserted === 1 ? "" : "s"}.`,
-    )}`,
+    withFlash(returnTo, {
+      notice: `Synced ${result.bucketsUpserted} usage bucket${result.bucketsUpserted === 1 ? "" : "s"}.`,
+    }),
   );
 }

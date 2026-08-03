@@ -20,7 +20,10 @@ export function InviteForm() {
             shown again.
           </AlertDescription>
         </Alert>
-        <code className="block overflow-x-auto rounded-md bg-muted p-3 text-xs">
+        <code
+          data-testid="invite-url"
+          className="block overflow-x-auto rounded-md bg-muted p-3 text-xs"
+        >
           {state.url}
         </code>
         <CopyValue value={state.url} label="Copy invite link" />
