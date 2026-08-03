@@ -17,10 +17,16 @@ This repository’s software focus is the **API key control plane** (automatable
 
 ### API key track (app)
 
-1. Pre-approved people redeem via program QR / invite (email on allowlist).
-2. Site provisions a key with **default hard spend limits**.
-3. Grantee copies the key once; optional thin “spent vs limit” view in our app.
-4. Admins monitor, adjust limits, rotate, or revoke.
+1. Attendee scans the program QR and submits an email.
+2. Pre-registered email gets a claim link; unmatched attendees can submit a
+   short application for admin approval.
+3. Approval sends the same short-lived email claim link.
+4. Claim click provisions a key with policy and reveals it once.
+5. Grantee copies the key; a thin “spent vs limit” view can follow.
+6. Admins monitor, adjust limits, rotate, or revoke.
+
+The implemented steel thread also supports pre-approved allowlist redemption as
+a fallback for named cohorts.
 
 Grantees are **not** added to our OpenAI org. No lock-in — they can buy their own key anytime.
 
@@ -60,6 +66,8 @@ the admin console. Setting `OPENAI_ADMIN_KEY` enables live provisioning unless
 
 | Doc | Purpose |
 | --- | --- |
+| [docs/README.md](docs/README.md) | Documentation organization and backlog conventions |
+| [docs/BACKLOG.md](docs/BACKLOG.md) | Active and deferred implementation tickets |
 | [docs/DECISIONS.md](docs/DECISIONS.md) | **Decision log** (start here for what’s locked) |
 | [docs/VISION.md](docs/VISION.md) | Product concept, personas, journeys |
 | [docs/GRANT-TRACKS.md](docs/GRANT-TRACKS.md) | Agent track vs API track; Codex vs API keys |

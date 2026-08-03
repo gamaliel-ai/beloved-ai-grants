@@ -16,29 +16,38 @@ spend-limit configuration. The requirements below remain production gates.
 - Low admin burden during the event
 - API spend cannot run away if our app or attention fails
 
-## Recommended v1: pre-approved allowlist + auto-provision
+## Recommended first conference: program signup + approval
 
-Treat the first release as **“named people we already trust,”** not open applications.
+Treat the conference QR as intake, not as a public key-mint URL. **v1 runs one
+program** — no campaign entity; intake is a singleton open/closed switch.
 
 ### Before the event
 
-1. Build a **registry** of grantees: name + email (spreadsheet → import into `grantees` or an `allowlist_entries` table).
-2. Create one **program invite** (multi-use): max redemptions ≈ cohort size + small buffer, expiry shortly after the event.
-3. Generate **one QR** → redeem URL for that program.
+1. Open **program intake** with an optional request cap, default grant policy,
+   and optional imported pre-registration list (`grantees`).
+2. Generate one QR pointing to the signup page.
+3. Prepare an admin review queue for the expected, manageable attendee volume.
 4. Configure **default limit template**: monthly hard spend per grant (OpenAI project limit), model allowlist, alert thresholds.
 5. Set an **org-level spend ceiling** as a backstop above the sum of expected grants.
 
-No per-person approval click at the booth.
+### Signup, review, and claim
 
-### At redeem (QR or link)
+1. Attendee scans QR and submits **email**.
+2. If email matches a grantee (pre-registered), app sends one short-lived,
+   single-use **email claim link**; no key is created yet.
+3. If email is unmatched, app says it is not registered and offers a short
+   application: name, how they heard about the program, and what they plan to
+   build/use the grant for.
+4. Admin approves or rejects pending applications.
+5. Approval creates/updates a grantee with reviewer/application provenance
+   and sends the same claim link; no key is created or stored at approval time.
+6. Attendee clicks the link. The app verifies it, provisions project + service
+   account + key, applies grant policy, and shows the key once.
+7. After the event, admin closes intake. Existing claim links expire according
+   to their own shorter policy.
 
-1. Attendee opens QR → enter **email** (and name if not preloaded).
-2. App checks: email on allowlist **and** not already issued an active key **and** invite under max uses **and** not expired.
-3. **Auto-provision** project + service account + key; apply hard spend limit via Admin API.
-4. Show key once + budget + short privacy/revoke copy.
-5. Optional but nice: send magic link / confirmation email so we know the inbox works (can be phase 1.1 if booth Wi‑Fi is painful).
-
-**Approval = being on the list**, not an admin inbox during the keynote.
+This proves inbox ownership without passwords and preserves the rule that
+plaintext API keys are never stored for later delivery.
 
 ### After the event (ongoing, light)
 
@@ -51,32 +60,26 @@ No per-person approval click at the booth.
 
 **Do not** rely on “we’ll notice in our dashboard and manually cut them off” as the only limiter. Our monitoring is for visibility and courtesy; **OpenAI hard limits are the kill switch.**
 
-## What about admin-approve requests?
-
-Useful, but **not** the conference primary path.
+## Other approval modes
 
 | Mode | When to use |
 | --- | --- |
-| **Allowlist + auto** (v1) | Named cohort, event QR, low drama |
-| **Request → admin approve** (v1.5+) | Inbound “I heard about you” form, no pre-reg |
+| **Program grantee + fallback application** (conference) | Pre-registered attendees claim directly; unmatched attendees enter a manageable review list |
+| **Allowlist + auto** (fallback) | Named/pre-registered cohort where inbox verification is intentionally skipped |
+| **General request → admin approve** (later) | Inbound “I heard about you” form outside an event |
 | **Admin direct issue** | Special cases, VIPs, support re-issue |
 
 Same provisioning and limit machinery underneath; only the gate differs.
 
-Flow for requests later:
+## QR vs approval — use both
 
-1. Public form → `GrantRequest` / grantee `pending`
-2. Admin approves → same provision path as allowlist hit
-3. Email magic link to reveal or redeem
+- **QR** starts signup for the one program.
+- **Grantee record / admin approval** decides who receives an email claim link.
+- **Email claim** proves control of the approved inbox before minting.
 
-## QR vs registry — use both
-
-- **Registry (emails)** = who is allowed
-- **QR** = how they conveniently start redeem
-
-QR alone (no allowlist) is weaker: the poster photo becomes a public mint URL until expiry/max-uses. For ~100 named people, **QR + allowlist** is the sweet spot.
-
-If someone isn’t on the list at the booth: admin adds their email in the console (or a “add to allowlist” quick action), then they redeem — still no full open signup.
+A shared QR may escape the venue, so it must never mint directly. Program
+intake open/close, request caps, rate limits, idempotent email checks, inbox
+claim, and application review contain that exposure.
 
 ## Abuse safeguards (layered, light → firm)
 
@@ -86,16 +89,16 @@ Abuse is unlikely short-term; still ship these. They are cheap.
 
 1. **Hard per-grant spend limit** set in OpenAI at provision time  
 2. **Org-level spend ceiling** as backstop  
-3. **Allowlist** (or single-use codes) — not open mint  
-4. **One active key per email**  
-5. **Invite max redemptions + expiry**  
-6. **Rate-limit** redeem endpoint  
-7. **Admin revoke** in one click  
-8. **No plaintext key storage** (see [DATA-MODEL.md](./DATA-MODEL.md))
+3. **Grantee eligibility** — imported/admin-approved email; QR never mints directly
+4. **Email claim link** before mint (short-lived, single-use, token hash stored)
+5. **One active key per email**
+6. **Program request cap + intake open/close**
+7. **Rate-limit** signup and claim endpoints
+8. **Admin revoke** in one click
+9. **No plaintext key storage** (see [DATA-MODEL.md](./DATA-MODEL.md))
 
 ### Easy follow-ons
 
-9. Email verification before mint (magic link)  
 10. Usage sync + admin list sorted by spend  
 11. Auto-flag / email when a grant hits 80%  
 12. Model allowlist (block expensive models if desired)  
@@ -105,7 +108,6 @@ Abuse is unlikely short-term; still ship these. They are cheap.
 
 - Heavy fraud scoring, captchas beyond basic rate limits, KYC  
 - Proxying traffic to inspect content  
-- Manual approve-every-redeem at a live event  
 
 ## Limit enforcement: OpenAI vs our monitoring
 
@@ -124,17 +126,20 @@ Document real numbers when chosen; placeholders:
 
 - Per-grant monthly hard cap: e.g. $25–$50 (pick what the foundation can afford × ~100)  
 - Org monthly ceiling: slightly above expected active grants × cap  
-- Invite expiry: end of event + 7 days  
-- Max redemptions: allowlist size + ~10%  
+- Program intake closes at event end + a short grace period
+- Claim-link expiry: hours or a few days, independent of intake closure
+- Request cap: expected attendance + a reasonable buffer
 - One active key per email; rotate replaces the old key  
 
 ## Simple narrative for operators
 
-1. **Import the list** of people we intend to sponsor.  
-2. Decide what the event funds: **agent stipends**, **API keys**, or both ([GRANT-TRACKS.md](./GRANT-TRACKS.md)).  
-3. **Print one QR** (API redeem and/or agent instructions).  
-4. API path: scan → email matches → key + budget; **OpenAI caps spend**.  
-5. Watch a simple dashboard; revoke if something looks wrong.  
-6. Later, add “request access” + admin approve for people not on a list.
+1. Open program intake and decide what it funds.
+2. Print one QR to the signup page.
+3. Attendees scan and submit email; pre-registered attendees get claim links.
+4. Unmatched attendees can submit a short application.
+5. Approve appropriate applications; the app emails claim links.
+6. Claim click creates the key + budget and shows the secret once.
+7. Close intake after the event.
+8. Watch usage; notify or revoke when appropriate.
 
 That’s enough to make acquisition easy and abuse hard without building a bureaucracy.

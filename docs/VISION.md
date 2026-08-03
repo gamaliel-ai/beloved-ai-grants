@@ -40,10 +40,15 @@ The software in this repo prioritizes track 2 (automatable). Track 1 is program-
 
 ### A. Conference / cohort (primary v1 for API track)
 
-1. Admin imports **pre-approved** name + email list; creates one program invite; prints **one QR**.
-2. Grantee scans → enters email → must match allowlist → **auto-provision** API key with hard spend limit (or is steered to agent track if that’s the offer).
-3. Key shown once; thin usage view later in our app.
-4. OpenAI enforces spend; admin can revoke anytime.
+1. Admin opens program intake, optionally imports pre-registered
+   emails, and prints **one QR**.
+2. Attendee scans and submits email.
+3. Pre-registered email gets a claim link; unmatched email can submit a short
+   application for admin review.
+4. Approval sends the same short-lived single-use claim link.
+5. Claim click provisions the API key with policy and shows it once (or steers
+   to the agent track if that is the offer).
+6. OpenAI enforces spend; admin monitors usage and can revoke anytime.
 
 Detail: [ONBOARDING-AND-ABUSE.md](./ONBOARDING-AND-ABUSE.md).
 
@@ -93,4 +98,4 @@ Still open (do not block docs; decide before/during build):
 1. Exact default monthly $ API cap and org ceiling  
 2. Which agent tools we fund and how we procure them for the first event  
 3. Single redeem UX for both tracks vs agent-first then API later  
-4. Magic-link email verify before API mint vs booth speed  
+4. Final optional application fields and approval batch UX

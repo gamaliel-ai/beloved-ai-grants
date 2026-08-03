@@ -18,15 +18,52 @@ Minimum fields:
 `active` grant at once in v1. A grant points to one OpenAI project. Keys belong
 to the grant so rotation history does not overload the person record.
 
-Optional later: a **Program** / cohort (`Nairobi Summit 2026`) that many grantees belong to, and invites that point at a program. Keep that separate from the person record.
+## Program intake (v1: one program)
+
+**v1 assumption:** the deployment runs **one program** (e.g. one conference).
+There is no `Campaign` table yet. Intake open/close, request cap, and claim-link
+defaults live on a **singleton** `program_settings` row (or env-backed config).
+Multi-program / named campaigns are a later extension.
+
+### Entities
+
+| Entity | Role |
+| --- | --- |
+| `program_settings` | Single row: intake `open \| closed`, optional request cap, claim-link TTL, display name |
+| `grantees` | Eligible people — imported allowlist, approved applicants, or admin-added |
+| `applications` | Unmatched email submissions while intake is open |
+| `claim_tokens` | Hashed single-use link tied to a grantee; never store plaintext token |
+| `grants` / `api_keys` | Unchanged sponsorship lifecycle (see below) |
+
+**Grantee provenance** (column on `grantees`, not a separate eligibility table):
+
+- `imported` — CSV pre-registration
+- `application_approved` — admin approved a pending application
+- `admin_added` — operator added directly
+
+Enforce **one grantee per normalized email** and **one pending application per
+email**. Application approval creates or updates the grantee row (with
+provenance) and enqueues a claim-token email job — **no OpenAI key at approval
+time**. Provision on claim-link click.
 
 ```
-ProgramInvite 1──* Grant *──1 Grantee
-                       │
-                       └──* ApiKey
+program_settings (singleton)
+
+Grantee 1──* ClaimToken ──(claim)──► Grant 1──* ApiKey
+   ▲
+   │ approve
+Application (pending)
 ```
 
-For v1 you can skip `Program` as a table and hang `program_slug` on the invite + grantee if you want less schema.
+Imported allowlists, `program_invites`, and admin-direct issuance remain
+alternate entry paths into the same grant lifecycle.
+
+### Later: multiple campaigns
+
+When we need more than one concurrent program, introduce `Campaign` and move
+intake window/cap off the singleton. Split `grantees` provenance or add
+`campaign_eligibility` with `(campaign_id, email)` uniqueness. v1 schema should
+not require that FK graph yet.
 
 ## Grant
 
@@ -35,7 +72,7 @@ isolation and billing container. They are deliberately not the same entity.
 
 Minimum steel-thread fields:
 
-- `grantee_id`, `invite_id`
+- `grantee_id` plus program-signup, invite, or admin-direct provenance
 - status: `provisioning | active | provision_failed | revoked`
 - nullable `openai_project_id`
 - activation/revoke timestamps and safe failure/revoke reason
@@ -154,8 +191,35 @@ OpenAI remains authoritative that the old secret no longer works.
 ## Sketch (SQL-ish)
 
 ```text
+program_settings (
+  id,                          -- singleton (one row)
+  intake_status,               -- open | closed
+  request_cap NULL,
+  claim_link_ttl_hours,
+  display_name,
+  updated_at
+)
+
 grantees (
-  id, name, email UNIQUE, created_at, updated_at
+  id, name, email UNIQUE,
+  provenance,                  -- imported | application_approved | admin_added
+  created_at, updated_at
+)
+
+applications (
+  id, email UNIQUE,            -- while pending; cleared or linked on approve
+  name, referral_source, intended_use,
+  status,                      -- pending | approved | rejected | withdrawn
+  reviewed_by, reviewed_at,
+  grantee_id NULL,             -- set on approve
+  created_at, updated_at
+)
+
+claim_tokens (
+  id, grantee_id → grantees,
+  token_hash UNIQUE,
+  expires_at, used_at NULL,
+  created_at
 )
 
 grants (

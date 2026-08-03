@@ -56,14 +56,19 @@ Early founder ──► Track A (agent) ──► building confidence / MVP
                       └── when they need AI in a product ──► Track B (API key)
 ```
 
-Same allowlist of people can be eligible for both. Redeem UX can offer one or both depending on what we’re funding that cohort.
+The same program signup can be eligible for either or both tracks. Fulfillment
+differs: agent access may remain operator-led; API access uses an approved email
+claim link.
 
 ## Conference recommendation
 
-1. Fund **Track A** if budget allows — primary narrative for earliest builders.  
-2. Run **Track B** with allowlist + QR + auto-provision + hard caps — especially for attendees ready for product/API use (and local Codex-via-key).  
-3. Same registry of names/emails; clear copy on what each track is and isn’t.  
-4. No lock-in on either track: they can pay for their own Cursor/OpenAI/etc. anytime.
+1. Fund **Track A** if budget allows — primary narrative for earliest builders.
+2. Use one program QR: pre-registered attendees claim directly; unmatched
+   attendees can submit a light application for admin approval.
+3. For **Track B**, approval emails a claim link; claim provisions the API key
+   with hard caps for attendees ready for product/API use.
+4. Keep clear copy on what each track is and is not.
+5. No lock-in on either track: they can pay for their own Cursor/OpenAI/etc. anytime.
 
 ## What this repo implements first
 

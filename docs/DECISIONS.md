@@ -24,9 +24,13 @@ Working decisions from product design discussions. Update when we change course.
 
 | Decision | Choice |
 | --- | --- |
-| v1 gate | **Pre-approved email allowlist** + **one program QR**; auto-provision on email match |
-| Not v1 primary | Manual admin-approve every redeem at the booth |
-| Later | Public request form → admin approve/deny |
+| First-conference gate | **Program QR → email check**; pre-registered email gets a claim link, unmatched email can submit a light application |
+| Unmatched email | Friendly “not registered” state + optional short application; admin approve/reject |
+| Approved application | Creates/updates grantee with reviewer/application provenance; do not rewrite the imported source list |
+| Key claim | Approval sends a short-lived single-use link; **provision and reveal on link click**, never at approval time |
+| Program lifecycle (v1) | **One program** per deployment; singleton intake open/close + request cap; closing blocks new intake |
+| Pre-approved fallback | Imported allowlist + immediate redeem remains available for named cohorts/admin-direct issuance |
+| Later | Multiple named campaigns; general public request form outside an event |
 | Keys per person | One-to-many in schema; **one active key per email** in normal operation |
 | Isolation | Prefer **one OpenAI project per grant** |
 | Spend enforcement | **OpenAI hard project spend limits** are primary; our usage sync is visibility/alerts; org-level ceiling as backstop |
@@ -82,4 +86,4 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 1. Exact default monthly $ cap and org ceiling for the conference  
 2. Which **agent tools** we fund for track 1, and procurement (seats vs coupons vs reimbursement)  
 3. Whether conference redeem offers both tracks in one flow or agent-first then API later  
-4. Exact phase and UX for adding email verification / Resend magic links
+4. Final optional application fields and approval batch UX

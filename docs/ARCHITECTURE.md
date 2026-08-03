@@ -40,7 +40,7 @@ Program context: this architecture covers the **API key track**. The **agent / t
 | Piece | Responsibility |
 | --- | --- |
 | Public site | Landing, request form, redeem invite/QR |
-| Admin console | Grants, codes, limits, usage, revoke |
+| Admin console | Grants, usage dashboard, applications, program setup — [ADMIN-CONSOLE.md](./ADMIN-CONSOLE.md) |
 | Provisioning service | Talks to OpenAI Admin API; transactional with DB |
 | Sync job | Pulls usage/costs periodically into local tables |
 | Datastore | Grants, invites, admin users, OpenAI external IDs, audit of our actions |
