@@ -74,7 +74,7 @@ export async function createInviteAction(
       actor,
     });
     revalidatePath("/admin");
-    const baseUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(
+    const baseUrl = (process.env.APP_URL ?? "http://localhost:3002").replace(
       /\/$/,
       "",
     );

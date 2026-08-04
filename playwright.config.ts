@@ -6,7 +6,7 @@ export default defineConfig({
   retries: 0,
   reporter: "line",
   use: {
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: "http://127.0.0.1:3002",
     trace: "retain-on-failure",
   },
   projects: [
@@ -18,7 +18,7 @@ export default defineConfig({
   webServer: {
     command:
       "PGLITE_DATA_DIR=./data/e2e bun run db:migrate && PGLITE_DATA_DIR=./data/e2e AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com OPENAI_MODE=fake bun run dev",
-    url: "http://127.0.0.1:3000",
+    url: "http://127.0.0.1:3002",
     reuseExistingServer: true,
     timeout: 120_000,
   },

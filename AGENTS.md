@@ -38,7 +38,7 @@ directories on VM startup. The notes below are the non-obvious gotchas.
   `PGLITE_DATA_DIR`).
 - The Playwright e2e suite (`bun run test:e2e`) starts its **own** dev server via
   `playwright.config.ts` (with the auth bypass + fake OpenAI + `PGLITE_DATA_DIR=./data/e2e`),
-  runs migrations itself, and reuses an already-running server on port 3000 if
+  runs migrations itself, and reuses an already-running server on port 3002 if
   present. Chromium must be installed for Playwright (`bunx playwright install chromium`);
   this is part of the VM snapshot and does not need reinstalling each run.
 - Unit tests (`bun run test`, vitest) use throwaway in-memory PGlite and touch no
