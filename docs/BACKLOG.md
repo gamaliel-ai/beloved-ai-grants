@@ -22,8 +22,9 @@ relocate steel-thread setup to Program; split ops pages. Design:
 
 #### [B-0003](backlog/B-0003-email-delivery-and-notifications.md): Email delivery and lifecycle notifications
 
-**Status:** Open — provide the claim-link foundation for approved conference
-signups, then extend it to usage and revoke notifications.
+**Status:** Partial — claim-link issue + fake/live mailer + `/join` /
+`/claim` provision path landed; domain/live Resend, delivery admin UI, and
+lifecycle notices (threshold/revoke) still open.
 
 #### [B-0006](backlog/B-0006-campaign-intake-and-approval.md): Program intake, approval, and key claim
 

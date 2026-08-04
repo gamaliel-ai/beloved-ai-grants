@@ -19,6 +19,12 @@ export default function HomePage() {
         <div className="flex flex-wrap gap-x-5 gap-y-2 pt-1 text-sm">
           <Link
             className="font-medium text-primary underline-offset-4 hover:underline"
+            href="/join"
+          >
+            Claim with your email
+          </Link>
+          <Link
+            className="font-medium text-primary underline-offset-4 hover:underline"
             href="/faq"
           >
             How the program works
@@ -64,8 +70,16 @@ export default function HomePage() {
           account anytime.
         </p>
         <p className="text-muted-foreground text-pretty">
-          Access is by program invite. If you are part of a cohort or forum, your
-          organizer will share a private link or QR code.
+          Access is by program registration. If you are part of a cohort or
+          forum, open{" "}
+          <Link
+            className="font-medium text-foreground underline-offset-4 hover:underline"
+            href="/join"
+          >
+            /join
+          </Link>{" "}
+          with your registered email, or use a private invite link from your
+          organizer.
         </p>
       </section>
 

@@ -13,12 +13,10 @@ import {
 
 const originalAppUrl = process.env.APP_URL;
 const originalResend = process.env.RESEND_API_KEY;
-const originalEmailMode = process.env.EMAIL_MODE;
 
 afterEach(() => {
   process.env.APP_URL = originalAppUrl;
   process.env.RESEND_API_KEY = originalResend;
-  process.env.EMAIL_MODE = originalEmailMode;
   clearFakeMailOutbox();
 });
 
@@ -55,7 +53,6 @@ describe("mail config and fake sender", () => {
   it("stays fake on localhost even when RESEND_API_KEY is set", async () => {
     process.env.APP_URL = "http://localhost:3002";
     process.env.RESEND_API_KEY = "re_test";
-    delete process.env.EMAIL_MODE;
 
     expect(getMailMode()).toBe("fake");
 

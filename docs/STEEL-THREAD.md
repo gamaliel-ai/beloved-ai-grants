@@ -1,36 +1,69 @@
 # API grant steel thread
 
-Status: **implemented; local verification complete**
+Status: **implemented; local verification complete** (claim-link path added)
 
 ## Included
 
 1. An administrator signs in with GitHub. `ADMIN_EMAILS` is checked on sign-in, page load, and every mutation.
 2. The administrator imports a `name,email` CSV. Import is all-or-nothing and idempotently upserts normalized email addresses.
-3. The administrator creates an expiring, capacity-limited program invite. Only a SHA-256 token hash is stored; the URL is shown once.
-4. A visitor opens `/redeem/[token]` and enters an allowlisted email.
-5. The app rate-limits the attempt, reserves one active grant transactionally, creates an isolated OpenAI project and service account, and shows the API key once.
-6. The administrator can list and revoke grants. Revoke deletes the service account (the supported boundary for its keys), archives the project, and updates the local mirror.
+3. **Claim links (primary inbox proof):**
+   - Admin sends a claim link from the grantee list, or a visitor submits an
+     allowlisted email at `/join`.
+   - App creates a hashed, single-use, 48h `claim_tokens` row and sends mail
+     via Resend (or the in-process **fake** outbox when `RESEND_API_KEY` is
+     missing or `APP_URL` is local).
+   - Visitor opens `/claim/[token]` and claims; the app provisions an OpenAI
+     project/service account/key and shows the secret once. No API key is
+     emailed.
+4. **Program invite fallback:** Admin creates an expiring, capacity-limited
+   invite URL. Visitor opens `/redeem/[token]`, enters an allowlisted email,
+   and receives a key the same way (allowlist match only — no inbox proof).
+5. The administrator can list and revoke grants. Revoke deletes the service
+   account (the supported boundary for its keys), archives the project, and
+   updates the local mirror.
 
 ## Deliberate limitations
 
-- Email allowlist matching is the only grantee identity check. Magic-link verification with Resend is deferred.
-- Project and organization hard spend limits are supported by OpenAI but are not configured by this steel thread.
-- QR image generation, key rotation, usage sync/dashboard, alerts, and public requests are deferred.
+- Unmatched `/join` emails do not yet get an application form (see B-0006).
+- Live Resend delivery needs a verified sending domain (From is derived as
+  `grants@{APP_URL host}` in code — not an env var).
+- Lifecycle notices (near-limit, revoke) and delivery admin UI remain open
+  under B-0003.
+- Project and organization hard spend limits are supported by OpenAI but are
+  not configured by this steel thread.
+- QR image generation, key rotation, usage sync/dashboard, and alerts are
+  deferred.
 - Full API-key values are never persisted or logged.
+
+## Config rule
+
+Env vars are for **secrets** and the public hostname (`APP_URL`) only. Product
+constants (sender local-part, claim TTL, subjects) and derived behavior (fake
+vs live mail) live in code — no `EMAIL_MODE` (or similar) flags.
 
 ## Run locally
 
 ```sh
 bun install
+mkdir -p data
 bun run db:migrate
-bun run dev
+AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com bun run dev
 ```
 
-PGlite writes under `PGLITE_DATA_DIR` (default `./data/beloved-grants`). Set `DATABASE_URL` for hosted Postgres/Neon.
+PGlite writes under `PGLITE_DATA_DIR` (default `./data/beloved-grants`). Set
+`DATABASE_URL` for hosted Postgres/Neon.
 
-Admin authentication requires `AUTH_SECRET`, `AUTH_GITHUB_ID`, `AUTH_GITHUB_SECRET`, and `ADMIN_EMAILS`. `APP_URL` is used to construct invite links.
+Admin authentication requires `AUTH_SECRET`, `AUTH_GITHUB_ID`,
+`AUTH_GITHUB_SECRET`, and `ADMIN_EMAILS` (or the non-production auth bypass
+above). `APP_URL` defaults to `http://localhost:3002` and is used for invite
+and claim absolute URLs.
 
-If `OPENAI_ADMIN_KEY` is present, provisioning is live unless `OPENAI_MODE=fake` is set. Without an Admin key, the deterministic fake gateway is used.
+Optional secrets:
+
+- `OPENAI_ADMIN_KEY` — live OpenAI Admin API; without it, the fake gateway is
+  used (`OPENAI_MODE=fake` can force fake when a key is present).
+- `RESEND_API_KEY` — live Resend; without it (or with a local `APP_URL`), mail
+  goes to the fake outbox.
 
 ## Verification
 
@@ -42,10 +75,12 @@ bun run test:e2e
 bun run build
 ```
 
-The live lifecycle test is write-gated and always attempts cleanup:
+The live OpenAI lifecycle test is write-gated and always attempts cleanup:
 
 ```sh
 RUN_OPENAI_INTEGRATION=1 bun run smoke:openai
 ```
 
-It creates a throwaway project and service account, calls `OPENAI_SMOKE_MODEL` once with the issued key, then deletes the service account and archives the project in `finally`.
+It creates a throwaway project and service account, calls `OPENAI_SMOKE_MODEL`
+once with the issued key, then deletes the service account and archives the
+project in `finally`.

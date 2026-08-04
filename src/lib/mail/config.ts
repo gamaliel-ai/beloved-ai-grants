@@ -9,9 +9,8 @@ export const mailConfig = {
 
 export type MailMode = "live" | "fake";
 
+/** Live only with a Resend secret and a non-local APP_URL. Not an env flag. */
 export function getMailMode(): MailMode {
-  const configured = process.env.EMAIL_MODE?.trim().toLowerCase();
-  if (configured === "live" || configured === "fake") return configured;
   if (!process.env.RESEND_API_KEY?.trim()) return "fake";
   if (isLocalAppUrl()) return "fake";
   return "live";

@@ -1,7 +1,8 @@
 # B-0003 — Email delivery and lifecycle notifications
 
 **Kind:** improvement  
-**Status:** open
+**Status:** partial — claim_link + fake sends done; live domain + other
+message classes remain
 
 ## Problem / goal
 
@@ -13,9 +14,9 @@ their grant.
 Add transactional mail infrastructure (Resend) and reusable,
 auditable delivery primitives.
 
-Config: only `RESEND_API_KEY` (+ optional `EMAIL_MODE`) and shared `APP_URL`.
-Sender address is code-derived (`grants@{APP_URL host}`); local APP_URL or
-missing key uses a fake outbox so real grantees are never emailed.
+Config: secrets/`APP_URL` only (`RESEND_API_KEY`, `APP_URL`). Sender is
+code-derived (`grants@{APP_URL host}`); fake outbox when the key is missing
+or `APP_URL` is local — no mail mode env var.
 
 ## Direction
 

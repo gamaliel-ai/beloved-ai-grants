@@ -1,3 +1,4 @@
+import "server-only";
 import { Resend } from "resend";
 import type { MailSender, SentMail, TransactionalMail } from "./types";
 

@@ -45,22 +45,33 @@ Grantees are **not** added to our OpenAI org. No lock-in — they can buy their 
 
 ## Repo status
 
-The initial API-grant steel thread is implemented: GitHub-protected admin,
-idempotent allowlist import, program invites, one-time key provisioning, and
-revoke. See [docs/STEEL-THREAD.md](docs/STEEL-THREAD.md) for scope and setup.
+The API-grant steel thread is implemented: GitHub-protected admin, idempotent
+allowlist import, **claim tokens** (`/join` → email → `/claim/[token]`),
+program-invite fallback redeem, one-time key reveal, and revoke. Transactional
+mail uses Resend when `RESEND_API_KEY` is set and `APP_URL` is non-local;
+otherwise a fake outbox. See [docs/STEEL-THREAD.md](docs/STEEL-THREAD.md).
+
+Still open for the conference path: unmatched-email applications (B-0006),
+verified sending domain, usage sync, and lifecycle notices (B-0003 remainder).
 
 ## Local development
 
 ```sh
 bun install
 cp .env.example .env
+mkdir -p data
 bun run db:migrate
-bun run dev
+AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com bun run dev
 ```
 
-Local data uses PGlite by default. Configure GitHub OAuth and `ADMIN_EMAILS` for
-the admin console. Setting `OPENAI_ADMIN_KEY` enables live provisioning unless
-`OPENAI_MODE=fake` is set.
+Local data uses PGlite by default (port **3002**). Configure GitHub OAuth and
+`ADMIN_EMAILS` for real admin sign-in, or use the auth bypass above in
+non-production. Env is for secrets and `APP_URL` only — see `.env.example`.
+
+- `OPENAI_ADMIN_KEY` — live provisioning (else fake gateway; `OPENAI_MODE=fake`
+  forces fake when a key is present).
+- `RESEND_API_KEY` — live claim emails (else fake outbox when key missing or
+  `APP_URL` is local).
 
 ## Docs
 

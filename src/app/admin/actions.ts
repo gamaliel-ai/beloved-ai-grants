@@ -6,6 +6,7 @@ import { absoluteUrl } from "@/lib/app-url";
 import { getDb } from "@/lib/db/client";
 import { auditEvents } from "@/lib/db/schema";
 import { requireAdmin } from "@/lib/auth/require-admin";
+import { ClaimError, issueClaimLink } from "@/lib/grants/claims";
 import { importGranteesCsv } from "@/lib/grants/import-grantees";
 import { createProgramInvite } from "@/lib/grants/invites";
 import { revokeGrant } from "@/lib/grants/revoke";
@@ -78,6 +79,33 @@ export async function createInviteAction(
     return { url: absoluteUrl(`/redeem/${token}`) };
   } catch {
     return { error: "Could not create the invite." };
+  }
+}
+
+export async function sendClaimLinkAction(formData: FormData) {
+  const actor = await requireAdmin();
+  const granteeId = String(formData.get("granteeId") ?? "");
+  if (!granteeId) redirect("/admin?error=Grantee+id+is+required.");
+
+  try {
+    const result = await issueClaimLink({
+      db: getDb(),
+      granteeId,
+      actor,
+    });
+    revalidatePath("/admin");
+    const notice =
+      result.mailMode === "fake"
+        ? `Claim link sent to ${result.email} (fake mailer — not delivered externally).`
+        : `Claim link sent to ${result.email}.`;
+    redirect(`/admin?notice=${encodeURIComponent(notice)}`);
+  } catch (error) {
+    if (error instanceof ClaimError) {
+      redirect(`/admin?error=${encodeURIComponent(error.message)}`);
+    }
+    const message =
+      error instanceof Error ? error.message : "Could not send claim link.";
+    redirect(`/admin?error=${encodeURIComponent(message)}`);
   }
 }
 

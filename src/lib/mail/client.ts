@@ -1,14 +1,12 @@
-import "server-only";
 import { getMailFrom, getMailMode } from "./config";
 import { FakeMailSender } from "./fake";
-import { ResendMailSender } from "./resend";
 import type { MailSender, TransactionalMail } from "./types";
 
 type GlobalMail = typeof globalThis & {
   belovedMailSender?: MailSender;
 };
 
-export function getMailSender(): MailSender {
+export async function getMailSenderAsync(): Promise<MailSender> {
   const globals = globalThis as GlobalMail;
   if (globals.belovedMailSender) return globals.belovedMailSender;
 
@@ -16,8 +14,9 @@ export function getMailSender(): MailSender {
   if (getMailMode() === "live") {
     const key = process.env.RESEND_API_KEY?.trim();
     if (!key) {
-      throw new Error("RESEND_API_KEY is required when EMAIL_MODE is live.");
+      throw new Error("RESEND_API_KEY is required for live mail.");
     }
+    const { ResendMailSender } = await import("./resend");
     globals.belovedMailSender = new ResendMailSender(key, from);
   } else {
     globals.belovedMailSender = new FakeMailSender(from);
@@ -31,7 +30,7 @@ export function resetMailSenderForTests() {
 }
 
 export async function sendTransactionalMail(message: TransactionalMail) {
-  return getMailSender().send(message);
+  return (await getMailSenderAsync()).send(message);
 }
 
 export { getMailFrom, getMailMode, mailConfig } from "./config";

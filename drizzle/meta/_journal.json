@@ -8,6 +8,13 @@
       "when": 1785722273328,
       "tag": "0000_loose_dragon_lord",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1785853655791,
+      "tag": "0001_sticky_hulk",
+      "breakpoints": true
     }
   ]
 }

@@ -14,29 +14,33 @@ Approval and abuse detail:
 
 ### 1. Program QR + grantee/application + email claim (conference primary)
 
-- Admin opens intake on the singleton program (dates, request cap, grant defaults).
+**Implemented for pre-registered emails:** `/join` + admin “Send claim link”,
+hashed `claim_tokens`, fake/live Resend, `/claim/[token]` provision + one-time
+reveal. **Not yet:** intake open/close, unmatched application queue (B-0006),
+verified production domain.
+
 - Admin may import a pre-registration list into `grantees`.
-- One QR opens the public signup page (e.g. `/join`).
+- One QR opens the public signup page (`/join`).
 - Matching email receives a claim link without manual review.
-- Unmatched email can submit a short application.
-- Admin approves/rejects the manageable application queue.
-- Approval emails a short-lived single-use claim link.
+- Unmatched email can submit a short application (planned).
+- Admin approves/rejects the manageable application queue (planned).
+- Approval emails a short-lived single-use claim link (planned; admin/join
+  already send for existing grantees).
 - Claim click provisions and reveals once; approval itself stores no key.
 
 ### 2. Pre-approved allowlist (fallback)
 
 - Import named grantees before a closed cohort.
 - Email match can auto-provision where skipping inbox verification is an
-  explicit operational tradeoff.
+  explicit operational tradeoff (`/redeem/[token]` invite path).
 - Admin can add a missing email directly.
 
 ### 3. Invite / access code
 
-- Admin creates a code (or magic link token) with:
-  - max uses (1 for personal invite, N for a workshop)
-  - expiry
-  - limit template override (optional)
-- Share as short code or URL / QR.
+**Implemented:** program invite URL with max uses + expiry (`/redeem/[token]`).
+
+- Admin creates a token with max uses and expiry.
+- Share as URL / QR; grantee enters allowlisted email to redeem.
 
 ### 4. General email / form request (later)
 

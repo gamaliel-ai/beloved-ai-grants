@@ -8,6 +8,10 @@ control plane. It is managed with **bun** (see `packageManager` in
 `package.json` and setup/verification is documented in `README.md` and
 `docs/STEEL-THREAD.md`; prefer those instead of duplicating commands here.
 
+**Node version:** Before any shell work, run `nvm use` (reads `.nvmrc`; requires
+Node `>=20.9` per `package.json` `engines`). If that version is not installed,
+run `nvm install` first. Do not assume the default shell Node is correct.
+
 The update script already runs `bun install` and creates the local `data/`
 directories on VM startup. The notes below are the non-obvious gotchas.
 
@@ -24,6 +28,9 @@ directories on VM startup. The notes below are the non-obvious gotchas.
   Force it with `OPENAI_MODE=fake`; it issues `sk-fake-...` keys with no network
   calls. Live mode requires `OPENAI_ADMIN_KEY` (and the write-gated
   `smoke:openai` script needs `RUN_OPENAI_INTEGRATION=1`).
+- Transactional email defaults to an in-process **fake** outbox. Live Resend
+  requires `RESEND_API_KEY` and a non-local `APP_URL`. There is no `EMAIL_MODE`
+  env var — mode is derived. From address is `grants@{APP_URL host}` in code.
 - Recommended local dev command for exercising the admin console end to end:
   `AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com OPENAI_MODE=fake bun run dev`.
 

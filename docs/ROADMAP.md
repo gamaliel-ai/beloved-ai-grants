@@ -31,12 +31,13 @@ lives in [BACKLOG.md](./BACKLOG.md).
 
 ## Phase 1c — Conference program intake
 
-- Singleton program intake (open/close, request cap), QR, and pre-registration list
-- Matching email → claim link; unmatched email → light application
-- Pending application queue with admin approve/reject
-- Transactional email foundation ([B-0003](backlog/B-0003-email-delivery-and-notifications.md))
-- Short-lived claim link; provision and reveal on click
-- Program intake/approval implementation
+- [x] Matching allowlisted email → claim link (admin send + `/join`)
+- [x] Short-lived hashed claim token; provision and reveal on `/claim` click
+- [x] Transactional mail scaffold (Resend + fake outbox; domain still needed)
+  ([B-0003](backlog/B-0003-email-delivery-and-notifications.md) partial)
+- [ ] Singleton program intake (open/close, request cap) and QR packaging
+- [ ] Unmatched email → light application + admin approve/reject queue
+- [ ] Program intake/approval implementation
   ([B-0006](backlog/B-0006-campaign-intake-and-approval.md))
 
 ## Phase 1d — Admin console rewrite
