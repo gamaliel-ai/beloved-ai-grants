@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { absoluteUrl } from "@/lib/app-url";
 import { getDb } from "@/lib/db/client";
 import { auditEvents } from "@/lib/db/schema";
 import { requireAdmin } from "@/lib/auth/require-admin";
@@ -74,11 +75,7 @@ export async function createInviteAction(
       actor,
     });
     revalidatePath("/admin");
-    const baseUrl = (process.env.APP_URL ?? "http://localhost:3002").replace(
-      /\/$/,
-      "",
-    );
-    return { url: `${baseUrl}/redeem/${token}` };
+    return { url: absoluteUrl(`/redeem/${token}`) };
   } catch {
     return { error: "Could not create the invite." };
   }

@@ -37,10 +37,10 @@ export default function HomePage() {
           Why we are doing this
         </h2>
         <p className="text-muted-foreground text-pretty">
-          For the first time, a hopeful founder with a laptop and a clear
-          calling can build products—and even companies—with far fewer resources
-          than before. That is good news for entrepreneurship in Kenya and
-          beyond. Beloved AI Grants is a ministry of the{" "}
+          With AI, what once took a dozen engineers and millions of dollars can
+          begin with a passionate founder and a laptop. There has never been a
+          better time to build. That is good news for entrepreneurship in Kenya
+          and beyond. Beloved AI Grants is a ministry of the{" "}
           <a
             className="font-medium text-foreground underline-offset-4 hover:underline"
             href={links.belovedInChrist}

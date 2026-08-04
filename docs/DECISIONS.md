@@ -80,6 +80,9 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 | Grantee / OpenAI project | Separate records; one active grant/project per grantee in v1 |
 | Steel-thread verification | Allowlist match only; email ownership / Resend magic link deferred |
 | Steel-thread spend controls | Per-project hard limit and org ceiling configuration deferred; do not present alerts as enforcement |
+| Public base URL | Single env `APP_URL` (local default `http://localhost:3002`). Derive invite/claim links, email absolute URLs, and OAuth callback base from it — do not add parallel `AUTH_URL` / link-base env vars |
+| Config vs secrets | Env only for secrets and deploy-specific values (`RESEND_API_KEY`, `APP_URL`, auth/OpenAI secrets). Non-secret product constants (sender local-part, display name, subjects) live in code |
+| Transactional email | **Resend** under the LKC Studios LLC team; dedicated API key per app. `From` is derived as `{local-part}@{APP_URL hostname}` once the domain is verified; local/`EMAIL_MODE=fake` never sends to real inboxes |
 
 ## Still open
 
