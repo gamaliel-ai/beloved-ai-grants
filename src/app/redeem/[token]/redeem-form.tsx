@@ -32,8 +32,8 @@ export function RedeemForm({ token }: { token: string }) {
         </code>
         <CopyValue value={state.secret} label="Copy API key" />
         <p className="text-sm text-muted-foreground">
-          Keep this key private. This initial release does not enforce a
-          per-grantee hard spend cap; the program operator may revoke access.
+          Keep this key private. We monitor usage and may revoke access if
+          needed. You can switch to your own OpenAI key anytime—no lock-in.
         </p>
       </div>
     );
@@ -61,8 +61,8 @@ export function RedeemForm({ token }: { token: string }) {
         {pending ? "Creating your key…" : "Get API key"}
       </Button>
       <p className="text-xs text-muted-foreground">
-        For this steel thread, access is checked by allowlisted email only.
-        Email ownership verification will be added later.
+        Access is checked against the program allowlist. Use the email your
+        organizer registered for you.
       </p>
     </form>
   );

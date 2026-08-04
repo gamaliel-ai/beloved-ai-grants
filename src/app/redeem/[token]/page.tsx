@@ -28,12 +28,13 @@ export default async function RedeemPage({
     <Card className="mx-auto max-w-lg">
       <CardHeader>
         <p className="text-sm font-medium text-primary">{invite.name}</p>
-        <CardTitle className="text-2xl">Redeem your OpenAI API grant</CardTitle>
+        <CardTitle className="text-2xl">Redeem your AI grant</CardTitle>
       </CardHeader>
       <CardContent className="space-y-5">
         <p className="text-sm text-muted-foreground">
-          Enter the email supplied to the organizer. If it is on the allowlist,
-          we will create an isolated OpenAI project and show its API key once.
+          Enter the email your organizer registered for you. If it is on the
+          allowlist, we will create a sponsored OpenAI API key and show it
+          once—copy it somewhere safe before you leave this page.
         </p>
         <RedeemForm token={token} />
       </CardContent>
@@ -46,7 +47,7 @@ function Unavailable({ title }: { title: string }) {
     <Alert className="mx-auto max-w-lg" variant="destructive">
       <AlertTitle>{title}</AlertTitle>
       <AlertDescription>
-        Ask the program organizer for a current invite.
+        Ask your program organizer for a current invite link.
       </AlertDescription>
     </Alert>
   );
