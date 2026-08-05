@@ -4,7 +4,8 @@ Status: **implemented; local verification complete** (claim-link path added)
 
 ## Included
 
-1. An administrator signs in with GitHub. `ADMIN_EMAILS` is checked on sign-in, page load, and every mutation.
+1. An administrator signs in with GitHub. The hardcoded admin email allowlist
+   is checked on sign-in, page load, and every mutation.
 2. The administrator imports a `name,email` CSV. Import is all-or-nothing and idempotently upserts normalized email addresses.
 3. **Claim links (primary inbox proof):**
    - Admin sends a claim link from the grantee list, or a visitor submits an
@@ -53,10 +54,10 @@ AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com bun run dev
 PGlite writes under `PGLITE_DATA_DIR` (default `./data/beloved-grants`). Set
 `DATABASE_URL` for hosted Postgres/Neon.
 
-Admin authentication requires `AUTH_SECRET`, `AUTH_GITHUB_ID`,
-`AUTH_GITHUB_SECRET`, and `ADMIN_EMAILS` (or the non-production auth bypass
-above). `APP_URL` defaults to `http://localhost:3002` and is used for invite
-and claim absolute URLs.
+Admin authentication requires `AUTH_SECRET` and `AUTH_GITHUB_SECRET` (or the
+non-production auth bypass above). The GitHub OAuth client ID and admin email
+allowlist are hardcoded in source. `APP_URL` defaults to
+`http://localhost:3002` and is used for invite and claim absolute URLs.
 
 Optional secrets:
 

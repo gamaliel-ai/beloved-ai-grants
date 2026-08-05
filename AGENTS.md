@@ -20,7 +20,7 @@ directories on VM startup. The notes below are the non-obvious gotchas.
 - No separate database or Docker is needed. The DB is **embedded PGlite** by
   default (files under `PGLITE_DATA_DIR`, default `./data/beloved-grants`); a
   remote Neon/Postgres is used only if `DATABASE_URL` is set.
-- Admin auth is GitHub OAuth + `ADMIN_EMAILS`, but **you do not need real OAuth
+- Admin auth is GitHub OAuth + a hardcoded admin email allowlist, but **you do not need real OAuth
   credentials** to develop or test. Non-production requests honor a bypass:
   run with `AUTH_TEST_BYPASS=1` (and optionally `AUTH_TEST_EMAIL=...`) to be
   treated as an admin. The bypass is ignored when `NODE_ENV=production`.

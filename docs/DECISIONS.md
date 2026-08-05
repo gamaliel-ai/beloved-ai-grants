@@ -75,7 +75,7 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 | Form controls | Prefer **native** `<select>` / inputs + Tailwind when enough; reach for shadcn Select only when custom option UI is needed |
 | Client JS bias | Minimize shipped JS for constrained networks; Server Components / Server Actions by default; small client islands (copy key, reveal once) |
 | Background jobs | **Vercel Cron** for usage sync |
-| Admin auth | **Auth.js + GitHub OAuth**, restricted by normalized `ADMIN_EMAILS` |
+| Admin auth | **Auth.js + GitHub OAuth**, restricted by a hardcoded admin email allowlist |
 | CSV import | All-or-nothing validation; idempotent upsert by normalized email |
 | Grantee / OpenAI project | Separate records; one active grant/project per grantee in v1 |
 | Steel-thread verification | Allowlist match only via program invite remains; **claim tokens** prove inbox ownership for `/join` and admin-sent links |

@@ -12,11 +12,9 @@ vi.mock("next/navigation", () => ({ redirect: redirectMock }));
 
 import { requireAdmin } from "@/lib/auth/require-admin";
 
-const originalAdmins = process.env.ADMIN_EMAILS;
 const originalBypass = process.env.AUTH_TEST_BYPASS;
 
 afterEach(() => {
-  process.env.ADMIN_EMAILS = originalAdmins;
   process.env.AUTH_TEST_BYPASS = originalBypass;
   authMock.mockReset();
   redirectMock.mockClear();
@@ -25,16 +23,14 @@ afterEach(() => {
 describe("requireAdmin", () => {
   it("returns an approved normalized GitHub email", async () => {
     delete process.env.AUTH_TEST_BYPASS;
-    process.env.ADMIN_EMAILS = "Owner@Example.com";
-    authMock.mockResolvedValue({ user: { email: "owner@example.com" } });
+    authMock.mockResolvedValue({ user: { email: "lewiscirne@mac.com" } });
 
-    await expect(requireAdmin()).resolves.toBe("owner@example.com");
+    await expect(requireAdmin()).resolves.toBe("lewiscirne@mac.com");
     expect(redirectMock).not.toHaveBeenCalled();
   });
 
   it("redirects an authenticated but unapproved identity", async () => {
     delete process.env.AUTH_TEST_BYPASS;
-    process.env.ADMIN_EMAILS = "owner@example.com";
     authMock.mockResolvedValue({ user: { email: "outsider@example.com" } });
 
     await expect(requireAdmin()).rejects.toThrow("NEXT_REDIRECT");

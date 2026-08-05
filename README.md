@@ -64,9 +64,10 @@ bun run db:migrate
 AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com bun run dev
 ```
 
-Local data uses PGlite by default (port **3002**). Configure GitHub OAuth and
-`ADMIN_EMAILS` for real admin sign-in, or use the auth bypass above in
-non-production. Env is for secrets and `APP_URL` only — see `.env.example`.
+Local data uses PGlite by default (port **3002**). Configure GitHub OAuth
+secrets for real admin sign-in, or use the auth bypass above in
+non-production. Admin emails and the GitHub client ID are hardcoded in source;
+env is for secrets and `APP_URL` only — see `.env.example`.
 
 - `OPENAI_ADMIN_KEY` — live provisioning (else fake gateway; `OPENAI_MODE=fake`
   forces fake when a key is present).
