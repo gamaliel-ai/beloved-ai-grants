@@ -40,13 +40,16 @@ lives in [BACKLOG.md](./BACKLOG.md).
 - [ ] Program intake/approval implementation
   ([B-0006](backlog/B-0006-campaign-intake-and-approval.md))
 
-## Phase 1d — Admin console rewrite
+## Phase 1d — Admin surfaces (dashboard + agent ops)
 
 - Metrics-first dashboard as `/admin` home ([ADMIN-CONSOLE.md](./ADMIN-CONSOLE.md))
-- Admin-only layout with sub-navigation; remove public Admin link
-- Split: dashboard · grants · grantees · applications · program setup
-- Implementation: [B-0007](backlog/B-0007-admin-console-rewrite.md)
+- Admin-only layout; remove public Admin link from header
+- **Open fork:** full CRUD console split (dashboard · grants · grantees ·
+  applications · program) via [B-0007](backlog/B-0007-admin-console-rewrite.md)
+  vs agent-first management via authenticated MCP
+  ([B-0008](backlog/B-0008-mcp-admin-control-plane.md)) with a thinner web viz
 - Usage metrics on dashboard when ingestion lands (B-0001 + B-0002)
+- Spike B-0008 before over-building management pages
 
 ## Phase 2 — API monitoring
 

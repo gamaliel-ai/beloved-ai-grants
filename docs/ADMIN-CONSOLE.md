@@ -10,7 +10,14 @@ overview, separate management pages, admin-only chrome. Implementation:
 
 **Related:** usage data ([B-0001](./backlog/B-0001-usage-ingestion.md)),
 dashboard metrics ([B-0002](./backlog/B-0002-admin-usage-dashboard.md)),
-applications ([B-0006](./backlog/B-0006-campaign-intake-and-approval.md)).
+applications ([B-0006](./backlog/B-0006-campaign-intake-and-approval.md)),
+agent-first management ([B-0008](./backlog/B-0008-mcp-admin-control-plane.md)).
+
+**Open product question (B-0008):** Should mutations (allowlist, invites,
+approve/reject, revoke) live primarily in an authenticated **MCP** surface for
+coding agents, with this console staying **read-mostly usage visualization**?
+If yes, prefer a thin dashboard shell over building every CRUD page below.
+Resolve before investing in the full route map.
 
 ---
 
@@ -252,6 +259,7 @@ in data and B-0006 flows without restructuring again.
 | **B-0003** | Claim/resend email from grantee detail and application approval |
 | **B-0006** | `/admin/applications` + intake fields on `/admin/program` |
 | **B-0007** | **This rewrite** — routes, layout, navigation, page split |
+| **B-0008** | MCP admin control plane — may own mutations; narrows how much CRUD UI this console needs |
 
 ---
 
