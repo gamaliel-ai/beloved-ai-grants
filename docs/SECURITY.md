@@ -32,6 +32,18 @@
 - Acting as an LLM proxy/gateway
 - Giving grantees access to the OpenAI org dashboard
 
+## MCP admin control plane
+
+Operators may mutate grants through authenticated MCP tools
+([MCP-ADMIN.md](./MCP-ADMIN.md), [B-0008](./backlog/B-0008-mcp-admin-control-plane.md)).
+
+| Threat | Mitigation |
+| --- | --- |
+| Stolen MCP operator token | Short TTL (30d), hashed at rest, revoke UI; HTTPS only; same allowlist as web admin |
+| Token ≈ admin session for tools | Never embed `OPENAI_ADMIN_KEY` / DB secrets in the agent; token only authorizes Beloved domain tools |
+| Prompt injection orders `revoke_grant` | Allowlisted operators only; explicit grant id + required reason; audit `actor` = operator email (+ tool name in metadata where applicable). The LLM is not a second auth factor |
+| Non-allowlisted caller | Bearer validation + `assertAdminEmail`; HTTP 401 |
+
 ## Privacy posture
 
 Ordinary operation: usage/spend only, not prompt content. Revoke anytime if needed. Full stance and site-copy checklist: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md).

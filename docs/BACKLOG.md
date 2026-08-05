@@ -7,28 +7,25 @@
 #### [B-0001](backlog/B-0001-usage-ingestion.md): Ingest OpenAI usage activity
 
 **Status:** Open — establish the trustworthy project-level data source needed
-by reporting, alerts, and intervention.
+by reporting, alerts, and intervention. Unblocks dashboard metrics and MCP
+`get_usage_summary`.
 
 #### [B-0002](backlog/B-0002-admin-usage-dashboard.md): Admin usage operations dashboard
 
-**Status:** Open — dashboard metrics and activity views inside the admin console
+**Status:** Open — usage metrics on the thin `/admin` dashboard
 ([B-0007](backlog/B-0007-admin-console-rewrite.md)); depends on B-0001.
-Revisit management vs visualization split with
-[B-0008](backlog/B-0008-mcp-admin-control-plane.md).
+Management mutations are MCP-primary ([B-0008](backlog/B-0008-mcp-admin-control-plane.md)).
 
 #### [B-0008](backlog/B-0008-mcp-admin-control-plane.md): MCP admin control plane (agent-first ops)
 
-**Status:** Open — authenticated MCP tools as the primary management surface
-(allowlist, invites, claim links, approve/revoke); keep the web admin
-read-mostly for usage visualization. May narrow B-0007’s CRUD page scope.
-Discuss / spike before large console rewrite.
+**Status:** Partial — authenticated MCP steel-thread tools + PAT auth + thin
+web dashboard shipped ([MCP-ADMIN.md](./MCP-ADMIN.md)). Intake/usage tools
+reserved until B-0006 / B-0001.
 
 #### [B-0007](backlog/B-0007-admin-console-rewrite.md): Admin console rewrite (IA + layout)
 
-**Status:** Open — metrics-first `/admin` shell, sub-nav, admin-only layout;
-relocate steel-thread setup to Program; split ops pages. Design:
-[ADMIN-CONSOLE.md](./ADMIN-CONSOLE.md). **Hold / re-scope against B-0008**
-before investing in full management pages.
+**Status:** Partial — thin `(admin)` shell + dashboard + emergency revoke
+shipped; full CRUD management pages dropped in favor of MCP.
 
 #### [B-0003](backlog/B-0003-email-delivery-and-notifications.md): Email delivery and lifecycle notifications
 
@@ -40,7 +37,7 @@ lifecycle notices (threshold/revoke) still open.
 
 **Status:** Open — pre-registered emails receive claim links; unmatched
 attendees can submit a light application for admin approval. Approval queue
-may be MCP-primary per [B-0008](backlog/B-0008-mcp-admin-control-plane.md).
+is MCP-primary per [B-0008](backlog/B-0008-mcp-admin-control-plane.md).
 
 ## Deferred
 

@@ -156,6 +156,25 @@ export const auditEvents = pgTable(
   ],
 );
 
+export const mcpOperatorTokens = pgTable(
+  "mcp_operator_tokens",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    email: text("email").notNull(),
+    tokenHash: text("token_hash").notNull(),
+    label: text("label"),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex("mcp_operator_tokens_hash_unique").on(table.tokenHash),
+    index("mcp_operator_tokens_email_idx").on(table.email),
+  ],
+);
+
 export const redeemRateLimits = pgTable(
   "redeem_rate_limits",
   {

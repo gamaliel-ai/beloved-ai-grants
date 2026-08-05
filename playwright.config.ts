@@ -17,7 +17,7 @@ export default defineConfig({
   ],
   webServer: {
     command:
-      "PGLITE_DATA_DIR=./data/e2e bun run db:migrate && PGLITE_DATA_DIR=./data/e2e AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com OPENAI_MODE=fake bun run dev",
+      "PGLITE_DATA_DIR=./data/e2e bun run db:migrate && PGLITE_DATA_DIR=./data/e2e AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com MCP_TEST_TOKEN=test-mcp-token OPENAI_MODE=fake bun run dev",
     url: "http://127.0.0.1:3002",
     reuseExistingServer: true,
     timeout: 120_000,

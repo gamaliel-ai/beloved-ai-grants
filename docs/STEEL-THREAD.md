@@ -5,11 +5,13 @@ Status: **implemented; local verification complete** (claim-link path added)
 ## Included
 
 1. An administrator signs in with GitHub. The hardcoded admin email allowlist
-   is checked on sign-in, page load, and every mutation.
-2. The administrator imports a `name,email` CSV. Import is all-or-nothing and idempotently upserts normalized email addresses.
+   is checked on sign-in, page load, and every mutation (web + MCP).
+2. The administrator manages the allowlist via **MCP** (`upsert_grantee` /
+   `list_grantees`). Agents parse CSV locally and loop upserts — there is no
+   CSV import tool. See [MCP-ADMIN.md](./MCP-ADMIN.md).
 3. **Claim links (primary inbox proof):**
-   - Admin sends a claim link from the grantee list, or a visitor submits an
-     allowlisted email at `/join`.
+   - Admin sends a claim link via MCP `send_claim_link`, or a visitor submits
+     an allowlisted email at `/join`.
    - App creates a hashed, single-use, 48h `claim_tokens` row and sends mail
      via Resend (or the in-process **fake** outbox when `RESEND_API_KEY` is
      missing or `APP_URL` is local).
@@ -17,11 +19,13 @@ Status: **implemented; local verification complete** (claim-link path added)
      project/service account/key and shows the secret once. No API key is
      emailed.
 4. **Program invite fallback:** Admin creates an expiring, capacity-limited
-   invite URL. Visitor opens `/redeem/[token]`, enters an allowlisted email,
-   and receives a key the same way (allowlist match only — no inbox proof).
-5. The administrator can list and revoke grants. Revoke deletes the service
-   account (the supported boundary for its keys), archives the project, and
-   updates the local mirror.
+   invite URL via MCP `create_program_invite`. Visitor opens `/redeem/[token]`,
+   enters an allowlisted email, and receives a key the same way (allowlist
+   match only — no inbox proof).
+5. The administrator can list and revoke grants (MCP `revoke_grant` or
+   emergency revoke on `/admin`). Revoke deletes the service account (the
+   supported boundary for its keys), archives the project, and updates the
+   local mirror.
 
 ## Deliberate limitations
 
@@ -48,7 +52,7 @@ vs live mail) live in code — no `EMAIL_MODE` (or similar) flags.
 bun install
 mkdir -p data
 bun run db:migrate
-AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com bun run dev
+AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com MCP_TEST_TOKEN=test-mcp-token bun run dev
 ```
 
 PGlite writes under `PGLITE_DATA_DIR` (default `./data/beloved-grants`). Set
@@ -58,6 +62,8 @@ Admin authentication requires `AUTH_SECRET` and `AUTH_GITHUB_SECRET` (or the
 non-production auth bypass above). The GitHub OAuth client ID and admin email
 allowlist are hardcoded in source. `APP_URL` defaults to
 `http://localhost:3002` and is used for invite and claim absolute URLs.
+Optional `MCP_TEST_TOKEN` is accepted by `/api/mcp` when bypass is on — see
+[MCP-ADMIN.md](./MCP-ADMIN.md).
 
 Optional secrets:
 
