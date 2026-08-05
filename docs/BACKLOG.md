@@ -1,6 +1,6 @@
 # Backlog
 
-**Next id:** `B-0008`
+**Next id:** `B-0009`
 
 ## Active
 
@@ -13,12 +13,22 @@ by reporting, alerts, and intervention.
 
 **Status:** Open — dashboard metrics and activity views inside the admin console
 ([B-0007](backlog/B-0007-admin-console-rewrite.md)); depends on B-0001.
+Revisit management vs visualization split with
+[B-0008](backlog/B-0008-mcp-admin-control-plane.md).
+
+#### [B-0008](backlog/B-0008-mcp-admin-control-plane.md): MCP admin control plane (agent-first ops)
+
+**Status:** Open — authenticated MCP tools as the primary management surface
+(allowlist, invites, claim links, approve/revoke); keep the web admin
+read-mostly for usage visualization. May narrow B-0007’s CRUD page scope.
+Discuss / spike before large console rewrite.
 
 #### [B-0007](backlog/B-0007-admin-console-rewrite.md): Admin console rewrite (IA + layout)
 
 **Status:** Open — metrics-first `/admin` shell, sub-nav, admin-only layout;
 relocate steel-thread setup to Program; split ops pages. Design:
-[ADMIN-CONSOLE.md](./ADMIN-CONSOLE.md).
+[ADMIN-CONSOLE.md](./ADMIN-CONSOLE.md). **Hold / re-scope against B-0008**
+before investing in full management pages.
 
 #### [B-0003](backlog/B-0003-email-delivery-and-notifications.md): Email delivery and lifecycle notifications
 
@@ -29,7 +39,8 @@ lifecycle notices (threshold/revoke) still open.
 #### [B-0006](backlog/B-0006-campaign-intake-and-approval.md): Program intake, approval, and key claim
 
 **Status:** Open — pre-registered emails receive claim links; unmatched
-attendees can submit a light application for admin approval.
+attendees can submit a light application for admin approval. Approval queue
+may be MCP-primary per [B-0008](backlog/B-0008-mcp-admin-control-plane.md).
 
 ## Deferred
 

@@ -4,9 +4,13 @@
 
 - [B-0001](docs/backlog/B-0001-usage-ingestion.md) — ingest trustworthy
   project-level usage and cost activity.
+- [B-0008](docs/backlog/B-0008-mcp-admin-control-plane.md) — agent-first
+  admin via authenticated MCP; keep web admin for usage visualization.
+  Discuss / spike before a large console rewrite.
 - [B-0007](docs/backlog/B-0007-admin-console-rewrite.md) — admin console
   rewrite (metrics-first IA); design in
-  [ADMIN-CONSOLE.md](docs/ADMIN-CONSOLE.md). Discuss before implementing.
+  [ADMIN-CONSOLE.md](docs/ADMIN-CONSOLE.md). **Re-scope against B-0008**
+  before implementing full management pages.
 - [B-0002](docs/backlog/B-0002-admin-usage-dashboard.md) — usage metrics on
   the dashboard; depends on B-0001 and B-0007 shell.
 

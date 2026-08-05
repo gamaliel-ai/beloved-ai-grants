@@ -63,3 +63,6 @@ This is a **rewrite**, not incremental edits to the existing page.
 - Grantee-facing pages (`/join`, claim flow)
 - RBAC / multiple admin roles
 - Charts beyond simple tables in v1
+- MCP / agent control plane ([B-0008](B-0008-mcp-admin-control-plane.md)) —
+  but **re-scope this rewrite** if B-0008 makes management pages redundant:
+  prefer dashboard shell + emergency actions over a full CRUD console.
