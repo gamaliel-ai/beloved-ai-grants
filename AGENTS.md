@@ -31,8 +31,10 @@ directories on VM startup. The notes below are the non-obvious gotchas.
 - Transactional email defaults to an in-process **fake** outbox. Live Resend
   requires `RESEND_API_KEY` and a non-local `APP_URL`. There is no `EMAIL_MODE`
   env var — mode is derived. From address is `grants@{APP_URL host}` in code.
-- Recommended local dev command for exercising the admin console end to end:
-  `AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com OPENAI_MODE=fake bun run dev`.
+- Recommended local dev command for exercising the admin console + MCP end to end:
+ `AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com OPENAI_MODE=fake bun run dev`.
+  MCP endpoint: `/api/mcp` with Bearer `test-mcp-token` (hardcoded when bypass
+  is on — not an env var). Connect docs: `docs/MCP-ADMIN.md`.
 
 ### Gotchas
 

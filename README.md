@@ -45,8 +45,9 @@ Grantees are **not** added to our OpenAI org. No lock-in — they can buy their 
 
 ## Repo status
 
-The API-grant steel thread is implemented: GitHub-protected admin, idempotent
-allowlist import, **claim tokens** (`/join` → email → `/claim/[token]`),
+The API-grant steel thread is implemented: GitHub-protected admin, **MCP admin
+control plane** for allowlist/invites/revoke ([docs/MCP-ADMIN.md](docs/MCP-ADMIN.md)),
+thin `/admin` dashboard, **claim tokens** (`/join` → email → `/claim/[token]`),
 program-invite fallback redeem, one-time key reveal, and revoke. Transactional
 mail uses Resend when `RESEND_API_KEY` is set and `APP_URL` is non-local;
 otherwise a fake outbox. See [docs/STEEL-THREAD.md](docs/STEEL-THREAD.md).
@@ -87,6 +88,8 @@ env is for secrets and `APP_URL` only — see `.env.example`.
 | [docs/ACCESS-AND-PROVISIONING.md](docs/ACCESS-AND-PROVISIONING.md) | Redeem channels and key handoff |
 | [docs/DATA-MODEL.md](docs/DATA-MODEL.md) | Grantees, keys, OpenAI as source of truth |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Control-plane system shape |
+| [docs/MCP-ADMIN.md](docs/MCP-ADMIN.md) | MCP admin connect, auth, tool catalog |
+| [docs/ADMIN-CONSOLE.md](docs/ADMIN-CONSOLE.md) | Thin web admin dashboard design |
 | [docs/OPENAI-ADMIN-API.md](docs/OPENAI-ADMIN-API.md) | Admin API feasibility |
 | [docs/PRIVACY-AND-DATA.md](docs/PRIVACY-AND-DATA.md) | What we see, revoke rights, no lock-in |
 | [docs/SECURITY.md](docs/SECURITY.md) | Threat model and guardrails |

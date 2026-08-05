@@ -13,6 +13,7 @@ backlogs, with Beloved ticket ids **`B-NNNN`**.
 | --- | --- |
 | What are we doing now? | [`../focus.md`](../focus.md) |
 | Durable product and architecture | Existing topic docs in `docs/` |
+| Operator MCP connect + tool catalog | [`MCP-ADMIN.md`](MCP-ADMIN.md) |
 | Phased product sequence | [`ROADMAP.md`](ROADMAP.md) |
 | Implementable work | [`BACKLOG.md`](BACKLOG.md) + `backlog/` |
 

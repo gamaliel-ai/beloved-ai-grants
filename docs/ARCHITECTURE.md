@@ -40,12 +40,12 @@ Program context: this architecture covers the **API key track**. The **agent / t
 | Piece | Responsibility |
 | --- | --- |
 | Public site | Landing, request form, redeem invite/QR |
-| Admin console | Usage visualization and light ops — [ADMIN-CONSOLE.md](./ADMIN-CONSOLE.md); may stay read-mostly if MCP owns mutations ([B-0008](./backlog/B-0008-mcp-admin-control-plane.md)) |
-| MCP admin (proposed) | Authenticated agent tools for allowlist, invites, approve/reject, revoke — same domain services as the console |
+| Admin console | Read-mostly usage visualization + emergency revoke — [ADMIN-CONSOLE.md](./ADMIN-CONSOLE.md) |
+| MCP admin | Authenticated agent tools for allowlist, invites, claim links, revoke (and later approve/reject) — same domain services; [MCP-ADMIN.md](./MCP-ADMIN.md), [B-0008](./backlog/B-0008-mcp-admin-control-plane.md) |
 | Provisioning service | Talks to OpenAI Admin API; transactional with DB |
 | Sync job | Pulls usage/costs periodically into local tables |
 | Datastore | Grants, invites, admin users, OpenAI external IDs, audit of our actions |
-| Auth | Admin auth required (GitHub OAuth + allowlist today); grantee redeem may be code-only (no account) for v1; MCP must reuse equivalent operator auth |
+| Auth | Admin auth required (GitHub OAuth + allowlist); MCP uses operator PAT Bearer tokens minted after the same allowlist check; grantee redeem/claim may be code-only (no account) for v1 |
 
 ## Data model
 

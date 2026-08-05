@@ -76,7 +76,10 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 | Client JS bias | Minimize shipped JS for constrained networks; Server Components / Server Actions by default; small client islands (copy key, reveal once) |
 | Background jobs | **Vercel Cron** for usage sync |
 | Admin auth | **Auth.js + GitHub OAuth**, restricted by a hardcoded admin email allowlist |
-| CSV import | All-or-nothing validation; idempotent upsert by normalized email |
+| Admin management surface | **Authenticated MCP tools** are primary for mutations (allowlist, invites, claim links, revoke); web `/admin` is read-mostly usage viz + emergency revoke — [MCP-ADMIN.md](./MCP-ADMIN.md), [B-0008](./backlog/B-0008-mcp-admin-control-plane.md) |
+| MCP auth | Operator **PAT** minted after GitHub allowlist sign-in; Bearer header on Streamable HTTP `/api/mcp`. Non-prod `AUTH_TEST_BYPASS` accepts hardcoded `AUTH_TEST_MCP_TOKEN` (not an env var). Not full MCP OAuth 2.1 discovery in v1 |
+| Allowlist upsert | Single-email `upsert_grantee` (agents parse CSV locally and loop). No MCP CSV import tool; web CSV upload retired |
+| CSV import (legacy helper) | `importGranteesCsv` remains for tests/legacy; not an operator path |
 | Grantee / OpenAI project | Separate records; one active grant/project per grantee in v1 |
 | Steel-thread verification | Allowlist match only via program invite remains; **claim tokens** prove inbox ownership for `/join` and admin-sent links |
 | Claim tokens | Hashed, single-use, 48h TTL; provision on `/claim/[token]` click; never email the API key; fake mailer when local / no Resend key |
@@ -91,3 +94,4 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 2. Which **agent tools** we fund for track 1, and procurement (seats vs coupons vs reimbursement)  
 3. Whether conference redeem offers both tracks in one flow or agent-first then API later  
 4. Final optional application fields and approval batch UX
+5. Whether to upgrade MCP PAT auth to full OAuth 2.1 discovery if a client requires it
