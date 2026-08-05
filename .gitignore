@@ -35,3 +35,4 @@ data/
 .test-attempts/
 test-results/
 playwright-report/
+.vercel

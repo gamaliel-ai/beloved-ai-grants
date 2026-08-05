@@ -70,6 +70,7 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 | Grantee usage UI | Thin layer over Admin usage/costs (“spent vs limit”), not a full OpenAI console clone |
 | Framework / host | **Next.js** (App Router) on **Vercel** |
 | Datastore | **Neon/Postgres** (hosted); **PGlite** for local dev; **Drizzle** schema + SQL migrations |
+| Schema deploy | **`db:migrate` before `next build`** on Vercel (unpooled Neon URL preferred for DDL) |
 | Styling | **Tailwind CSS** |
 | UI components | **shadcn/ui** as a parts bin (only add what we use) — not a full design-system install |
 | Form controls | Prefer **native** `<select>` / inputs + Tailwind when enough; reach for shadcn Select only when custom option UI is needed |

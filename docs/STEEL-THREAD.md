@@ -58,6 +58,11 @@ AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com bun run dev
 PGlite writes under `PGLITE_DATA_DIR` (default `./data/beloved-grants`). Set
 `DATABASE_URL` for hosted Postgres/Neon.
 
+**Deploy:** `bun run build` (Vercel’s build command) runs `db:migrate` first.
+Migrations prefer `DATABASE_URL_UNPOOLED` / `POSTGRES_URL_NON_POOLING`, then
+`DATABASE_URL`, so preview/production deploys apply pending Drizzle SQL before
+the new app code serves traffic.
+
 Admin authentication requires `AUTH_SECRET` and `AUTH_GITHUB_SECRET` (or the
 non-production auth bypass above). The GitHub OAuth client ID and admin email
 allowlist are hardcoded in source. `APP_URL` defaults to

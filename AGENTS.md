@@ -40,11 +40,10 @@ directories on VM startup. The notes below are the non-obvious gotchas.
 
 - `.env` is gitignored. Copy it once from `.env.example` (`cp .env.example .env`)
   before running the app or migrations.
-- **`bun run db:migrate` fails if the `data/` directory does not exist.** PGlite's
-  NodeFS only creates the leaf directory, not parents, so a fresh checkout errors
-  with `ENOENT ... mkdir '.../data/beloved-grants'`. Ensure `mkdir -p data`
-  first (the update script does this; run it manually if migrating into a new
-  `PGLITE_DATA_DIR`).
+- **`bun run build` runs `db:migrate` first** (so Vercel preview/production apply
+  pending Drizzle SQL before serving). Migrate prefers Neon unpooled
+  (`DATABASE_URL_UNPOOLED` / `POSTGRES_URL_NON_POOLING`) then `DATABASE_URL`.
+  Local PGlite migrate creates parent dirs for `PGLITE_DATA_DIR` automatically.
 - The Playwright e2e suite (`bun run test:e2e`) starts its **own** dev server via
   `playwright.config.ts` (with the auth bypass + fake OpenAI + `PGLITE_DATA_DIR=./data/e2e`),
   runs migrations itself, and reuses an already-running server on port 3002 if

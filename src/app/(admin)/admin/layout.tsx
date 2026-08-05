@@ -42,12 +42,10 @@ export default async function AdminLayout({
             </nav>
           </div>
           <div className="flex flex-wrap items-center gap-3 text-sm">
-            <Badge
-              variant={openAIMode === "live" ? "destructive" : "secondary"}
-            >
+            <Badge variant={openAIMode === "live" ? "default" : "secondary"}>
               OpenAI {openAIMode}
             </Badge>
-            <Badge variant={mailMode === "live" ? "destructive" : "secondary"}>
+            <Badge variant={mailMode === "live" ? "default" : "secondary"}>
               Email {mailMode}
             </Badge>
             <span className="text-muted-foreground">{actor}</span>
