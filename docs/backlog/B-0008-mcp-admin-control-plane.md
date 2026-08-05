@@ -24,7 +24,7 @@ surface for mutations and list/query ops, and keep the web admin to
 
 - Streamable HTTP MCP endpoint at `/api/mcp` (same Next.js deploy).
 - Operator PAT mint/revoke at `/admin/mcp` (hashed at rest, 30d TTL).
-- Non-prod `MCP_TEST_TOKEN` under `AUTH_TEST_BYPASS`.
+- Non-prod hardcoded `AUTH_TEST_MCP_TOKEN` under `AUTH_TEST_BYPASS` (no env var).
 - Phase A tools: `list_grantees`, `upsert_grantee`, `remove_grantee`,
   `list_grants`, `send_claim_link`, `revoke_grant`, `create_program_invite`,
   `list_program_invites`.

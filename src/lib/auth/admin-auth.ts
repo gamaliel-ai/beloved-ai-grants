@@ -20,6 +20,12 @@ export function getAuthTestEmail() {
   );
 }
 
+/**
+ * Fixed MCP Bearer accepted only when AUTH_TEST_BYPASS is active.
+ * Not a secret — local/e2e convenience, ignored in production.
+ */
+export const AUTH_TEST_MCP_TOKEN = "test-mcp-token";
+
 /** Shared allowlist check for cookie sessions and MCP bearer tokens. */
 export function assertAdminEmail(email: string | null | undefined): string {
   if (!email) {

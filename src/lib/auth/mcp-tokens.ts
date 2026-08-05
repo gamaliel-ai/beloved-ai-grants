@@ -5,6 +5,7 @@ import { mcpOperatorTokens } from "@/lib/db/schema";
 import {
   AdminAuthError,
   assertAdminEmail,
+  AUTH_TEST_MCP_TOKEN,
   getAuthTestEmail,
   isAuthTestBypassActive,
 } from "./admin-auth";
@@ -136,7 +137,8 @@ async function authenticateDbToken(db: AppDatabase, token: string) {
 
 /**
  * Resolve the operator email from an Authorization Bearer header.
- * Non-production AUTH_TEST_BYPASS may accept MCP_TEST_TOKEN without a DB row.
+ * Non-production AUTH_TEST_BYPASS accepts the hardcoded AUTH_TEST_MCP_TOKEN
+ * without a DB row (same idea as AUTH_TEST_EMAIL).
  */
 export async function authenticateMcpBearer(
   db: AppDatabase,
@@ -147,11 +149,7 @@ export async function authenticateMcpBearer(
     throw new McpAuthError();
   }
 
-  if (
-    isAuthTestBypassActive() &&
-    process.env.MCP_TEST_TOKEN &&
-    token === process.env.MCP_TEST_TOKEN
-  ) {
+  if (isAuthTestBypassActive() && token === AUTH_TEST_MCP_TOKEN) {
     return assertAdminEmail(getAuthTestEmail());
   }
 

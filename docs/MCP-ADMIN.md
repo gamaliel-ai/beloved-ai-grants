@@ -33,19 +33,20 @@ Non-production only:
 ```bash
 AUTH_TEST_BYPASS=1 \
 AUTH_TEST_EMAIL=test-admin@example.com \
-MCP_TEST_TOKEN=test-mcp-token \
 OPENAI_MODE=fake \
 bun run dev
 ```
 
-`MCP_TEST_TOKEN` is accepted as a Bearer token when bypass is active. Ignored
-when `NODE_ENV=production`.
+When bypass is active, `/api/mcp` accepts the hardcoded Bearer
+`test-mcp-token` (`AUTH_TEST_MCP_TOKEN` in code) — same pattern as the default
+test admin email. Ignored when `NODE_ENV=production`. No extra env var.
 
 ## Auth model
 
 - Identity: same GitHub OAuth + hardcoded allowlist as the web admin.
-- MCP credential: short-lived hashed **operator PAT** (or `MCP_TEST_TOKEN` in
-  non-prod bypass). Presented as `Authorization: Bearer …` on every request.
+- MCP credential: short-lived hashed **operator PAT** (or the hardcoded
+  bypass test token in non-prod). Presented as `Authorization: Bearer …` on
+  every request.
 - Never put `OPENAI_ADMIN_KEY`, DB credentials, or Auth.js cookies in the agent.
 - Failed auth returns HTTP **401** (no redirect).
 

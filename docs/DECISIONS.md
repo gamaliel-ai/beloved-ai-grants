@@ -77,7 +77,7 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 | Background jobs | **Vercel Cron** for usage sync |
 | Admin auth | **Auth.js + GitHub OAuth**, restricted by a hardcoded admin email allowlist |
 | Admin management surface | **Authenticated MCP tools** are primary for mutations (allowlist, invites, claim links, revoke); web `/admin` is read-mostly usage viz + emergency revoke — [MCP-ADMIN.md](./MCP-ADMIN.md), [B-0008](./backlog/B-0008-mcp-admin-control-plane.md) |
-| MCP auth | Operator **PAT** minted after GitHub allowlist sign-in; Bearer header on Streamable HTTP `/api/mcp`. Non-prod `AUTH_TEST_BYPASS` may accept `MCP_TEST_TOKEN`. Not full MCP OAuth 2.1 discovery in v1 |
+| MCP auth | Operator **PAT** minted after GitHub allowlist sign-in; Bearer header on Streamable HTTP `/api/mcp`. Non-prod `AUTH_TEST_BYPASS` accepts hardcoded `AUTH_TEST_MCP_TOKEN` (not an env var). Not full MCP OAuth 2.1 discovery in v1 |
 | Allowlist upsert | Single-email `upsert_grantee` (agents parse CSV locally and loop). No MCP CSV import tool; web CSV upload retired |
 | CSV import (legacy helper) | `importGranteesCsv` remains for tests/legacy; not an operator path |
 | Grantee / OpenAI project | Separate records; one active grant/project per grantee in v1 |

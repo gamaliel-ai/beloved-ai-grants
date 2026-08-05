@@ -62,7 +62,7 @@ bun install
 cp .env.example .env
 mkdir -p data
 bun run db:migrate
-AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com MCP_TEST_TOKEN=test-mcp-token bun run dev
+AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com bun run dev
 ```
 
 Local data uses PGlite by default (port **3002**). Configure GitHub OAuth

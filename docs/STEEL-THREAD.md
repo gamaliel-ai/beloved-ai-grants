@@ -52,7 +52,7 @@ vs live mail) live in code — no `EMAIL_MODE` (or similar) flags.
 bun install
 mkdir -p data
 bun run db:migrate
-AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com MCP_TEST_TOKEN=test-mcp-token bun run dev
+AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com bun run dev
 ```
 
 PGlite writes under `PGLITE_DATA_DIR` (default `./data/beloved-grants`). Set
@@ -62,8 +62,8 @@ Admin authentication requires `AUTH_SECRET` and `AUTH_GITHUB_SECRET` (or the
 non-production auth bypass above). The GitHub OAuth client ID and admin email
 allowlist are hardcoded in source. `APP_URL` defaults to
 `http://localhost:3002` and is used for invite and claim absolute URLs.
-Optional `MCP_TEST_TOKEN` is accepted by `/api/mcp` when bypass is on — see
-[MCP-ADMIN.md](./MCP-ADMIN.md).
+With bypass on, `/api/mcp` accepts the hardcoded Bearer `test-mcp-token` —
+see [MCP-ADMIN.md](./MCP-ADMIN.md).
 
 Optional secrets:
 

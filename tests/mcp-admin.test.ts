@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { eq } from "drizzle-orm";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
+import { AUTH_TEST_MCP_TOKEN } from "@/lib/auth/admin-auth";
 import {
   authenticateMcpBearer,
   createMcpOperatorToken,
@@ -18,12 +19,10 @@ import { migratedTestDb } from "./helpers/database";
 
 const originalBypass = process.env.AUTH_TEST_BYPASS;
 const originalTestEmail = process.env.AUTH_TEST_EMAIL;
-const originalTestToken = process.env.MCP_TEST_TOKEN;
 
 afterEach(() => {
   process.env.AUTH_TEST_BYPASS = originalBypass;
   process.env.AUTH_TEST_EMAIL = originalTestEmail;
-  process.env.MCP_TEST_TOKEN = originalTestToken;
 });
 
 describe("MCP operator tokens", () => {
@@ -38,15 +37,14 @@ describe("MCP operator tokens", () => {
     }
   });
 
-  it("accepts MCP_TEST_TOKEN under AUTH_TEST_BYPASS", async () => {
+  it("accepts the hardcoded test token under AUTH_TEST_BYPASS", async () => {
     process.env.AUTH_TEST_BYPASS = "1";
     process.env.AUTH_TEST_EMAIL = "test-admin@example.com";
-    process.env.MCP_TEST_TOKEN = "test-mcp-token";
 
     const { db, client } = await migratedTestDb();
     try {
       await expect(
-        authenticateMcpBearer(db, "Bearer test-mcp-token"),
+        authenticateMcpBearer(db, `Bearer ${AUTH_TEST_MCP_TOKEN}`),
       ).resolves.toBe("test-admin@example.com");
     } finally {
       await client.close();
@@ -55,7 +53,6 @@ describe("MCP operator tokens", () => {
 
   it("mints and authenticates a hashed DB token for an allowlisted actor", async () => {
     delete process.env.AUTH_TEST_BYPASS;
-    delete process.env.MCP_TEST_TOKEN;
 
     const { db, client } = await migratedTestDb();
     try {
