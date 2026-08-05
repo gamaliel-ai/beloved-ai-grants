@@ -4,7 +4,7 @@ Status: **implemented; local verification complete** (claim-link path added)
 
 ## Included
 
-1. An administrator signs in with GitHub. The hardcoded admin email allowlist
+1. An administrator signs in with GitHub. The `ADMIN_EMAILS` allowlist
    is checked on sign-in, page load, and every mutation (web + MCP).
 2. The administrator manages the allowlist via **MCP** (`upsert_grantee` /
    `list_grantees`). Agents parse CSV locally and loop upserts — there is no
@@ -42,9 +42,10 @@ Status: **implemented; local verification complete** (claim-link path added)
 
 ## Config rule
 
-Env vars are for **secrets** and the public hostname (`APP_URL`) only. Product
-constants (sender local-part, claim TTL, subjects) and derived behavior (fake
-vs live mail) live in code — no `EMAIL_MODE` (or similar) flags.
+Env vars are for **secrets**, the public hostname (`APP_URL`), and operator
+identity (`ADMIN_EMAILS`, `AUTH_GITHUB_ID`). Product constants (sender
+local-part, claim TTL, subjects) and derived behavior (fake vs live mail) live
+in code — no `EMAIL_MODE` (or similar) flags.
 
 ## Run locally
 
@@ -63,12 +64,12 @@ Migrations prefer `DATABASE_URL_UNPOOLED` / `POSTGRES_URL_NON_POOLING`, then
 `DATABASE_URL`, so preview/production deploys apply pending Drizzle SQL before
 the new app code serves traffic.
 
-Admin authentication requires `AUTH_SECRET` and `AUTH_GITHUB_SECRET` (or the
-non-production auth bypass above). The GitHub OAuth client ID and admin email
-allowlist are hardcoded in source. `APP_URL` defaults to
-`http://localhost:3002` and is used for invite and claim absolute URLs.
-With bypass on, `/api/mcp` accepts the hardcoded Bearer `test-mcp-token` —
-see [MCP-ADMIN.md](./MCP-ADMIN.md).
+Admin authentication requires `AUTH_SECRET`, `AUTH_GITHUB_ID`,
+`AUTH_GITHUB_SECRET`, and `ADMIN_EMAILS` (or the non-production auth bypass
+above). `APP_URL` defaults to `http://localhost:3002` and is used for invite
+and claim absolute URLs. With bypass on, `/api/mcp` accepts Bearer
+`AUTH_TEST_MCP_TOKEN` (default `test-mcp-token`) — see
+[MCP-ADMIN.md](./MCP-ADMIN.md).
 
 Optional secrets:
 

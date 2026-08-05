@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
-import { AUTH_TEST_MCP_TOKEN } from "@/lib/auth/admin-auth";
+import { getAuthTestMcpToken } from "@/lib/auth/admin-auth";
 
 async function withMcpClient<T>(
   fn: (client: Client) => Promise<T>,
@@ -12,7 +12,7 @@ async function withMcpClient<T>(
     {
       requestInit: {
         headers: {
-          Authorization: `Bearer ${AUTH_TEST_MCP_TOKEN}`,
+          Authorization: `Bearer ${getAuthTestMcpToken()}`,
         },
       },
     },

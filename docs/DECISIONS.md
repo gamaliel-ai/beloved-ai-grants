@@ -76,9 +76,9 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 | Form controls | Prefer **native** `<select>` / inputs + Tailwind when enough; reach for shadcn Select only when custom option UI is needed |
 | Client JS bias | Minimize shipped JS for constrained networks; Server Components / Server Actions by default; small client islands (copy key, reveal once) |
 | Background jobs | **Vercel Cron** for usage sync |
-| Admin auth | **Auth.js + GitHub OAuth**, restricted by a hardcoded admin email allowlist |
+| Admin auth | **Auth.js + GitHub OAuth**, restricted by `ADMIN_EMAILS` (comma-separated GitHub account emails) |
 | Admin management surface | **Authenticated MCP tools** are primary for mutations (allowlist, invites, claim links, revoke); web `/admin` is read-mostly usage viz + emergency revoke — [MCP-ADMIN.md](./MCP-ADMIN.md), [B-0008](./backlog/B-0008-mcp-admin-control-plane.md) |
-| MCP auth | Operator **PAT** minted after GitHub allowlist sign-in; Bearer header on Streamable HTTP `/api/mcp`. Non-prod `AUTH_TEST_BYPASS` accepts hardcoded `AUTH_TEST_MCP_TOKEN` (not an env var). Not full MCP OAuth 2.1 discovery in v1 |
+| MCP auth | Operator **PAT** minted after GitHub allowlist sign-in; Bearer header on Streamable HTTP `/api/mcp`. Non-prod `AUTH_TEST_BYPASS` accepts `AUTH_TEST_MCP_TOKEN` (default `test-mcp-token`). Not full MCP OAuth 2.1 discovery in v1 |
 | Allowlist upsert | Single-email `upsert_grantee` (agents parse CSV locally and loop). No MCP CSV import tool; web CSV upload retired |
 | CSV import (legacy helper) | `importGranteesCsv` remains for tests/legacy; not an operator path |
 | Grantee / OpenAI project | Separate records; one active grant/project per grantee in v1 |
@@ -86,7 +86,7 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 | Claim tokens | Hashed, single-use, 48h TTL; provision on `/claim/[token]` click; never email the API key; fake mailer when local / no Resend key |
 | Steel-thread spend controls | Per-project hard limit and org ceiling configuration deferred; do not present alerts as enforcement |
 | Public base URL | Single env `APP_URL` (local default `http://localhost:3002`). Derive invite/claim links, email absolute URLs, and OAuth callback base from it — do not add parallel `AUTH_URL` / link-base env vars |
-| Config vs secrets | Env only for **secrets** and the public hostname (`APP_URL`). Everything else is a code constant or derived (sender local-part, TTLs, fake vs live mail, subjects). No mode/flag env vars for product behavior |
+| Config vs secrets | Env for **secrets**, public hostname (`APP_URL`), and **operator identity** (`ADMIN_EMAILS`, `AUTH_GITHUB_ID`). Product constants stay in code or derived (sender local-part, TTLs, fake vs live mail, subjects). No mode/flag env vars for product behavior |
 | Transactional email | **Resend** under the LKC Studios LLC team; dedicated API key per app. `From` = `{local-part}@{APP_URL hostname}`. Mail is fake when `RESEND_API_KEY` is missing or `APP_URL` is local — never a separate mode env var |
 
 ## Still open

@@ -20,7 +20,7 @@ directories on VM startup. The notes below are the non-obvious gotchas.
 - No separate database or Docker is needed. The DB is **embedded PGlite** by
   default (files under `PGLITE_DATA_DIR`, default `./data/beloved-grants`); a
   remote Neon/Postgres is used only if `DATABASE_URL` is set.
-- Admin auth is GitHub OAuth + a hardcoded admin email allowlist, but **you do not need real OAuth
+- Admin auth is GitHub OAuth + `ADMIN_EMAILS` (comma-separated), but **you do not need real OAuth
   credentials** to develop or test. Non-production requests honor a bypass:
   run with `AUTH_TEST_BYPASS=1` (and optionally `AUTH_TEST_EMAIL=...`) to be
   treated as an admin. The bypass is ignored when `NODE_ENV=production`.
@@ -32,9 +32,9 @@ directories on VM startup. The notes below are the non-obvious gotchas.
   requires `RESEND_API_KEY` and a non-local `APP_URL`. There is no `EMAIL_MODE`
   env var — mode is derived. From address is `grants@{APP_URL host}` in code.
 - Recommended local dev command for exercising the admin console + MCP end to end:
- `AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com OPENAI_MODE=fake bun run dev`.
-  MCP endpoint: `/api/mcp` with Bearer `test-mcp-token` (hardcoded when bypass
-  is on — not an env var). Connect docs: `docs/MCP-ADMIN.md`.
+  `AUTH_TEST_BYPASS=1 AUTH_TEST_EMAIL=test-admin@example.com OPENAI_MODE=fake bun run dev`.
+  MCP endpoint: `/api/mcp` with Bearer `AUTH_TEST_MCP_TOKEN` (default
+  `test-mcp-token` when bypass is on). Connect docs: `docs/MCP-ADMIN.md`.
 
 ### Gotchas
 

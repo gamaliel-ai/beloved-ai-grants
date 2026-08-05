@@ -1,12 +1,19 @@
-/** Admin allowlist — GitHub account emails only. Not a secret. */
-const ADMIN_EMAILS = ["lewiscirne@mac.com"] as const;
+/** Admin allowlist — GitHub account emails from ADMIN_EMAILS (comma-separated). */
 
 export function normalizeEmail(value: string) {
   return value.trim().toLowerCase();
 }
 
+function parseAdminEmails() {
+  const raw = process.env.ADMIN_EMAILS ?? "";
+  return raw
+    .split(",")
+    .map((part) => normalizeEmail(part))
+    .filter((email) => email.length > 0);
+}
+
 export function adminEmails() {
-  return new Set(ADMIN_EMAILS.map(normalizeEmail));
+  return new Set(parseAdminEmails());
 }
 
 export function isAdminEmail(email: string | null | undefined) {
