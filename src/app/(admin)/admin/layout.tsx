@@ -3,7 +3,7 @@ import { signOut } from "@/auth";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { getMailMode } from "@/lib/mail/client";
 import { getOpenAIMode } from "@/lib/openai/client";
-import { site } from "@/lib/site";
+import { BrandMark } from "@/components/brand-mark";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -23,17 +23,15 @@ export default async function AdminLayout({
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <header className="border-b bg-card">
+      <header className="border-b border-white/10 bg-brand-ink text-brand-parchment">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-3">
           <div className="flex flex-wrap items-center gap-6">
-            <Link className="font-semibold tracking-tight" href="/admin">
-              {site.name} Admin
-            </Link>
-            <nav className="flex items-center gap-4 text-sm">
+            <BrandMark href="/admin" subtitle="Admin" compact />
+            <nav className="flex items-center gap-4 text-[11px] tracking-[0.18em] text-brand-gold uppercase">
               {nav.map((item) => (
                 <Link
                   key={item.href}
-                  className="text-muted-foreground hover:text-foreground"
+                  className="transition-colors hover:text-brand-parchment"
                   href={item.href}
                 >
                   {item.label}
@@ -48,23 +46,26 @@ export default async function AdminLayout({
             <Badge variant={mailMode === "live" ? "default" : "secondary"}>
               Email {mailMode}
             </Badge>
-            <span className="text-muted-foreground">{actor}</span>
+            <span className="text-brand-parchment/70">{actor}</span>
             <form
               action={async () => {
                 "use server";
                 await signOut({ redirectTo: "/" });
               }}
             >
-              <Button type="submit" variant="outline" size="sm">
+              <Button
+                type="submit"
+                variant="outline"
+                size="sm"
+                className="border-brand-gold/40 bg-transparent text-brand-parchment hover:bg-brand-gold/15 hover:text-brand-parchment"
+              >
                 Sign out
               </Button>
             </form>
           </div>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
-        {children}
-      </main>
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">{children}</main>
     </div>
   );
 }

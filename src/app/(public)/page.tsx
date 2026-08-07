@@ -1,54 +1,52 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { forum, links, site } from "@/lib/site";
+
+function SectionLabel({ children }: { children: ReactNode }) {
+  return (
+    <p className="text-[11px] font-medium tracking-[0.28em] text-brand-gold-deep uppercase">
+      {children}
+    </p>
+  );
+}
 
 export default function HomePage() {
   return (
-    <div className="mx-auto max-w-2xl space-y-16">
-      <section className="space-y-4">
-        <p className="text-sm font-medium text-primary">{site.name}</p>
-        <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+    <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20">
+      <section className="space-y-6">
+        <SectionLabel>{site.name}</SectionLabel>
+        <h1 className="font-display text-4xl font-light tracking-tight text-balance sm:text-5xl md:text-6xl">
           A remarkable time to build.
         </h1>
-        <p className="text-lg text-muted-foreground text-pretty">
+        <p className="text-lg font-light leading-relaxed text-muted-foreground text-pretty">
           AI has changed what one person can create. We want to inspire and
           support entrepreneurs in Kenya and beyond as they discover new ways to
           innovate, serve others, and grow businesses that help communities
           flourish.
         </p>
-        <div className="flex flex-wrap gap-x-5 gap-y-2 pt-1 text-sm">
-          <Link
-            className="font-medium text-primary underline-offset-4 hover:underline"
-            href="/join"
-          >
-            Claim with your email
-          </Link>
-          <Link
-            className="font-medium text-primary underline-offset-4 hover:underline"
-            href="/faq"
-          >
-            How the program works
-          </Link>
-          <Link
-            className="font-medium text-primary underline-offset-4 hover:underline"
-            href="/resources"
-          >
-            Getting started with AI
-          </Link>
+        <div className="flex flex-wrap items-center gap-3 pt-2">
+          <Button asChild size="lg">
+            <Link href="/join">Claim with your email</Link>
+          </Button>
+          <Button asChild variant="outline" size="lg">
+            <Link href="/faq">How the program works</Link>
+          </Button>
         </div>
       </section>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight">
-          Why we are doing this
+      <section className="space-y-4 border-t border-brand-gold/30 pt-12">
+        <SectionLabel>Why we are doing this</SectionLabel>
+        <h2 className="font-display text-2xl font-light tracking-tight sm:text-3xl">
+          Tools in the hands of builders
         </h2>
-        <p className="text-muted-foreground text-pretty">
+        <p className="font-light leading-relaxed text-muted-foreground text-pretty">
           With AI, what once took a dozen engineers and millions of dollars can
           begin with a passionate founder and a laptop. There has never been a
           better time to build. That is good news for entrepreneurship in Kenya
           and beyond. Beloved AI Grants is a ministry of the{" "}
           <a
-            className="font-medium text-foreground underline-offset-4 hover:underline"
+            className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
             href={links.belovedInChrist}
             rel="noopener noreferrer"
             target="_blank"
@@ -60,20 +58,23 @@ export default function HomePage() {
         </p>
       </section>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight">What we offer</h2>
-        <p className="text-muted-foreground text-pretty">
+      <section className="space-y-4 border-t border-brand-gold/30 pt-12">
+        <SectionLabel>What we offer</SectionLabel>
+        <h2 className="font-display text-2xl font-light tracking-tight sm:text-3xl">
+          Sponsored OpenAI access
+        </h2>
+        <p className="font-light leading-relaxed text-muted-foreground text-pretty">
           Approved participants receive a sponsored{" "}
           <span className="text-foreground">OpenAI API key</span>—so you can
           build with AI while you develop your product, and use it to power what
           you ship. There is no lock-in: as you grow, you can move to your own
           account anytime.
         </p>
-        <p className="text-muted-foreground text-pretty">
+        <p className="font-light leading-relaxed text-muted-foreground text-pretty">
           Access is by program registration. If you are part of a cohort or
           forum, open{" "}
           <Link
-            className="font-medium text-foreground underline-offset-4 hover:underline"
+            className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
             href="/join"
           >
             /join
@@ -83,29 +84,29 @@ export default function HomePage() {
         </p>
       </section>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight">
-          Launching in Nairobi
+      <section className="space-y-4 border-t border-brand-gold/30 pt-12">
+        <SectionLabel>Launching in Nairobi</SectionLabel>
+        <h2 className="font-display text-2xl font-light tracking-tight sm:text-3xl">
+          {forum.name}
         </h2>
-        <p className="text-muted-foreground text-pretty">
-          We are launching this program at the{" "}
-          <span className="text-foreground">{forum.name}</span> in{" "}
-          {forum.city} ({forum.dates})—a gathering of Christian innovators,
-          students, and business leaders around faith, entrepreneurship, and
-          technology. If you are attending, you are exactly who this site is
-          for.
+        <p className="font-light leading-relaxed text-muted-foreground text-pretty">
+          We are launching this program at the {forum.name} in {forum.city} (
+          {forum.dates})—a gathering of Christian innovators, students, and
+          business leaders around faith, entrepreneurship, and technology. If
+          you are attending, you are exactly who this site is for.
         </p>
       </section>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight">
-          Built by a builder
+      <section className="space-y-4 border-t border-brand-gold/30 pt-12">
+        <SectionLabel>Built by a builder</SectionLabel>
+        <h2 className="font-display text-2xl font-light tracking-tight sm:text-3xl">
+          Faith and technology, practiced daily
         </h2>
-        <p className="text-muted-foreground text-pretty">
+        <p className="font-light leading-relaxed text-muted-foreground text-pretty">
           Lew Cirne, founder of the Beloved in Christ Foundation, still programs
           with AI almost every day. See projects underway at{" "}
           <a
-            className="font-medium text-foreground underline-offset-4 hover:underline"
+            className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
             href={links.lkcStudios}
             rel="noopener noreferrer"
             target="_blank"
@@ -114,7 +115,7 @@ export default function HomePage() {
           </a>
           —including{" "}
           <a
-            className="font-medium text-foreground underline-offset-4 hover:underline"
+            className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
             href={links.gamaliel}
             rel="noopener noreferrer"
             target="_blank"
@@ -126,34 +127,32 @@ export default function HomePage() {
         </p>
       </section>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Have a program invite?</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3 text-sm text-muted-foreground">
-          <p>
-            Open the private link or QR from your program organizer. Use the
-            email they registered for you—it must already be on the allowlist.
-          </p>
-          <p>
-            New to building with AI? Start with our{" "}
-            <Link
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-              href="/resources"
-            >
-              resources
-            </Link>{" "}
-            or read the{" "}
-            <Link
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-              href="/faq"
-            >
-              FAQ
-            </Link>
-            .
-          </p>
-        </CardContent>
-      </Card>
+      <section className="border border-brand-gold/40 bg-brand-ink px-6 py-10 text-brand-parchment sm:px-10">
+        <SectionLabel>
+          <span className="text-brand-gold">Have a program invite?</span>
+        </SectionLabel>
+        <h2 className="mt-3 font-display text-2xl font-light tracking-tight text-brand-parchment">
+          Start with your organizer link
+        </h2>
+        <p className="mt-4 max-w-lg font-light leading-relaxed text-brand-parchment/80 text-pretty">
+          Open the private link or QR from your program organizer. Use the email
+          they registered for you—it must already be on the allowlist.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+          <Link
+            className="font-medium tracking-wide text-brand-gold underline-offset-4 hover:underline"
+            href="/resources"
+          >
+            Getting started resources
+          </Link>
+          <Link
+            className="font-medium tracking-wide text-brand-gold underline-offset-4 hover:underline"
+            href="/faq"
+          >
+            Read the FAQ
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

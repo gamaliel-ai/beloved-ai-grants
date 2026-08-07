@@ -154,11 +154,13 @@ export default function FaqPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-10">
       <div className="space-y-3">
-        <p className="text-sm font-medium text-primary">FAQ</p>
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+        <p className="text-[11px] font-medium tracking-[0.28em] text-brand-gold-deep uppercase">
+          FAQ
+        </p>
+        <h1 className="font-display text-3xl font-light tracking-tight sm:text-4xl">
           Questions, answered simply
         </h1>
-        <p className="text-muted-foreground text-pretty">
+        <p className="font-light text-muted-foreground text-pretty">
           What this program is, how invites work, and what to expect when you
           start building.
         </p>
@@ -167,8 +169,12 @@ export default function FaqPage() {
       <dl className="space-y-8">
         {faqs.map((item) => (
           <div key={item.question} className="space-y-2">
-            <dt className="font-semibold tracking-tight">{item.question}</dt>
-            <dd className="text-muted-foreground text-pretty">{item.answer}</dd>
+            <dt className="font-display text-lg font-normal tracking-tight">
+              {item.question}
+            </dt>
+            <dd className="font-light text-muted-foreground text-pretty">
+              {item.answer}
+            </dd>
           </div>
         ))}
       </dl>
