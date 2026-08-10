@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { JoinForm } from "@/components/join-form";
 import { forum, links, site } from "@/lib/site";
 
 function SectionLabel({ children }: { children: ReactNode }) {
@@ -25,13 +25,21 @@ export default function HomePage() {
           innovate, serve others, and grow businesses that help communities
           flourish.
         </p>
-        <div className="flex flex-wrap items-center gap-3 pt-2">
-          <Button asChild size="lg">
-            <Link href="/join">Claim with your email</Link>
-          </Button>
-          <Button asChild variant="outline" size="lg">
-            <Link href="/faq">How the program works</Link>
-          </Button>
+
+        <div className="space-y-3 border-t border-brand-gold/30 pt-6">
+          <p className="text-sm font-light text-foreground text-pretty">
+            Part of a cohort or forum? Enter the email your organizer registered
+            to get your claim link.
+          </p>
+          <JoinForm idPrefix="home-join" />
+          <p className="text-sm font-light text-muted-foreground">
+            <Link
+              className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
+              href="/faq"
+            >
+              How the program works
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -71,16 +79,14 @@ export default function HomePage() {
           account anytime.
         </p>
         <p className="font-light leading-relaxed text-muted-foreground text-pretty">
-          Access is by program registration. If you are part of a cohort or
-          forum, open{" "}
+          Access is by program registration. Use the email form above, open{" "}
           <Link
             className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
             href="/join"
           >
             /join
-          </Link>{" "}
-          with your registered email, or use a private invite link from your
-          organizer.
+          </Link>
+          , or follow a private invite link from your organizer.
         </p>
       </section>
 

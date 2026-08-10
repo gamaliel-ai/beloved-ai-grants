@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { JoinForm } from "@/components/join-form";
 import { site } from "@/lib/site";
-import { JoinForm } from "./join-form";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +24,7 @@ export default function JoinPage() {
           <CardTitle>Program email</CardTitle>
         </CardHeader>
         <CardContent>
-          <JoinForm />
+          <JoinForm idPrefix="join-page" />
         </CardContent>
       </Card>
     </div>
