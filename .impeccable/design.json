@@ -1,0 +1,277 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-10T16:36:00.000Z",
+  "title": "Design System: Beloved AI Grants",
+  "extensions": {
+    "colorMeta": {
+      "foundation-gold": {
+        "role": "primary",
+        "displayName": "Foundation Gold",
+        "canonical": "#bc9474",
+        "tonalRamp": ["#3d2a1c", "#5c3f2a", "#896142", "#a67a58", "#bc9474", "#d4b59a", "#e9dbd1", "#f7f2ec"]
+      },
+      "aged-bronze": {
+        "role": "primary",
+        "displayName": "Aged Bronze",
+        "canonical": "#896142",
+        "tonalRamp": ["#2a1c12", "#442f21", "#5c3f2a", "#896142", "#a67a58", "#bc9474", "#d4b59a", "#e9dbd1"]
+      },
+      "near-ink": {
+        "role": "neutral",
+        "displayName": "Near Ink",
+        "canonical": "#080808",
+        "tonalRamp": ["#080808", "#161616", "#2a2a2a", "#444444", "#5c534c", "#a89f96", "#e9dbd1", "#f7f2ec"]
+      },
+      "soft-parchment": {
+        "role": "secondary",
+        "displayName": "Soft Parchment",
+        "canonical": "#e9dbd1",
+        "tonalRamp": ["#442f21", "#5c534c", "#896142", "#bc9474", "#d8c4b2", "#e4d2c4", "#e9dbd1", "#fffcf9"]
+      },
+      "warm-paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "#f7f2ec",
+        "tonalRamp": ["#5c534c", "#896142", "#bc9474", "#d8c4b2", "#e4d2c4", "#efe6de", "#f7f2ec", "#fffcf9"]
+      },
+      "cream-wash": {
+        "role": "neutral",
+        "displayName": "Cream Wash",
+        "canonical": "#faf6f1",
+        "tonalRamp": ["#5c534c", "#896142", "#bc9474", "#d8c4b2", "#e9dbd1", "#f3ebe3", "#faf6f1", "#fffcf9"]
+      },
+      "card-cream": {
+        "role": "neutral",
+        "displayName": "Card Cream",
+        "canonical": "#fffcf9",
+        "tonalRamp": ["#5c534c", "#896142", "#bc9474", "#d8c4b2", "#e9dbd1", "#f7f2ec", "#faf6f1", "#fffcf9"]
+      },
+      "ink-text": {
+        "role": "neutral",
+        "displayName": "Ink Text",
+        "canonical": "#161616",
+        "tonalRamp": ["#080808", "#161616", "#2a2a2a", "#444444", "#5c534c", "#a89f96", "#e9dbd1", "#f7f2ec"]
+      },
+      "taupe-secondary": {
+        "role": "neutral",
+        "displayName": "Taupe Secondary",
+        "canonical": "#442f21",
+        "tonalRamp": ["#241810", "#442f21", "#5c534c", "#896142", "#bc9474", "#d8c4b2", "#e9dbd1", "#f7f2ec"]
+      },
+      "muted-taupe": {
+        "role": "neutral",
+        "displayName": "Muted Taupe",
+        "canonical": "#5c534c",
+        "tonalRamp": ["#2a2a2a", "#442f21", "#5c534c", "#7a7168", "#a89f96", "#d8c4b2", "#e9dbd1", "#f7f2ec"]
+      },
+      "warm-border": {
+        "role": "neutral",
+        "displayName": "Warm Border",
+        "canonical": "#d8c4b2",
+        "tonalRamp": ["#896142", "#bc9474", "#c9b09a", "#d8c4b2", "#e4d2c4", "#e9dbd1", "#f7f2ec", "#fffcf9"]
+      },
+      "soft-taupe": {
+        "role": "secondary",
+        "displayName": "Soft Taupe",
+        "canonical": "#efe6de",
+        "tonalRamp": ["#896142", "#bc9474", "#d8c4b2", "#e4d2c4", "#efe6de", "#f3ebe3", "#f7f2ec", "#fffcf9"]
+      },
+      "accent-taupe": {
+        "role": "secondary",
+        "displayName": "Accent Taupe",
+        "canonical": "#e4d2c4",
+        "tonalRamp": ["#896142", "#bc9474", "#d8c4b2", "#e4d2c4", "#e9dbd1", "#efe6de", "#f7f2ec", "#fffcf9"]
+      },
+      "destructive": {
+        "role": "primary",
+        "displayName": "Destructive",
+        "canonical": "#a33b3b",
+        "tonalRamp": ["#4a1515", "#6b2020", "#a33b3b", "#c45a5a", "#d98989", "#e9c4c4", "#f7e8e8", "#fffcf9"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Public hero headlines only; light Raleway."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles on public pages."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card titles and admin headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Explanatory copy; light weight, relaxed leading."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase tracked section labels and ink nav."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "API keys and technical snippets at claim/reveal."
+      }
+    },
+    "shadows": [
+      {
+        "name": "rest",
+        "value": "0 1px 2px rgb(0 0 0 / 0.05)",
+        "purpose": "Buttons, cards, and inputs at rest."
+      },
+      {
+        "name": "action-lift",
+        "value": "0 4px 14px rgb(8 8 8 / 0.14)",
+        "purpose": "Primary CTA hover and key-reveal moments only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "color-transition",
+        "value": "color 150ms ease, background-color 150ms ease, box-shadow 150ms ease",
+        "purpose": "Default state transitions; keep short and calm."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Foundation Gold fill; hover deepens to Aged Bronze with purposeful lift.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Claim with your email</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 8px 16px; border: 0; border-radius: 4px; background: var(--primary, #bc9474); color: var(--primary-foreground, #161616); font-family: var(--font-body, sans-serif); font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em; box-shadow: 0 1px 2px rgb(0 0 0 / 0.05); cursor: pointer; transition: background-color 150ms ease, box-shadow 150ms ease; } .ds-btn-primary:hover { background: var(--brand-gold-deep, #896142); box-shadow: 0 4px 14px rgb(8 8 8 / 0.14); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 1px var(--ring, #bc9474); }"
+    },
+    {
+      "name": "Primary Button Large",
+      "kind": "button",
+      "refersTo": "button-primary-lg",
+      "description": "Hero CTA — taller, uppercase, tracked.",
+      "html": "<button class=\"ds-btn-primary-lg\" type=\"button\">Claim with your email</button>",
+      "css": ".ds-btn-primary-lg { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 32px; border: 0; border-radius: 4px; background: var(--primary, #bc9474); color: var(--primary-foreground, #161616); font-family: var(--font-body, sans-serif); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; box-shadow: 0 1px 2px rgb(0 0 0 / 0.05); cursor: pointer; transition: background-color 150ms ease, box-shadow 150ms ease; } .ds-btn-primary-lg:hover { background: var(--brand-gold-deep, #896142); box-shadow: 0 4px 14px rgb(8 8 8 / 0.14); } .ds-btn-primary-lg:focus-visible { outline: none; box-shadow: 0 0 0 1px var(--ring, #bc9474); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary path on parchment; Warm Border stroke.",
+      "html": "<button class=\"ds-btn-outline\" type=\"button\">How the program works</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 8px 16px; border: 1px solid var(--input, #d8c4b2); border-radius: 4px; background: color-mix(in srgb, var(--card, #fffcf9) 80%, transparent); color: var(--foreground, #161616); font-family: var(--font-body, sans-serif); font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em; box-shadow: 0 1px 2px rgb(0 0 0 / 0.05); cursor: pointer; transition: background-color 150ms ease, color 150ms ease; } .ds-btn-outline:hover { background: var(--accent, #e4d2c4); color: var(--accent-foreground, #442f21); } .ds-btn-outline:focus-visible { outline: none; box-shadow: 0 0 0 1px var(--ring, #bc9474); }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Transparent field with Warm Border; gold focus ring.",
+      "html": "<input class=\"ds-input\" type=\"email\" placeholder=\"you@example.com\" aria-label=\"Email\" />",
+      "css": ".ds-input { display: flex; width: 100%; max-width: 320px; height: 36px; padding: 4px 12px; border: 1px solid var(--input, #d8c4b2); border-radius: 4px; background: transparent; color: var(--foreground, #161616); font-family: var(--font-body, sans-serif); font-size: 1rem; box-shadow: 0 1px 2px rgb(0 0 0 / 0.05); transition: border-color 150ms ease, box-shadow 150ms ease; } .ds-input::placeholder { color: var(--muted-foreground, #5c534c); } .ds-input:focus-visible { outline: none; box-shadow: 0 0 0 1px var(--ring, #bc9474); } .ds-input:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card-default",
+      "description": "Card Cream panel with soft gold border for interactive groupings.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-title\">Active grants</div><p class=\"ds-card-body\">Local DB count with emergency revoke nearby.</p></div>",
+      "css": ".ds-card { border: 1px solid color-mix(in srgb, var(--brand-gold, #bc9474) 25%, transparent); border-radius: 4px; background: var(--card, #fffcf9); color: var(--card-foreground, #161616); padding: 24px; box-shadow: 0 1px 2px rgb(0 0 0 / 0.05); max-width: 360px; } .ds-card-title { font-family: var(--font-raleway, Raleway, sans-serif); font-size: 1.125rem; font-weight: 400; letter-spacing: -0.01em; margin: 0 0 8px; } .ds-card-body { margin: 0; font-family: var(--font-body, sans-serif); font-size: 0.875rem; font-weight: 300; line-height: 1.625; color: var(--muted-foreground, #5c534c); }"
+    },
+    {
+      "name": "Badge",
+      "kind": "chip",
+      "refersTo": "badge-default",
+      "description": "Uppercase micro status chip for admin mode indicators.",
+      "html": "<span class=\"ds-badge\">OpenAI live</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; border-radius: 4px; border: 1px solid transparent; background: var(--primary, #bc9474); color: var(--primary-foreground, #161616); padding: 2px 10px; font-family: var(--font-body, sans-serif); font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Public Nav",
+      "kind": "nav",
+      "refersTo": "nav-public",
+      "description": "Near Ink chrome with gold uppercase links and parchment brand mark.",
+      "html": "<header class=\"ds-nav\"><div class=\"ds-nav-brand\">Beloved in Christ<span>Beloved AI Grants</span></div><nav class=\"ds-nav-links\"><a href=\"#\">Join</a><a href=\"#\">FAQ</a><a href=\"#\">Resources</a></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px; background: var(--brand-ink, #080808); color: var(--brand-parchment, #e9dbd1); border-bottom: 1px solid rgb(255 255 255 / 0.1); } .ds-nav-brand { font-family: var(--font-raleway, Raleway, sans-serif); font-weight: 300; letter-spacing: 0.28em; text-transform: uppercase; font-size: 0.75rem; color: var(--brand-gold, #bc9474); } .ds-nav-brand span { display: block; margin-top: 2px; letter-spacing: 0.04em; text-transform: none; font-size: 1rem; color: var(--brand-parchment, #e9dbd1); } .ds-nav-links { display: flex; gap: 20px; } .ds-nav-links a { font-family: var(--font-body, sans-serif); font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brand-gold, #bc9474); text-decoration: none; transition: color 150ms ease; } .ds-nav-links a:hover { color: var(--brand-parchment, #e9dbd1); } .ds-nav-links a:focus-visible { outline: 1px solid var(--brand-gold, #bc9474); outline-offset: 4px; }"
+    },
+    {
+      "name": "Ink Callout",
+      "kind": "custom",
+      "refersTo": "ink-callout",
+      "description": "Signature Near Ink panel for program-invite / organizer-path moments.",
+      "html": "<section class=\"ds-ink-callout\"><p class=\"ds-ink-label\">Have a program invite?</p><h2 class=\"ds-ink-title\">Start with your organizer link</h2><p class=\"ds-ink-body\">Open the private link or QR from your program organizer.</p><a class=\"ds-ink-link\" href=\"#\">Getting started resources</a></section>",
+      "css": ".ds-ink-callout { border: 1px solid color-mix(in srgb, var(--brand-gold, #bc9474) 40%, transparent); background: var(--brand-ink, #080808); color: var(--brand-parchment, #e9dbd1); padding: 40px 24px; max-width: 40rem; } .ds-ink-label { margin: 0; font-family: var(--font-body, sans-serif); font-size: 11px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--brand-gold, #bc9474); } .ds-ink-title { margin: 12px 0 0; font-family: var(--font-raleway, Raleway, sans-serif); font-size: 1.5rem; font-weight: 300; letter-spacing: -0.01em; color: var(--brand-parchment, #e9dbd1); } .ds-ink-body { margin: 16px 0 0; max-width: 32rem; font-family: var(--font-body, sans-serif); font-size: 1rem; font-weight: 300; line-height: 1.625; color: color-mix(in srgb, var(--brand-parchment, #e9dbd1) 80%, transparent); } .ds-ink-link { display: inline-block; margin-top: 24px; font-family: var(--font-body, sans-serif); font-size: 0.875rem; font-weight: 500; letter-spacing: 0.04em; color: var(--brand-gold, #bc9474); text-decoration: none; } .ds-ink-link:hover { text-decoration: underline; text-underline-offset: 4px; } .ds-ink-link:focus-visible { outline: 1px solid var(--brand-gold, #bc9474); outline-offset: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Warm Ink Workshop",
+    "overview": "Beloved AI Grants sits in a workshop of warm paper and near-ink chrome: foundation materials from Beloved in Christ, arranged for builders who need clarity more than ceremony. The palette is locked to belovedinchristfoundation.org (Foundation Gold, Aged Bronze, Near Ink, Soft Parchment / Warm Paper). Aesthetic up-leveling is welcome — sharper hierarchy, more confident primary actions, better claim/key-reveal moments — as long as those colors remain the brand spine.\n\nThe mood is calm, light-handed, and trustworthy. Public surfaces reject SaaS purple gradients, neon glow, glassmorphism, and dense dashboard chrome. Depth is mostly tonal (ink bars against parchment fields) with restrained shadows at rest; primary CTAs and key-reveal moments may carry slightly stronger lift so the next action feels tactile and sure.\n\nTypography today is Raleway (light display) + Source Sans 3 (body), foundation-aligned. The color system is binding; the type pairing is the incumbent baseline and may be up-leveled later toward a more builder-credible stack without abandoning warmth.",
+    "keyCharacteristics": [
+      "Foundation gold / parchment / near-ink palette (brand-locked)",
+      "Warm Ink Workshop: paper field + ink chrome, not marketing-poster layouts",
+      "Confident, tactile primary actions; quiet secondary chrome",
+      "Flat-by-default with intentional lift on CTAs and key reveal",
+      "Tech-community UX patterns; ministry voice without decorative excess",
+      "Mobile-first public flows; denser admin is allowed but still on-palette"
+    ],
+    "rules": [
+      {
+        "name": "The One Gold Rule",
+        "body": "Foundation Gold is the sole accent voice. It should feel scarce on parchment screens (CTAs, labels, focus) and more present only on Near Ink chrome where it is the brand signal.",
+        "section": "colors"
+      },
+      {
+        "name": "The Palette Lock Rule",
+        "body": "Hue values stay aligned to belovedinchristfoundation.org. Up-level composition, type, motion, and elevation — do not invent a new accent family (no purple, electric blue, or neon).",
+        "section": "colors"
+      },
+      {
+        "name": "The Soft Display Rule",
+        "body": "Display and headlines stay light (300–400). Do not bold the brand voice into a SaaS “Impact” weight.",
+        "section": "typography"
+      },
+      {
+        "name": "The Label Whisper Rule",
+        "body": "Uppercase tracked labels introduce sections; they must not outshout the headline.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two-Shell Rule",
+        "body": "Public = mobile-first, sparse, task-focused. Admin = desktop-first, denser tables OK — same palette, not a second visual brand.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "No multi-layer glow stacks. If it looks like neon SaaS, it is wrong.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Lift-With-Purpose Rule",
+        "body": "Extra elevation is reserved for primary actions and key reveal — not every card.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No-Pill Rule",
+        "body": "Avoid rounded-full chrome for primary actions and badges; keep the square-warm geometry of the foundation system.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Do keep Foundation Gold / Aged Bronze / Near Ink / Soft Parchment / Warm Paper as the only brand color spine.",
+      "Do up-level hierarchy, spacing, and CTA/key-reveal craft while staying on-palette.",
+      "Do use Near Ink for authoritative chrome and callouts; Warm Paper for the working field.",
+      "Do treat primary actions as tactile (clear hover deepen, purposeful lift).",
+      "Do design public claim flows mobile-first and localization-friendly (no brittle English-width layouts)."
+    ],
+    "donts": [
+      "Don't introduce purple, indigo, neon, or cool-gray SaaS palettes.",
+      "Don't use glow stacks, gradient text, or glassmorphism as decoration.",
+      "Don't turn public pages into dense admin dashboards.",
+      "Don't overuse Foundation Gold — scarcity on parchment is the point.",
+      "Don't invent testimonials, metrics, or imagery claims not grounded in product truth."
+    ]
+  }
+}
