@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { HeroMotion } from "@/components/hero-motion";
 import { JoinForm } from "@/components/join-form";
 import { forum, links, site } from "@/lib/site";
 
@@ -11,14 +12,34 @@ function SectionLabel({ children }: { children: ReactNode }) {
   );
 }
 
+/** Label and heading travel together as one group, tight against each other. */
+function SectionHeading({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="space-y-2">
+      <SectionLabel>{label}</SectionLabel>
+      <h2 className="font-display text-2xl font-light tracking-tight sm:text-3xl">
+        {children}
+      </h2>
+    </div>
+  );
+}
+
 export default function HomePage() {
   return (
-    <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20">
+    <div className="mx-auto max-w-2xl space-y-10 sm:space-y-12">
       <section className="space-y-6">
-        <SectionLabel>{site.name}</SectionLabel>
-        <h1 className="font-display text-4xl font-light tracking-tight text-balance sm:text-5xl md:text-6xl">
-          A remarkable time to build.
-        </h1>
+        <div className="space-y-2">
+          <SectionLabel>{site.name}</SectionLabel>
+          <h1 className="font-display text-4xl font-light tracking-tight text-balance sm:text-5xl md:text-6xl">
+            A remarkable time to build.
+          </h1>
+        </div>
         <p className="text-lg font-light leading-relaxed text-muted-foreground text-pretty">
           AI has changed what one person can create. We want to inspire and
           support entrepreneurs in Kenya and beyond as they discover new ways to
@@ -41,13 +62,14 @@ export default function HomePage() {
             </Link>
           </p>
         </div>
+
+        <HeroMotion />
       </section>
 
-      <section className="space-y-4 border-t border-brand-gold/30 pt-12">
-        <SectionLabel>Why we are doing this</SectionLabel>
-        <h2 className="font-display text-2xl font-light tracking-tight sm:text-3xl">
+      <section className="space-y-4 border-t border-brand-gold/30 pt-6 sm:pt-8">
+        <SectionHeading label="Why we are doing this">
           Tools in the hands of builders
-        </h2>
+        </SectionHeading>
         <p className="font-light leading-relaxed text-muted-foreground text-pretty">
           With AI, what once took a dozen engineers and millions of dollars can
           begin with a passionate founder and a laptop. There has never been a
@@ -66,11 +88,10 @@ export default function HomePage() {
         </p>
       </section>
 
-      <section className="space-y-4 border-t border-brand-gold/30 pt-12">
-        <SectionLabel>What we offer</SectionLabel>
-        <h2 className="font-display text-2xl font-light tracking-tight sm:text-3xl">
+      <section className="space-y-4 border-t border-brand-gold/30 pt-6 sm:pt-8">
+        <SectionHeading label="What we offer">
           Sponsored OpenAI access
-        </h2>
+        </SectionHeading>
         <p className="font-light leading-relaxed text-muted-foreground text-pretty">
           Approved participants receive a sponsored{" "}
           <span className="text-foreground">OpenAI API key</span>—so you can
@@ -90,11 +111,10 @@ export default function HomePage() {
         </p>
       </section>
 
-      <section className="space-y-4 border-t border-brand-gold/30 pt-12">
-        <SectionLabel>Launching in Nairobi</SectionLabel>
-        <h2 className="font-display text-2xl font-light tracking-tight sm:text-3xl">
+      <section className="space-y-4 border-t border-brand-gold/30 pt-6 sm:pt-8">
+        <SectionHeading label="Launching in Nairobi">
           {forum.name}
-        </h2>
+        </SectionHeading>
         <p className="font-light leading-relaxed text-muted-foreground text-pretty">
           We are launching this program at the {forum.name} in {forum.city} (
           {forum.dates})—a gathering of Christian innovators, students, and
@@ -103,11 +123,10 @@ export default function HomePage() {
         </p>
       </section>
 
-      <section className="space-y-4 border-t border-brand-gold/30 pt-12">
-        <SectionLabel>Built by a builder</SectionLabel>
-        <h2 className="font-display text-2xl font-light tracking-tight sm:text-3xl">
+      <section className="space-y-4 border-t border-brand-gold/30 pt-6 sm:pt-8">
+        <SectionHeading label="Built by a builder">
           Faith and technology, practiced daily
-        </h2>
+        </SectionHeading>
         <p className="font-light leading-relaxed text-muted-foreground text-pretty">
           Lew Cirne, founder of the Beloved in Christ Foundation, still programs
           with AI almost every day. See projects underway at{" "}
@@ -133,11 +152,11 @@ export default function HomePage() {
         </p>
       </section>
 
-      <section className="border border-brand-gold/40 bg-brand-ink px-6 py-10 text-brand-parchment sm:px-10">
+      <section className="border border-brand-gold/40 bg-brand-ink px-6 py-8 text-brand-parchment sm:px-10 sm:py-10">
         <SectionLabel>
           <span className="text-brand-gold">Have a program invite?</span>
         </SectionLabel>
-        <h2 className="mt-3 font-display text-2xl font-light tracking-tight text-brand-parchment">
+        <h2 className="mt-2 font-display text-2xl font-light tracking-tight text-brand-parchment">
           Start with your organizer link
         </h2>
         <p className="mt-4 max-w-lg font-light leading-relaxed text-brand-parchment/80 text-pretty">
