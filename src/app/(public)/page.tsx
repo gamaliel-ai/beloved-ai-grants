@@ -55,10 +55,10 @@ export default function HomePage() {
           <JoinForm idPrefix="home-join" />
           <p className="text-sm font-light text-muted-foreground">
             <Link
-              className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
+              className="font-normal text-brand-gold-deep underline underline-offset-4 hover:text-brand-ink"
               href="/faq"
             >
-              How the program works
+              Learn how the program works
             </Link>
           </p>
         </div>
