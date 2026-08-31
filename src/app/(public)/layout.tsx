@@ -1,16 +1,20 @@
 import Link from "next/link";
 import { BrandMark } from "@/components/brand-mark";
-import { links, site } from "@/lib/site";
-
-const nav = [
-  { href: "/join", label: "Join" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/resources", label: "Resources" },
-] as const;
+import { getFeaturedEvent, links, site } from "@/lib/site";
 
 export default function PublicLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const featuredEvent = getFeaturedEvent();
+  const nav = [
+    { href: "/join", label: "Join" },
+    ...(featuredEvent
+      ? [{ href: `/forum/${featuredEvent.slug}`, label: "Forum" }]
+      : []),
+    { href: "/faq", label: "FAQ" },
+    { href: "/resources", label: "Resources" },
+  ];
+
   return (
     <>
       <header className="border-b border-white/10 bg-brand-ink text-brand-parchment">

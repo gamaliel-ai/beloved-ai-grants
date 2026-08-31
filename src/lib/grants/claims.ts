@@ -184,7 +184,7 @@ export async function requestClaimLinkForEmail(input: {
   return {
     ok: true as const,
     message:
-      "If this email is registered for the program, a claim link is on its way. Check your inbox shortly.",
+      "If this email is registered for the programme, a claim link is on its way. Check your inbox shortly.",
   };
 }
 
@@ -318,7 +318,7 @@ export async function redeemClaimToken(input: {
   } catch {
     throw new ClaimError(
       "PROVISION_FAILED",
-      "We could not issue the key. Please ask an organizer for help.",
+      "We could not create the key. Please ask an organiser for help.",
     );
   }
 }

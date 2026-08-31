@@ -43,7 +43,7 @@ const tools: Resource[] = [
   {
     title: "Cursor",
     description:
-      "An AI-native code editor many founders use to ship faster with less boilerplate.",
+      "An AI-native code editor many builders use to write working software faster.",
     href: links.cursor,
     external: true,
   },
@@ -66,7 +66,7 @@ const inspiration: Resource[] = [
   {
     title: "LKC Studios",
     description:
-      "Lew Cirne’s incubator site—see what he is building with AI almost daily.",
+      "Lew Cirne’s project site—see what he is building with AI almost daily.",
     href: links.lkcStudios,
     external: true,
   },
@@ -80,7 +80,7 @@ const inspiration: Resource[] = [
   {
     title: "Beloved in Christ Foundation",
     description:
-      "The foundation sponsoring this program and serving partners around the world.",
+      "The foundation sponsoring this programme and serving partners around the world.",
     href: links.belovedInChrist,
     external: true,
   },
@@ -138,8 +138,8 @@ export default function ResourcesPage() {
           Build faster with agents
         </h2>
         <p className="text-sm font-light text-muted-foreground text-pretty">
-          Many early founders start in an AI coding editor, then use an API key
-          when their product needs models in production. Both paths matter.
+          Many builders start in an AI coding editor, then use an API key once
+          their product needs models running live. Both paths matter.
         </p>
         <ResourceList items={tools} />
       </section>
@@ -152,8 +152,8 @@ export default function ResourcesPage() {
       </section>
 
       <p className="text-sm text-muted-foreground">
-        Have a program invite? Redeem it when your organizer shares the link.
-        Questions about the program itself are covered in the{" "}
+        Have a programme invite? Redeem it when your organiser shares the link.
+        Questions about the programme itself are covered in the{" "}
         <Link
           className="font-medium text-foreground underline-offset-4 hover:underline"
           href="/faq"

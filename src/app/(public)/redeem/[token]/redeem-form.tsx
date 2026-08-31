@@ -33,7 +33,7 @@ export function RedeemForm({ token }: { token: string }) {
         <CopyValue value={state.secret} label="Copy API key" />
         <p className="text-sm text-muted-foreground">
           Keep this key private. We monitor usage and may revoke access if
-          needed. You can switch to your own OpenAI key anytime—no lock-in.
+          needed. You can move to your own OpenAI key whenever you are ready.
         </p>
       </div>
     );
@@ -61,8 +61,8 @@ export function RedeemForm({ token }: { token: string }) {
         {pending ? "Creating your key…" : "Get API key"}
       </Button>
       <p className="text-xs text-muted-foreground">
-        Access is checked against the program allowlist. Use the email your
-        organizer registered for you.
+        We check this against the list your organiser registered, so use the
+        same email you gave them.
       </p>
     </form>
   );
