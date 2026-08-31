@@ -29,7 +29,7 @@ export function JoinForm({ className, idPrefix = "join" }: JoinFormProps) {
   return (
     <form action={action} className={cn("space-y-4", className)}>
       <div className="space-y-2">
-        <Label htmlFor={emailId}>Program email</Label>
+        <Label htmlFor={emailId}>Programme email</Label>
         <Input
           id={emailId}
           name="email"
@@ -49,7 +49,7 @@ export function JoinForm({ className, idPrefix = "join" }: JoinFormProps) {
         {pending ? "Checking…" : "Continue"}
       </Button>
       <p className="text-xs font-light text-muted-foreground text-pretty">
-        If your email is on the program list, we will send a single-use claim
+        If your email is on your programme list, we will send a single-use claim
         link. The API key itself is never emailed.
       </p>
     </form>

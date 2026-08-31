@@ -102,7 +102,7 @@ export async function redeemGrant(input: {
       if (!grantee) {
         throw new RedemptionError(
           "NOT_ALLOWLISTED",
-          "This email is not on the program allowlist.",
+          "We do not see this email on your programme list. Check the spelling, or ask your organiser to add it.",
         );
       }
 
@@ -228,7 +228,7 @@ export async function redeemGrant(input: {
     });
     throw new RedemptionError(
       "PROVISION_FAILED",
-      "We could not issue the key. Please ask an organizer for help.",
+      "We could not create the key. Please ask an organiser for help.",
     );
   }
 }

@@ -27,8 +27,8 @@ export default async function ClaimPage({
         </h1>
         <p className="text-muted-foreground text-pretty">
           {unavailable
-            ? "This link cannot be used to issue a key."
-            : `Signed link for ${found!.grantee.email}. Claim to provision your sponsored OpenAI key.`}
+            ? "This link cannot be used to create a key."
+            : `Private link for ${found!.grantee.email}. Claim it to create your sponsored OpenAI key.`}
         </p>
       </div>
 

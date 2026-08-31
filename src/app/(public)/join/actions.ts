@@ -15,7 +15,7 @@ export async function requestClaimAction(
 ): Promise<JoinActionState> {
   const email = String(formData.get("email") ?? "").trim();
   if (!email || !email.includes("@")) {
-    return { error: "Enter the email used for your program registration." };
+    return { error: "Enter the email you gave your organiser." };
   }
 
   const headerStore = await headers();

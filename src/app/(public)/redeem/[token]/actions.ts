@@ -18,7 +18,7 @@ export async function redeemAction(
 ): Promise<RedeemActionState> {
   const email = String(formData.get("email") ?? "").trim();
   if (!email || !email.includes("@")) {
-    return { error: "Enter the email used for your program registration." };
+    return { error: "Enter the email you gave your organiser." };
   }
 
   const requestHeaders = await headers();
@@ -45,7 +45,7 @@ export async function redeemAction(
       return { error: error.message };
     }
     return {
-      error: "We could not issue the key. Please ask an organizer for help.",
+      error: "We could not create the key. Please ask an organiser for help.",
     };
   }
 }
