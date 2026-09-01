@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { forum, links } from "@/lib/site";
+import { getFeaturedEvent, links } from "@/lib/site";
+
+const event = getFeaturedEvent();
 
 export const metadata: Metadata = {
   title: "FAQ",
@@ -14,18 +16,18 @@ const faqs: { question: string; answer: ReactNode }[] = [
     question: "What is Beloved AI Grants?",
     answer: (
       <>
-        A program of the{" "}
+        A programme of the{" "}
         <a
-          className="font-medium text-foreground underline-offset-4 hover:underline"
+          className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
           href={links.belovedInChrist}
           rel="noopener noreferrer"
           target="_blank"
         >
           Beloved in Christ Foundation
         </a>{" "}
-        that sponsors OpenAI API access for early entrepreneurs—so builders can
-        experiment, ship products, and learn what AI makes possible without
-        carrying the full cost alone at the start.
+        that sponsors OpenAI API access for people starting out—so you can
+        experiment, launch products, and learn what AI makes possible without
+        carrying the cost alone at the start.
       </>
     ),
   },
@@ -34,10 +36,17 @@ const faqs: { question: string; answer: ReactNode }[] = [
     answer: (
       <>
         Primarily Christian young entrepreneurs and innovators—especially in
-        Kenya and across Africa—who want to build with AI. Our first guests are
-        people gathering at the {forum.name} in {forum.city}. Over time, we hope
-        this becomes a wider invitation to hopeful founders with limited
-        resources and a desire to create something that serves others.
+        Kenya and across Africa—who want to build with AI.
+        {event ? (
+          <>
+            {" "}
+            Our first guests are people gathering at the {event.name} in{" "}
+            {event.city}.
+          </>
+        ) : null}{" "}
+        Over time, we hope this becomes a wider invitation to hopeful builders
+        with limited resources and a desire to create something that serves
+        others.
       </>
     ),
   },
@@ -45,11 +54,24 @@ const faqs: { question: string; answer: ReactNode }[] = [
     question: "How do I get access?",
     answer: (
       <>
-        Access is invite-based, not open signup. If you are on a program
-        allowlist, your organizer will share a private redeem link or QR code.
-        Enter the email they have on file; we create a sponsored API key and show
-        it to you once. Keep a secure copy—you will not see the full key again
+        Access is by invite, not open sign-up. If you are registered for a
+        programme, your organiser will share a private redeem link or QR code.
+        Enter the email you gave them; we create a sponsored API key and show it
+        to you once. Keep a secure copy—you will not see the full key again
         here.
+      </>
+    ),
+  },
+  {
+    question: "Does this cost me anything? Do I need a credit card?",
+    answer: (
+      <>
+        No, and no. We pay the OpenAI usage bill for your sponsored key, and you
+        do not need a credit card or an OpenAI account of your own to start.
+        Each grant has a budget so we can support many builders fairly—your
+        organiser can tell you yours, and if you are near the limit while still
+        building something meaningful, say so, because we can often help. Your
+        own internet or mobile data costs are still your own.
       </>
     ),
   },
@@ -61,38 +83,38 @@ const faqs: { question: string; answer: ReactNode }[] = [
         assistants, analysis tools, product features, prototypes, and learning
         projects. Use it to develop your idea and, where it fits, to power what
         you put in front of users. Treat the key like a secret; never commit it
-        to public repos or share it widely.
+        to a public code repository or share it widely.
       </>
     ),
   },
-  {
-    question: "Is there a spending limit?",
-    answer: (
-      <>
-        Yes. Every grant has a budget so we can sponsor many builders fairly. If
-        you are approaching a limit and still building something meaningful,
-        tell your program organizer—we can often help.
-      </>
-    ),
-  },
-  {
-    question: "How is this connected to the Nairobi forum?",
-    answer: (
-      <>
-        The program launches at the {forum.name} ({forum.dates})—a
-        faith-and-technology gathering organized with Dr. Goodwill Shana and
-        centered on Lew Cirne&apos;s story as a founder and faith leader. Forum
-        participants are the first people we hope to encourage with sponsored
-        AI access and practical resources.
-      </>
-    ),
-  },
+  ...(event
+    ? [
+        {
+          question: "How is this connected to the launch forum?",
+          answer: (
+            <>
+              The programme launches at the {event.name} ({event.dates})—a
+              faith-and-technology gathering organised with Dr. Goodwill Shana
+              and centred on Lew Cirne&apos;s story as a founder and faith
+              leader. If you are attending, the{" "}
+              <Link
+                className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
+                href={`/forum/${event.slug}`}
+              >
+                forum page
+              </Link>{" "}
+              has the claim steps and what to bring.
+            </>
+          ),
+        },
+      ]
+    : []),
   {
     question: "Is this a ministry?",
     answer: (
       <>
         Yes—in a light-handed way. Beloved in Christ Foundation exists to serve
-        people in need and to support work that bears good fruit. This program
+        people in need and to support work that bears good fruit. This programme
         is one expression of that: encouraging entrepreneurship, stewardship of
         new tools, and flourishing for communities in Kenya and beyond. You do
         not need to share every detail of our faith to receive a grant, but the
@@ -106,7 +128,7 @@ const faqs: { question: string; answer: ReactNode }[] = [
     answer: (
       <>
         We sponsor the key and pay the bill. We monitor usage and spend so we
-        can run the program responsibly; it is our policy not to routinely read
+        can run the programme responsibly; it is our policy not to routinely read
         your prompts or responses. We may revoke a key if misuse or other
         concerns appear. OpenAI&apos;s own policies still apply to traffic that
         reaches their platform.
@@ -117,9 +139,9 @@ const faqs: { question: string; answer: ReactNode }[] = [
     question: "Do I have to keep using your key forever?",
     answer: (
       <>
-        No. There is no lock-in. Whenever you are ready, create your own OpenAI
-        account and key and switch your app—usually a small config change. We
-        celebrate when builders outgrow a sponsored start.
+        No. The work stays yours. Whenever you are ready, create your own OpenAI
+        account and key and move your app across—usually a small change to one
+        setting. We celebrate when builders outgrow a sponsored start.
       </>
     ),
   },
@@ -129,22 +151,12 @@ const faqs: { question: string; answer: ReactNode }[] = [
       <>
         See our{" "}
         <Link
-          className="font-medium text-foreground underline-offset-4 hover:underline"
+          className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
           href="/resources"
         >
           resources
         </Link>{" "}
-        page for starter docs, coding agents, and examples—including projects
-        from{" "}
-        <a
-          className="font-medium text-foreground underline-offset-4 hover:underline"
-          href={links.lkcStudios}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          LKC Studios
-        </a>
-        .
+        page for starter docs, coding agents, and examples.
       </>
     ),
   },
@@ -154,12 +166,14 @@ export default function FaqPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-10">
       <div className="space-y-3">
-        <p className="text-sm font-medium text-primary">FAQ</p>
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+        <p className="text-xs font-medium tracking-[0.24em] text-brand-gold-deep uppercase">
+          FAQ
+        </p>
+        <h1 className="font-display text-3xl font-light tracking-tight sm:text-4xl">
           Questions, answered simply
         </h1>
-        <p className="text-muted-foreground text-pretty">
-          What this program is, how invites work, and what to expect when you
+        <p className="font-light text-muted-foreground text-pretty">
+          What this programme is, how invites work, and what to expect when you
           start building.
         </p>
       </div>
@@ -167,16 +181,20 @@ export default function FaqPage() {
       <dl className="space-y-8">
         {faqs.map((item) => (
           <div key={item.question} className="space-y-2">
-            <dt className="font-semibold tracking-tight">{item.question}</dt>
-            <dd className="text-muted-foreground text-pretty">{item.answer}</dd>
+            <dt className="font-display text-lg font-normal tracking-tight">
+              {item.question}
+            </dt>
+            <dd className="font-light text-muted-foreground text-pretty">
+              {item.answer}
+            </dd>
           </div>
         ))}
       </dl>
 
       <p className="text-sm text-muted-foreground">
-        Still unsure? Ask your forum or program organizer, or browse{" "}
+        Still unsure? Ask your forum or programme organiser, or browse{" "}
         <Link
-          className="font-medium text-foreground underline-offset-4 hover:underline"
+          className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
           href="/resources"
         >
           getting started resources

@@ -32,9 +32,9 @@ export default async function RedeemPage({
       </CardHeader>
       <CardContent className="space-y-5">
         <p className="text-sm text-muted-foreground">
-          Enter the email your organizer registered for you. If it is on the
-          allowlist, we will create a sponsored OpenAI API key and show it
-          once—copy it somewhere safe before you leave this page.
+          Enter the email you gave your organiser. If it matches, we will create
+          a sponsored OpenAI API key and show it once—copy it somewhere safe
+          before you leave this page.
         </p>
         <RedeemForm token={token} />
       </CardContent>
@@ -47,7 +47,7 @@ function Unavailable({ title }: { title: string }) {
     <Alert className="mx-auto max-w-lg" variant="destructive">
       <AlertTitle>{title}</AlertTitle>
       <AlertDescription>
-        Ask your program organizer for a current invite link.
+        Ask your programme organiser for a current invite link.
       </AlertDescription>
     </Alert>
   );

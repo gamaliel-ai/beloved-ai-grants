@@ -1,6 +1,6 @@
 # Backlog
 
-**Next id:** `B-0009`
+**Next id:** `B-0010`
 
 ## Active
 
@@ -50,6 +50,12 @@ do not use pasted API keys as authentication.
 
 **Status:** Deferred — flag, notify, and optionally revoke at policy thresholds
 after usage data and email delivery are reliable.
+
+#### [B-0009](backlog/B-0009-temporary-limit-bump.md): Temporary spend-limit bump / reactivation
+
+**Status:** Deferred — propose/approve time-boxed OpenAI project limit raises
+(MCP-primary, optional AI triage) when thresholds or hard limits are hit;
+constructive twin of B-0005. Depends on usage sync + threshold signals.
 
 ## Recently closed
 

@@ -43,7 +43,7 @@ export default async function AdminMcpPage({
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-semibold tracking-tight">MCP access</h1>
+        <h1 className="font-display text-3xl font-light tracking-tight">MCP access</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Mint a short-lived operator token, then connect Cursor (or another MCP
           client). Management mutations run through MCP; this dashboard stays

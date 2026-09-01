@@ -87,7 +87,7 @@ Detail: [PRIVACY-AND-DATA.md](./PRIVACY-AND-DATA.md)
 | Steel-thread spend controls | Per-project hard limit and org ceiling configuration deferred; do not present alerts as enforcement |
 | Public base URL | Single env `APP_URL` (local default `http://localhost:3002`). Derive invite/claim links, email absolute URLs, and OAuth callback base from it — do not add parallel `AUTH_URL` / link-base env vars |
 | Config vs secrets | Env for **secrets**, public hostname (`APP_URL`), and **operator identity** (`ADMIN_EMAILS`, `AUTH_GITHUB_ID`). Product constants stay in code or derived (sender local-part, TTLs, fake vs live mail, subjects). No mode/flag env vars for product behavior |
-| Transactional email | **Resend** under the LKC Studios LLC team; dedicated API key per app. `From` = `{local-part}@{APP_URL hostname}`. Mail is fake when `RESEND_API_KEY` is missing or `APP_URL` is local — never a separate mode env var |
+| Transactional email | **Resend**; dedicated API key per app. `From` = `{local-part}@{APP_URL hostname}`. Mail is fake when `RESEND_API_KEY` is missing or `APP_URL` is local — never a separate mode env var |
 
 ## Still open
 

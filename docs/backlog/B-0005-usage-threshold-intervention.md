@@ -41,3 +41,5 @@ usage is delayed and must not be represented as an instantaneous hard cap.
 - Opaque fraud scoring
 - Prompt/content inspection
 - Treating periodic sync as hard real-time enforcement
+- Temporary limit bumps / reactivation — see
+  [B-0009](B-0009-temporary-limit-bump.md)

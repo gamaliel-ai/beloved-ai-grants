@@ -1,31 +1,53 @@
 @import "tailwindcss";
 
+/*
+  Visual language aligned to Beloved in Christ Foundation
+  (belovedinchristfoundation.org): warm gold on near-black,
+  soft parchment surfaces, Raleway display + light body type.
+*/
 :root {
-  --radius: 0.625rem;
-  --background: oklch(0.985 0.002 95);
-  --foreground: oklch(0.18 0.012 55);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.012 55);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.012 55);
-  --primary: oklch(0.43 0.12 148);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.94 0.01 95);
-  --secondary-foreground: oklch(0.25 0.02 55);
-  --muted: oklch(0.95 0.006 95);
-  --muted-foreground: oklch(0.5 0.02 55);
-  --accent: oklch(0.93 0.03 145);
-  --accent-foreground: oklch(0.25 0.06 145);
-  --destructive: oklch(0.58 0.22 27);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.88 0.01 85);
-  --input: oklch(0.88 0.01 85);
-  --ring: oklch(0.55 0.12 148);
+  --radius: 0.25rem;
+
+  /* Surfaces */
+  --background: #f7f2ec;
+  --foreground: #161616;
+  --card: #fffcf9;
+  --card-foreground: #161616;
+  --popover: #fffcf9;
+  --popover-foreground: #161616;
+
+  /* Brand gold — foundation color_2 / color_18 */
+  --primary: #bc9474;
+  --primary-foreground: #161616;
+
+  /* Warm taupe secondary — color_16 / color_17 family */
+  --secondary: #e9dbd1;
+  --secondary-foreground: #442f21;
+  --muted: #efe6de;
+  --muted-foreground: #5c534c;
+  --accent: #e4d2c4;
+  --accent-foreground: #442f21;
+
+  --destructive: #a33b3b;
+  --destructive-foreground: #fffcf9;
+
+  --border: #d8c4b2;
+  --input: #d8c4b2;
+  --ring: #bc9474;
+
+  /* Chrome */
+  --brand-ink: #080808;
+  --brand-gold: #bc9474;
+  --brand-gold-deep: #896142;
+  --brand-parchment: #e9dbd1;
 }
 
 @theme inline {
-  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --font-sans: var(--font-body), "Avenir Next", "Segoe UI", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-display: var(--font-raleway), "Raleway", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -45,10 +67,14 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-deep: var(--brand-gold-deep);
+  --color-brand-parchment: var(--brand-parchment);
   --radius-sm: calc(var(--radius) * 0.75);
   --radius-md: calc(var(--radius) * 0.875);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-xl: calc(var(--radius) * 2);
 }
 
 * {
@@ -56,6 +82,73 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgb(188 148 116 / 0.14), transparent 55%),
+    linear-gradient(180deg, #faf6f1 0%, var(--background) 40%, #f3ebe3 100%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+.safe-area-x {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+.safe-area-header {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+}
+
+.safe-area-footer {
+  padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+}
+
+.skip-link {
+  position: fixed;
+  top: max(1rem, env(safe-area-inset-top));
+  left: max(1rem, env(safe-area-inset-left));
+  z-index: 100;
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--brand-ink);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  color: var(--brand-parchment);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transform: translateY(calc(-100% - 2rem));
+}
+
+.skip-link:focus {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  transform: translateY(0);
+}
+
+@media (min-width: 640px) {
+  .safe-area-header {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+}
+
+@media (max-width: 639px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: rgb(188 148 116 / 0.35);
   color: var(--foreground);
 }

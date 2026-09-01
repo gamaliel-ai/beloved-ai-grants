@@ -5,7 +5,7 @@ import { links } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Resources",
   description:
-    "Starter links for building with AI—OpenAI docs, coding agents, and projects from LKC Studios.",
+    "Starter links for building with AI—OpenAI docs, coding agents, and example projects.",
 };
 
 type Resource = {
@@ -43,7 +43,7 @@ const tools: Resource[] = [
   {
     title: "Cursor",
     description:
-      "An AI-native code editor many founders use to ship faster with less boilerplate.",
+      "An AI-native code editor many builders use to write working software faster.",
     href: links.cursor,
     external: true,
   },
@@ -64,13 +64,6 @@ const tools: Resource[] = [
 
 const inspiration: Resource[] = [
   {
-    title: "LKC Studios",
-    description:
-      "Lew Cirne’s incubator site—see what he is building with AI almost daily.",
-    href: links.lkcStudios,
-    external: true,
-  },
-  {
     title: "Gamaliel",
     description:
       "An AI-assisted Bible reader: one example of faith and technology working together.",
@@ -80,7 +73,7 @@ const inspiration: Resource[] = [
   {
     title: "Beloved in Christ Foundation",
     description:
-      "The foundation sponsoring this program and serving partners around the world.",
+      "The foundation sponsoring this programme and serving partners around the world.",
     href: links.belovedInChrist,
     external: true,
   },
@@ -92,7 +85,7 @@ function ResourceList({ items }: { items: Resource[] }) {
       {items.map((item) => (
         <li key={item.href} className="space-y-1">
           <a
-            className="font-medium text-foreground underline-offset-4 hover:underline"
+            className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
             href={item.href}
             {...(item.external
               ? { rel: "noopener noreferrer", target: "_blank" }
@@ -113,43 +106,49 @@ export default function ResourcesPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-12">
       <div className="space-y-3">
-        <p className="text-sm font-medium text-primary">Resources</p>
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+        <p className="text-xs font-medium tracking-[0.24em] text-brand-gold-deep uppercase">
+          Resources
+        </p>
+        <h1 className="font-display text-3xl font-light tracking-tight sm:text-4xl">
           Get started building with AI
         </h1>
-        <p className="text-muted-foreground text-pretty">
+        <p className="font-light text-muted-foreground text-pretty">
           A sponsored API key is a beginning—not the whole journey. These links
           help you make your first calls, use coding agents wisely, and see
           examples of products shaped by faith and craft.
         </p>
       </div>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight">Learn the API</h2>
+      <section className="space-y-4 border-t border-brand-gold/30 pt-10">
+        <h2 className="font-display text-xl font-light tracking-tight">
+          Learn the API
+        </h2>
         <ResourceList items={learn} />
       </section>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight">
+      <section className="space-y-4 border-t border-brand-gold/30 pt-10">
+        <h2 className="font-display text-xl font-light tracking-tight">
           Build faster with agents
         </h2>
-        <p className="text-sm text-muted-foreground text-pretty">
-          Many early founders start in an AI coding editor, then use an API key
-          when their product needs models in production. Both paths matter.
+        <p className="text-sm font-light text-muted-foreground text-pretty">
+          Many builders start in an AI coding editor, then use an API key once
+          their product needs models running live. Both paths matter.
         </p>
         <ResourceList items={tools} />
       </section>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight">Inspiration</h2>
+      <section className="space-y-4 border-t border-brand-gold/30 pt-10">
+        <h2 className="font-display text-xl font-light tracking-tight">
+          Inspiration
+        </h2>
         <ResourceList items={inspiration} />
       </section>
 
       <p className="text-sm text-muted-foreground">
-        Have a program invite? Redeem it when your organizer shares the link.
-        Questions about the program itself are covered in the{" "}
+        Have a programme invite? Redeem it when your organiser shares the link.
+        Questions about the programme itself are covered in the{" "}
         <Link
-          className="font-medium text-foreground underline-offset-4 hover:underline"
+          className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
           href="/faq"
         >
           FAQ

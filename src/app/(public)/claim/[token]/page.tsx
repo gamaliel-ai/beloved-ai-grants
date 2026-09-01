@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { findClaimToken } from "@/lib/grants/claims";
 import { getDb } from "@/lib/db/client";
@@ -22,13 +24,13 @@ export default async function ClaimPage({
   return (
     <div className="mx-auto max-w-lg space-y-6">
       <div className="space-y-2">
-        <h1 className="text-3xl font-semibold tracking-tight">
+        <h1 className="font-display text-3xl font-light tracking-tight">
           Claim your API key
         </h1>
         <p className="text-muted-foreground text-pretty">
           {unavailable
-            ? "This link cannot be used to issue a key."
-            : `Signed link for ${found!.grantee.email}. Claim to provision your sponsored OpenAI key.`}
+            ? "This link cannot be used to create a key."
+            : `Private link for ${found!.grantee.email}. Claim it to create your sponsored OpenAI key.`}
         </p>
       </div>
 
@@ -38,10 +40,15 @@ export default async function ClaimPage({
         </CardHeader>
         <CardContent>
           {unavailable ? (
-            <Alert variant="destructive">
-              <AlertTitle>Unavailable</AlertTitle>
-              <AlertDescription>{unavailable}</AlertDescription>
-            </Alert>
+            <div className="space-y-4">
+              <Alert variant="destructive">
+                <AlertTitle>Unavailable</AlertTitle>
+                <AlertDescription>{unavailable}</AlertDescription>
+              </Alert>
+              <Button asChild className="w-full" variant="outline">
+                <Link href="/join">Request a new claim link</Link>
+              </Button>
+            </div>
           ) : (
             <ClaimForm token={token} />
           )}
