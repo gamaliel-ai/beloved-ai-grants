@@ -50,15 +50,6 @@ export default function PublicLayout({
               >
                 Beloved in Christ Foundation
               </a>
-              . Founder projects at{" "}
-              <a
-                className="text-brand-gold underline-offset-4 hover:underline"
-                href={links.lkcStudios}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                LKC Studios
-              </a>
               .
             </p>
           </div>

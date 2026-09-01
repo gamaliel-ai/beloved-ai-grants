@@ -156,17 +156,7 @@ const faqs: { question: string; answer: ReactNode }[] = [
         >
           resources
         </Link>{" "}
-        page for starter docs, coding agents, and examples—including projects
-        from{" "}
-        <a
-          className="font-medium text-foreground underline-offset-4 hover:underline"
-          href={links.lkcStudios}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          LKC Studios
-        </a>
-        .
+        page for starter docs, coding agents, and examples.
       </>
     ),
   },

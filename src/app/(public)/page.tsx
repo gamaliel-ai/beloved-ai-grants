@@ -147,16 +147,7 @@ export default function HomePage() {
         </SectionHeading>
         <p className="font-light leading-relaxed text-muted-foreground text-pretty">
           Lew Cirne, founder of the Beloved in Christ Foundation, still writes
-          code with AI almost every day. See projects underway at{" "}
-          <a
-            className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
-            href={links.lkcStudios}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            LKC Studios
-          </a>
-          —including{" "}
+          code with AI almost every day—including{" "}
           <a
             className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
             href={links.gamaliel}
@@ -165,7 +156,7 @@ export default function HomePage() {
           >
             Gamaliel
           </a>
-          , an AI-assisted Bible reader—and more experiments in faith and
+          , an AI-assisted Bible reader, and more experiments in faith and
           technology.
         </p>
       </section>

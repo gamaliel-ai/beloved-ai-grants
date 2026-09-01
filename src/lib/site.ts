@@ -9,7 +9,6 @@ export const site = {
 
 export const links = {
   belovedInChrist: "https://www.belovedinchristfoundation.org/",
-  lkcStudios: "https://lkc-studios.vercel.app",
   gamaliel: "https://gamaliel.ai",
   openaiPlatform: "https://platform.openai.com/docs/overview",
   openaiQuickstart: "https://platform.openai.com/docs/quickstart",

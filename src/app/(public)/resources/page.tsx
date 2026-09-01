@@ -5,7 +5,7 @@ import { links } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Resources",
   description:
-    "Starter links for building with AI—OpenAI docs, coding agents, and projects from LKC Studios.",
+    "Starter links for building with AI—OpenAI docs, coding agents, and example projects.",
 };
 
 type Resource = {
@@ -63,13 +63,6 @@ const tools: Resource[] = [
 ];
 
 const inspiration: Resource[] = [
-  {
-    title: "LKC Studios",
-    description:
-      "Lew Cirne’s project site—see what he is building with AI almost daily.",
-    href: links.lkcStudios,
-    external: true,
-  },
   {
     title: "Gamaliel",
     description:
