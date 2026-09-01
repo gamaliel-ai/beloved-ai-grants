@@ -23,7 +23,7 @@ export function ClaimForm({ token }: { token: string }) {
           </AlertDescription>
         </Alert>
         <code
-          className="block overflow-x-auto rounded-md bg-foreground p-4 font-mono text-sm text-background"
+          className="block break-all whitespace-pre-wrap rounded-md bg-foreground p-4 font-mono text-sm text-background"
           data-testid="issued-key"
         >
           {state.secret}

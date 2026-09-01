@@ -78,7 +78,7 @@ export default function HomePage() {
           hand. That is good news for entrepreneurship in Kenya and beyond.
           Beloved AI Grants is a ministry of the{" "}
           <a
-            className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
+            className="font-normal text-brand-gold-deep underline underline-offset-4 hover:text-brand-ink"
             href={links.belovedInChrist}
             rel="noopener noreferrer"
             target="_blank"
@@ -115,7 +115,7 @@ export default function HomePage() {
           You get access through a programme you have joined. Use the email form
           above, open{" "}
           <Link
-            className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
+            className="font-normal text-brand-gold-deep underline underline-offset-4 hover:text-brand-ink"
             href="/join"
           >
             /join
@@ -149,7 +149,7 @@ export default function HomePage() {
           Lew Cirne, founder of the Beloved in Christ Foundation, still writes
           code with AI almost every day—including{" "}
           <a
-            className="font-normal text-brand-gold-deep underline-offset-4 hover:underline"
+            className="font-normal text-brand-gold-deep underline underline-offset-4 hover:text-brand-ink"
             href={links.gamaliel}
             rel="noopener noreferrer"
             target="_blank"
@@ -174,13 +174,13 @@ export default function HomePage() {
         </p>
         <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
           <Link
-            className="font-medium tracking-wide text-brand-gold underline-offset-4 hover:underline"
+            className="font-medium tracking-wide text-brand-gold underline underline-offset-4 hover:text-brand-parchment"
             href="/resources"
           >
             Getting started resources
           </Link>
           <Link
-            className="font-medium tracking-wide text-brand-gold underline-offset-4 hover:underline"
+            className="font-medium tracking-wide text-brand-gold underline underline-offset-4 hover:text-brand-parchment"
             href="/faq"
           >
             Read the FAQ

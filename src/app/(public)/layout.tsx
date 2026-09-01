@@ -18,7 +18,7 @@ export default function PublicLayout({
   return (
     <>
       <header className="border-b border-white/10 bg-brand-ink text-brand-parchment">
-        <div className="mx-auto flex max-w-5xl flex-col items-stretch gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-4">
+        <div className="safe-area-x safe-area-header mx-auto flex max-w-5xl flex-col items-stretch gap-3 px-4 pb-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:pb-4">
           <BrandMark />
           <nav
             aria-label="Primary navigation"
@@ -36,11 +36,14 @@ export default function PublicLayout({
           </nav>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:py-14">
+      <main
+        id="main-content"
+        className="safe-area-x mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:py-14"
+      >
         {children}
       </main>
       <footer className="border-t border-brand-gold/25 bg-brand-ink text-brand-parchment">
-        <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-10 sm:flex-row sm:items-start sm:justify-between">
+        <div className="safe-area-x safe-area-footer mx-auto flex max-w-5xl flex-col gap-8 px-4 pt-10 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-md space-y-4">
             <BrandMark compact subtitle={site.name} />
             <p className="text-sm leading-relaxed text-brand-parchment/75 text-pretty">

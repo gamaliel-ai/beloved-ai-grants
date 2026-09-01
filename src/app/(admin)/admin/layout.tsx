@@ -24,7 +24,7 @@ export default async function AdminLayout({
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <header className="border-b border-white/10 bg-brand-ink text-brand-parchment">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-3">
+        <div className="safe-area-x safe-area-header mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 pb-3">
           <div className="flex flex-wrap items-center gap-6">
             <BrandMark href="/admin" subtitle="Admin" compact />
             <nav
@@ -68,7 +68,12 @@ export default async function AdminLayout({
           </div>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">{children}</main>
+      <main
+        id="main-content"
+        className="safe-area-x mx-auto w-full max-w-6xl flex-1 px-4 py-8"
+      >
+        {children}
+      </main>
     </div>
   );
 }

@@ -134,42 +134,85 @@ export default async function AdminDashboardPage({
               invites.
             </p>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Grantee</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>OpenAI</TableHead>
-                  <TableHead className="text-right">Action</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+            <>
+              <ul className="divide-y divide-border md:hidden">
                 {grantRows.map((grant) => (
-                  <TableRow key={grant.id}>
-                    <TableCell>
-                      <div className="font-medium">{grant.name}</div>
-                      <div className="text-xs text-muted-foreground">
-                        {grant.email}
+                  <li
+                    key={grant.id}
+                    className="space-y-4 py-5 first:pt-0 last:pb-0"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="font-medium">{grant.name}</p>
+                        <p className="break-all text-sm text-muted-foreground">
+                          {grant.email}
+                        </p>
                       </div>
-                    </TableCell>
-                    <TableCell>
                       <Badge variant="outline">{grant.status}</Badge>
-                    </TableCell>
-                    <TableCell className="font-mono text-xs">
-                      <div>{grant.redactedValue ?? "No key"}</div>
-                      <div className="max-w-56 truncate text-muted-foreground">
-                        {grant.projectId ?? "No project"}
+                    </div>
+                    <dl className="space-y-3">
+                      <div>
+                        <dt className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                          OpenAI key
+                        </dt>
+                        <dd className="mt-1 break-all font-mono text-xs">
+                          {grant.redactedValue ?? "No key"}
+                        </dd>
                       </div>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {grant.status === "active" ? (
-                        <RevokeButton grantId={grant.id} />
-                      ) : null}
-                    </TableCell>
-                  </TableRow>
+                      <div>
+                        <dt className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+                          Project
+                        </dt>
+                        <dd className="mt-1 break-all font-mono text-xs text-muted-foreground">
+                          {grant.projectId ?? "No project"}
+                        </dd>
+                      </div>
+                    </dl>
+                    {grant.status === "active" ? (
+                      <RevokeButton grantId={grant.id} />
+                    ) : null}
+                  </li>
                 ))}
-              </TableBody>
-            </Table>
+              </ul>
+              <div className="hidden md:block">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Grantee</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>OpenAI</TableHead>
+                      <TableHead className="text-right">Action</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {grantRows.map((grant) => (
+                      <TableRow key={grant.id}>
+                        <TableCell>
+                          <div className="font-medium">{grant.name}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {grant.email}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">{grant.status}</Badge>
+                        </TableCell>
+                        <TableCell className="font-mono text-xs">
+                          <div>{grant.redactedValue ?? "No key"}</div>
+                          <div className="max-w-56 truncate text-muted-foreground">
+                            {grant.projectId ?? "No project"}
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {grant.status === "active" ? (
+                            <RevokeButton grantId={grant.id} />
+                          ) : null}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </>
           )}
         </CardContent>
       </Card>

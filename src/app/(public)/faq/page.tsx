@@ -18,7 +18,7 @@ const faqs: { question: string; answer: ReactNode }[] = [
       <>
         A programme of the{" "}
         <a
-          className="font-medium text-foreground underline-offset-4 hover:underline"
+          className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
           href={links.belovedInChrist}
           rel="noopener noreferrer"
           target="_blank"
@@ -98,7 +98,7 @@ const faqs: { question: string; answer: ReactNode }[] = [
               and centred on Lew Cirne&apos;s story as a founder and faith
               leader. If you are attending, the{" "}
               <Link
-                className="font-medium text-foreground underline-offset-4 hover:underline"
+                className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
                 href={`/forum/${event.slug}`}
               >
                 forum page
@@ -151,7 +151,7 @@ const faqs: { question: string; answer: ReactNode }[] = [
       <>
         See our{" "}
         <Link
-          className="font-medium text-foreground underline-offset-4 hover:underline"
+          className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
           href="/resources"
         >
           resources
@@ -194,7 +194,7 @@ export default function FaqPage() {
       <p className="text-sm text-muted-foreground">
         Still unsure? Ask your forum or programme organiser, or browse{" "}
         <Link
-          className="font-medium text-foreground underline-offset-4 hover:underline"
+          className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
           href="/resources"
         >
           getting started resources

@@ -85,7 +85,7 @@ function ResourceList({ items }: { items: Resource[] }) {
       {items.map((item) => (
         <li key={item.href} className="space-y-1">
           <a
-            className="font-medium text-foreground underline-offset-4 hover:underline"
+            className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
             href={item.href}
             {...(item.external
               ? { rel: "noopener noreferrer", target: "_blank" }
@@ -148,7 +148,7 @@ export default function ResourcesPage() {
         Have a programme invite? Redeem it when your organiser shares the link.
         Questions about the programme itself are covered in the{" "}
         <Link
-          className="font-medium text-foreground underline-offset-4 hover:underline"
+          className="font-medium text-foreground underline underline-offset-4 hover:text-brand-gold-deep"
           href="/faq"
         >
           FAQ
