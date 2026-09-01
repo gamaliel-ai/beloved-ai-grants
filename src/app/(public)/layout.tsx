@@ -49,7 +49,7 @@ export default function PublicLayout({
             <p className="text-sm leading-relaxed text-brand-parchment/75 text-pretty">
               A ministry of the{" "}
               <a
-                className="text-brand-gold underline-offset-4 hover:underline"
+                className="text-brand-gold underline underline-offset-4 hover:text-brand-parchment"
                 href={links.belovedInChrist}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -59,14 +59,23 @@ export default function PublicLayout({
               .
             </p>
           </div>
-          <div className="flex flex-wrap gap-x-5 gap-y-2 text-[11px] tracking-[0.18em] text-brand-gold uppercase">
-            <Link className="hover:text-brand-parchment" href="/faq">
+          <div className="flex flex-wrap gap-x-2 text-[11px] tracking-[0.18em] text-brand-gold uppercase">
+            <Link
+              className="flex min-h-11 items-center px-1 hover:text-brand-parchment"
+              href="/faq"
+            >
               FAQ
             </Link>
-            <Link className="hover:text-brand-parchment" href="/resources">
+            <Link
+              className="flex min-h-11 items-center px-1 hover:text-brand-parchment"
+              href="/resources"
+            >
               Resources
             </Link>
-            <Link className="hover:text-brand-parchment" href="/admin">
+            <Link
+              className="flex min-h-11 items-center px-1 hover:text-brand-parchment"
+              href="/admin"
+            >
               Admin
             </Link>
           </div>

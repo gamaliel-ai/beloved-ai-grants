@@ -75,49 +75,50 @@ export default async function AdminDashboardPage({
         </Alert>
       ) : null}
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-4 pb-2 sm:p-6 sm:pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Active grants
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-3xl font-semibold">
+          <CardContent className="px-4 pb-4 text-2xl font-semibold sm:px-6 sm:pb-6 sm:text-3xl">
             {Number(activeTotal.value)}
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-4 pb-2 sm:p-6 sm:pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Pending applications
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-3xl font-semibold">
+          <CardContent className="px-4 pb-4 text-2xl font-semibold sm:px-6 sm:pb-6 sm:text-3xl">
             {Number(pendingApps.value)}
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-4 pb-2 sm:p-6 sm:pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Pre-registered grantees
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-3xl font-semibold">
+          <CardContent className="px-4 pb-4 text-2xl font-semibold sm:px-6 sm:pb-6 sm:text-3xl">
             {Number(granteeTotal.value)}
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-4 pb-2 sm:p-6 sm:pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
               Total spend
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="text-lg font-medium text-muted-foreground">
+          <CardContent className="px-4 pb-4 sm:px-6 sm:pb-6">
+            <p className="text-base font-medium text-muted-foreground sm:text-lg">
               Sync not configured
             </p>
             <p className="text-xs text-muted-foreground">
-              Usage metrics land with B-0001 / B-0002.
+              Usage metrics land with{" "}
+              <span className="whitespace-nowrap">B-0001 / B-0002.</span>
             </p>
           </CardContent>
         </Card>

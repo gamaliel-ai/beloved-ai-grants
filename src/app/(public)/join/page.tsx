@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { JoinForm } from "@/components/join-form";
 import { site } from "@/lib/site";
 
@@ -21,10 +21,7 @@ export default function JoinPage() {
         </p>
       </div>
       <Card>
-        <CardHeader>
-          <CardTitle>Programme email</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <JoinForm idPrefix="join-page" />
         </CardContent>
       </Card>
