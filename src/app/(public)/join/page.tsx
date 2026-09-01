@@ -8,7 +8,7 @@ export default function JoinPage() {
   return (
     <div className="mx-auto max-w-lg space-y-6">
       <div className="space-y-2">
-        <p className="text-[11px] font-medium tracking-[0.28em] text-brand-gold-deep uppercase">
+        <p className="text-xs font-medium tracking-[0.24em] text-brand-gold-deep uppercase">
           Programme access
         </p>
         <h1 className="font-display text-3xl font-light tracking-tight">

@@ -27,11 +27,14 @@ export default async function AdminLayout({
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-3">
           <div className="flex flex-wrap items-center gap-6">
             <BrandMark href="/admin" subtitle="Admin" compact />
-            <nav className="flex items-center gap-4 text-[11px] tracking-[0.18em] text-brand-gold uppercase">
+            <nav
+              aria-label="Admin navigation"
+              className="flex items-center gap-1 text-[11px] tracking-[0.18em] text-brand-gold uppercase"
+            >
               {nav.map((item) => (
                 <Link
                   key={item.href}
-                  className="transition-colors hover:text-brand-parchment"
+                  className="flex min-h-11 items-center px-2 transition-colors hover:text-brand-parchment"
                   href={item.href}
                 >
                   {item.label}

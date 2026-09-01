@@ -18,13 +18,16 @@ export default function PublicLayout({
   return (
     <>
       <header className="border-b border-white/10 bg-brand-ink text-brand-parchment">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
+        <div className="mx-auto flex max-w-5xl flex-col items-stretch gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-4">
           <BrandMark />
-          <nav className="flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-[11px] font-medium tracking-[0.18em] text-brand-gold uppercase">
+          <nav
+            aria-label="Primary navigation"
+            className="flex w-full items-center justify-stretch gap-1 text-[11px] font-medium tracking-[0.14em] text-brand-gold uppercase sm:w-auto sm:justify-end sm:gap-1 sm:tracking-[0.18em]"
+          >
             {nav.map((item) => (
               <Link
                 key={item.href}
-                className="transition-colors hover:text-brand-parchment"
+                className="flex min-h-11 min-w-0 flex-1 items-center justify-center px-1 text-center transition-colors hover:text-brand-parchment sm:flex-none sm:px-2"
                 href={item.href}
               >
                 {item.label}

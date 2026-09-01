@@ -57,7 +57,7 @@ export function RedeemForm({ token }: { token: string }) {
           <AlertDescription>{state.error}</AlertDescription>
         </Alert>
       ) : null}
-      <Button className="w-full" disabled={pending} type="submit">
+      <Button className="w-full" disabled={pending} size="lg" type="submit">
         {pending ? "Creating your key…" : "Get API key"}
       </Button>
       <p className="text-xs text-muted-foreground">

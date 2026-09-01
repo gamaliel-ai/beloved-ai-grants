@@ -35,7 +35,13 @@ export function CopyValue({
         readOnly
         value={value}
       />
-      <Button type="button" variant="outline" onClick={copy}>
+      <Button
+        className="w-full sm:w-auto"
+        type="button"
+        variant="outline"
+        size="lg"
+        onClick={copy}
+      >
         {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
         {copied ? "Copied" : label}
       </Button>

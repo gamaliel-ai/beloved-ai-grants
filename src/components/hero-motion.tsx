@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useSyncExternalStore } from "react";
+import { Play } from "lucide-react";
+import { useState, useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
 
 type HeroMotionProps = {
@@ -28,12 +29,13 @@ function usePrefersReducedMotion() {
 }
 
 /**
- * Column-width hero loop for the public home page. Plays a small muted video
- * by default and falls back to the poster still when the visitor prefers
- * reduced motion.
+ * Column-width hero for the public home page. The optimized poster loads by
+ * default; video sources are mounted only after the visitor asks to play.
  */
 export function HeroMotion({ className }: HeroMotionProps) {
   const reducedMotion = usePrefersReducedMotion();
+  const [playing, setPlaying] = useState(false);
+  const showVideo = playing && !reducedMotion;
 
   return (
     <figure
@@ -42,16 +44,7 @@ export function HeroMotion({ className }: HeroMotionProps) {
         className,
       )}
     >
-      {reducedMotion ? (
-        <Image
-          src="/hero/builders-poster.jpg"
-          alt={ALT}
-          fill
-          sizes="(min-width: 672px) 672px, 100vw"
-          className="object-cover"
-          priority={false}
-        />
-      ) : (
+      {showVideo ? (
         <video
           className="h-full w-full object-cover"
           poster="/hero/builders-poster.jpg"
@@ -65,7 +58,26 @@ export function HeroMotion({ className }: HeroMotionProps) {
           <source src="/hero/builders.webm" type="video/webm" />
           <source src="/hero/builders.mp4" type="video/mp4" />
         </video>
+      ) : (
+        <Image
+          src="/hero/builders-poster.jpg"
+          alt={ALT}
+          fill
+          sizes="(min-width: 672px) 672px, 100vw"
+          className="object-cover"
+          priority={false}
+        />
       )}
+      {!reducedMotion && !playing ? (
+        <button
+          type="button"
+          className="absolute bottom-3 left-3 inline-flex min-h-11 items-center gap-2 rounded-sm bg-primary px-4 text-sm font-medium tracking-wide text-primary-foreground shadow-sm transition-colors hover:bg-brand-gold-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-brand-ink"
+          onClick={() => setPlaying(true)}
+        >
+          <Play aria-hidden="true" className="size-4 fill-current" />
+          Play video
+        </button>
+      ) : null}
     </figure>
   );
 }

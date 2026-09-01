@@ -166,7 +166,7 @@ export default function FaqPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-10">
       <div className="space-y-3">
-        <p className="text-[11px] font-medium tracking-[0.28em] text-brand-gold-deep uppercase">
+        <p className="text-xs font-medium tracking-[0.24em] text-brand-gold-deep uppercase">
           FAQ
         </p>
         <h1 className="font-display text-3xl font-light tracking-tight sm:text-4xl">

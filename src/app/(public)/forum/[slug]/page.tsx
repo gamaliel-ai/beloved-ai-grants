@@ -47,7 +47,7 @@ export default async function ForumPage({
   return (
     <div className="mx-auto max-w-2xl space-y-10 sm:space-y-12">
       <section className="space-y-4">
-        <p className="text-[11px] font-medium tracking-[0.28em] text-brand-gold-deep uppercase">
+        <p className="text-xs font-medium tracking-[0.24em] text-brand-gold-deep uppercase">
           {event.shortName}
         </p>
         <h1 className="font-display text-3xl font-light tracking-tight text-balance sm:text-4xl">

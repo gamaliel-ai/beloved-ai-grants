@@ -6,7 +6,7 @@ import { getFeaturedEvent, links, site } from "@/lib/site";
 
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <p className="text-[11px] font-medium tracking-[0.28em] text-brand-gold-deep uppercase">
+    <p className="text-xs font-medium tracking-[0.24em] text-brand-gold-deep uppercase">
       {children}
     </p>
   );

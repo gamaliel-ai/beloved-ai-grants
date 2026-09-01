@@ -20,7 +20,7 @@ export function BrandMark({
     <Link
       href={href}
       className={cn(
-        "group flex items-center gap-3 text-brand-gold transition-colors hover:text-brand-parchment",
+        "group flex min-h-11 items-center gap-3 text-brand-gold transition-colors hover:text-brand-parchment",
         className,
       )}
     >
@@ -36,7 +36,7 @@ export function BrandMark({
         <span
           className={cn(
             "block font-display font-light tracking-[0.28em] text-brand-gold uppercase",
-            compact ? "text-[10px]" : "text-xs",
+            "text-xs",
           )}
         >
           Beloved in Christ
